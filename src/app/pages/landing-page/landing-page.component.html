@@ -1,7 +1,15 @@
-<div class="container">
+<div class="logo">
+  <img src="\assets\img\udm-logo.png" alt="CMS Logo" />
+</div>
+<div class="container login-page">
   <div class="select-role-container">
-    <h1>Select your role</h1>
-    <button mat-raised-button color="primary" (click)="redirectToStudentLogin()">Student</button>
-    <button mat-raised-button color="primary" (click)="redirectToAdminLogin()">Admin</button>
+    <button mat-raised-button color="accent" (click)="redirectToStudentLogin()">
+      <mat-icon>class</mat-icon>
+      LOGIN AS STUDENT
+    </button>
+    <button mat-raised-button color="primary" (click)="redirectToAdminLogin()">
+      <mat-icon>account_circle</mat-icon>
+      LOGIN AS ADMIN
+    </button>
   </div>
 </div>
