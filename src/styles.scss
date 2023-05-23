@@ -1,10 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Teal Theme
+@import "@angular/material/theming";
+$custom-teal-primary: mat-palette($mat-teal, 500);
+$custom-teal-accent: mat-palette($mat-teal, A200, A100, A400);
+$custom-teal-theme: mat-light-theme($custom-teal-primary, $custom-teal-accent);
+
+// Include the custom theme in Angular Material theming
+@include angular-material-theme($custom-teal-theme);
+
+@font-face {
+  font-family: "Quicksand";
+  src: url("/assets/fonts/Quicksand-VariableFont_wght.ttf") format("truetype");
+}
 
 html,
 body {
+  margin: 0;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
   height: 100%;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+.logo {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  left: 8px; /* Adjust the left position as needed */
+}
+
+.logo img {
+  height: 70px; /* Adjust the height of the logo image as needed */
+  width: auto; /* Allow the width to adjust proportionally */
 }

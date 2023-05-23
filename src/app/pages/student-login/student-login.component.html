@@ -1,6 +1,9 @@
+<div class="logo">
+  <img src="\assets\img\udm-logo.png" alt="CMS Logo" />
+</div>
 <div class="container">
   <form class="login-form" [formGroup]="studentForm">
-    <h1>Student Login</h1>
+    <h1>Login</h1>
     <mat-form-field>
       <mat-label>Email:</mat-label>
       <input formControlName="email" matInput />
@@ -10,6 +13,7 @@
       <mat-label>Password:</mat-label>
       <input type="password" formControlName="password" matInput />
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" (click)="login()">Login</button>
+    <button mat-raised-button color="primary" type="submit" (click)="login()">Continue</button>
+    <p class="data-privacy-label">By clicking "Continue", you agree to our Terms and acknowledge our Data Privacy Policy.</p>
   </form>
 </div>

@@ -9,15 +9,22 @@
 .select-role-container {
   display: flex;
   flex-direction: column;
-  width: 40%;
-}
-
-h1 {
-  padding: 0px;
-  margin: 0px;
+  row-gap: 40px;
+  width: 25%;
 }
 
 button {
-  padding: 32px;
+  padding: 35px;
   margin-top: 16px;
+  border-radius: 20px;
+  font-family: "Quicksand", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.login-page {
+  background-image: url("/assets/img/login-page-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }

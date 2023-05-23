@@ -1,7 +1,43 @@
-<button mat-raised-button color="primary" (click)="goToProfile()">Profile</button>
+<!-- <button mat-raised-button color="primary" (click)="goToProfile()">Profile</button>
 
 <h1>Departments:</h1>
 
 <button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('1')">Department 1</button>
 <button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('2')">Department 2</button>
-<button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('3')">Department 3</button>
+<button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('3')">Department 3</button> -->
+<div class="logo">
+  <img class="logo-student-dashboard" src="\assets\img\udm-logo-white.png" alt="CMS Logo" />
+</div>
+<div class="container">
+  <div class="sidebar">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Profile</a></li>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+
+    <div class="logout-container">
+      <button class="logout-button">Logout</button>
+    </div>
+  </div>
+  <div class="student-home-page-container">
+    <div class="student-name-greetings">
+      <h1>Hi, John Doe!</h1>
+    </div>
+    <div class="student-home-page">
+      <div class="department-list">
+        <div class="department-security-tile zoom-container">
+          <img class="icon-department zoom-image" src="\assets\img\security.png" alt="Security Department" />
+          <p class="department-security-text zoom-text">Security</p>
+          <p class="department-security-subtext zoom-text">Submitted Requirements: 1/3</p>
+        </div>
+      </div>
+      <div class="department-list">Box 2</div>
+      <div class="department-list">Box 3</div>
+      <div class="department-list">Box 4</div>
+      <div class="department-list">Box 5</div>
+      <div class="department-list">Box 6</div>
+    </div>
+  </div>
+</div>
