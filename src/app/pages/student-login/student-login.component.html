@@ -1,0 +1,15 @@
+<div class="container">
+  <form class="login-form" [formGroup]="studentForm">
+    <h1>Student Login</h1>
+    <mat-form-field>
+      <mat-label>Email:</mat-label>
+      <input formControlName="email" matInput />
+      <mat-error *ngIf="this.studentForm.get('email')?.invalid">{{ getEmailErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password:</mat-label>
+      <input type="password" formControlName="password" matInput />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" (click)="login()">Login</button>
+  </form>
+</div>
