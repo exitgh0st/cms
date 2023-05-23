@@ -30,21 +30,18 @@ export class StudentLoginComponent {
       return;
     }
 
-    const student: Student = this.studentForm.value;
+    const student = this.studentForm.value as Student;
 
     if (!student.email || student.password == undefined) {
-      console.log('NULL');
-
       return;
     }
 
-    console.log('LOGIN');
     this.loading = true;
 
     this.studentAuthService
       .login(student.email, student.password)
       .pipe(first())
-      .subscribe((response) => {
+      .subscribe(() => {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/student/dashboard';
         this.router.navigateByUrl(returnUrl);
       });
