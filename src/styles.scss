@@ -1,11 +1,11 @@
 // Custom Teal Theme
 @import "@angular/material/theming";
-$custom-teal-primary: mat-palette($mat-teal, 500);
-$custom-teal-accent: mat-palette($mat-teal, A200, A100, A400);
-$custom-teal-theme: mat-light-theme($custom-teal-primary, $custom-teal-accent);
+$custom-blue-grey-primary: mat-palette($mat-blue-grey, 500);
+$custom-blue-grey-accent: mat-palette($mat-blue-grey, A200, A100, A400);
+$custom-blue-grey-theme: mat-light-theme($custom-blue-grey-primary, $custom-blue-grey-accent);
 
 // Include the custom theme in Angular Material theming
-@include angular-material-theme($custom-teal-theme);
+@include angular-material-theme($custom-blue-grey-theme);
 
 @font-face {
   font-family: "Quicksand";

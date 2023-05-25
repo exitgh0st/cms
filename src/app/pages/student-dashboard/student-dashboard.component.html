@@ -5,39 +5,98 @@
 <button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('1')">Department 1</button>
 <button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('2')">Department 2</button>
 <button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('3')">Department 3</button> -->
-<div class="logo">
-  <img class="logo-student-dashboard" src="\assets\img\udm-logo-white.png" alt="CMS Logo" />
-</div>
+
 <div class="container">
   <div class="sidebar">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Profile</a></li>
-      <li><a href="#">FAQs</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+    <div class="logo-div">
+      <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
+    </div>
 
-    <div class="logout-container">
-      <button class="logout-button">Logout</button>
+    <div class="sidebar-menu">
+      <div class="sidebar-selection">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="logout-container">
+        <button class="logout-button">Logout</button>
+      </div>
     </div>
   </div>
   <div class="student-home-page-container">
-    <div class="student-name-greetings">
-      <h1>Hi, John Doe!</h1>
+    <div class="header-container">
+      <div class="deadline-container">
+        <p class="deadline-red">
+          Submission Deadline:
+          <b>June 20, 2023</b>
+          <br />
+          Days remaining before deadline:
+          <b>20 days</b>
+        </p>
+      </div>
+      <div class="student-name-greetings">
+        <h1>Hi, John Doe!</h1>
+      </div>
     </div>
     <div class="student-home-page">
       <div class="department-list">
-        <div class="department-security-tile zoom-container">
-          <img class="icon-department zoom-image" src="\assets\img\security.png" alt="Security Department" />
-          <p class="department-security-text zoom-text">Security</p>
-          <p class="department-security-subtext zoom-text">Submitted Requirements: 1/3</p>
+        <div class="department-tile zoom-container">
+          <img class="icon-department zoom-image" src="\assets\img\udm-logo-transparent.png" alt="Security Department" />
+          <p class="department-text zoom-text">Security</p>
+          <p class="department-subtext zoom-text">Submitted Requirements: 1/3</p>
         </div>
       </div>
-      <div class="department-list">Box 2</div>
-      <div class="department-list">Box 3</div>
-      <div class="department-list">Box 4</div>
-      <div class="department-list">Box 5</div>
-      <div class="department-list">Box 6</div>
+      <div class="department-list">
+        <div class="department-tile zoom-container">
+          <img class="icon-department zoom-image" src="\assets\img\udm-library.png" alt="Security Department" />
+          <p class="department-text zoom-text">Library</p>
+          <p class="department-subtext zoom-text">Submitted Requirements: 0/1</p>
+        </div>
+      </div>
+      <div class="department-list">
+        <div class="department-tile zoom-container">
+          <img class="icon-department zoom-image" src="\assets\img\udm-osa.png" alt="Security Department" />
+          <p class="department-text zoom-text">
+            Office of the
+            <br />
+            Student Affairs
+          </p>
+          <p class="department-subtext zoom-text">Submitted Requirements: 2/2</p>
+        </div>
+      </div>
+      <div class="department-list">
+        <div class="department-tile zoom-container">
+          <img class="icon-department zoom-image" src="\assets\img\udm-clinic.png" alt="Security Department" />
+          <p class="department-text zoom-text">Clinic</p>
+          <p class="department-subtext zoom-text">Submitted Requirements: 0/0</p>
+        </div>
+      </div>
+      <div class="department-list">
+        <div class="department-tile zoom-container">
+          <img class="icon-department zoom-image" src="\assets\img\udm-gcpso.png" alt="Security Department" />
+          <p class="department-text zoom-text">
+            Guidance Counseling
+            <br />
+            & Psychological Services
+          </p>
+          <p class="department-subtext zoom-text">Submitted Requirements: 3/10</p>
+        </div>
+      </div>
+      <div class="department-list">
+        <div class="department-tile zoom-container">
+          <img class="icon-department zoom-image" src="\assets\img\udm-logo-transparent.png" alt="Security Department" />
+          <p class="department-text zoom-text">
+            Information and Communication
+            <br />
+            Technology Office
+          </p>
+          <p class="department-subtext zoom-text">Submitted Requirements: 1/3</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
