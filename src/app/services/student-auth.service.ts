@@ -35,7 +35,7 @@ export class StudentAuthService {
         token: string;
         expires_in: number;
         student_number: string;
-      }>(environment.apiUrl + '/student/login', authenticationData)
+      }>(environment.apiUrl + '/login/student', authenticationData)
       .pipe(
         map((response) => {
           this._token = response.token;
