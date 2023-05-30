@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StudentAuthService } from './student-auth.service';
+import { GoogleDriveService } from './google-drive.service';
 
-describe('StudentAuthService', () => {
-  let service: StudentAuthService;
+describe('GoogleDriveService', () => {
+  let service: GoogleDriveService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(StudentAuthService);
+    service = TestBed.inject(GoogleDriveService);
   });
 
   it('should be created', () => {

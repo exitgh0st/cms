@@ -4,16 +4,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.scss'],
+  styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent {
   constructor(private router: Router) {}
 
-  redirectToAdminLogin() {
-    this.router.navigate(['login', 'admin']);
+  redirectTo(loginType: 'student' | 'admin') {
+    this.router.navigate(['login', loginType]);
   }
 
-  redirectToStudentLogin() {
-    this.router.navigate(['login', 'student']);
-  }
+  getColor() {}
 }

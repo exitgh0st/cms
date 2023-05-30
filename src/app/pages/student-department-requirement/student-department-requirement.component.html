@@ -1,1 +1,18 @@
-<p>student-department-requirement works!</p>
+<h1>Hi {{ student?.account?.first_name }}</h1>
+<h2>Requirements for {{ department?.name }} department</h2>
+
+<div *ngFor="let requirementPair of requirementPairs" class="requirement">
+  <p>Name: {{ requirementPair.requirement.name }}</p>
+  <p>Description: {{ requirementPair.requirement.description }}</p>
+
+  <img [src]="requirementPair.fileUrl" alt="Selected Image" />
+  <input #fileInput type="file" name="file" (change)="onFileSelected($event)" />
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="uploadFile(requirementPair.requirement)"
+    [disabled]="requirementPair.studentRequirement">
+    {{ !requirementPair.studentRequirement ? "UPLOAD" : "ALREADY UPLOADED" }}
+  </button>
+</div>

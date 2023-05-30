@@ -4,8 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
-import { StudentLoginComponent } from './pages/student-login/student-login.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { SuperAdminDashboardComponent } from './pages/super-admin-dashboard/super-admin-dashboard.component';
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
@@ -19,18 +17,26 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoginComponent } from './pages/login/login.component';
+import { MatTableModule } from '@angular/material/table';
+import { StudentsComponent } from './pages/students/students.component';
+import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
+import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    AdminLoginComponent,
-    StudentLoginComponent,
     AdminDashboardComponent,
     SuperAdminDashboardComponent,
     StudentDashboardComponent,
     StudentDepartmentRequirementComponent,
-    StudentProfileComponent
+    StudentProfileComponent,
+    LoginComponent,
+    StudentsComponent,
+    AdminRequirementsComponent,
+    AdminStudentsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +47,9 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatTableModule
   ],
   providers: [
     {

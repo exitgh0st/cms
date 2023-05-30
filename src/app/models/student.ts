@@ -1,6 +1,6 @@
-export interface Student {
+import { Account } from './account';
+
+export class Student {
   student_number?: string;
-  name?: string;
-  email?: string;
-  password?: string;
+  account?: Account;
 }

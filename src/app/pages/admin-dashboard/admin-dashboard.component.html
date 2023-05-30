@@ -1,1 +1,4 @@
-<p>admin-dashboard works!</p>
+<h1>Hello {{ admin?.account?.first_name }}</h1>
+<h2>Department: {{ admin?.department?.name }}</h2>
+<button mat-raised-button color="primary" (click)="goToStudentList()">Students List</button>
+<button mat-raised-button color="primary" (click)="goToRequirementsList()">Requirements List</button>

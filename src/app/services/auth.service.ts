@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
 import { environment } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentAuthService {
+export class AuthService {
   private static readonly TOKEN_KEY = 'token';
   private static readonly TOKEN_EXPIRATION_DATE_KEY = 'token_expiration_date';
-  private static readonly STUDENT_NUMBER_KEY = 'student_number';
+  private static readonly ACCOUNT_ID_KEY = 'account_id_key';
 
   private _token?: string;
   private _expiresIn?: number;
-  private _studentNumber?: string;
+  private _accountId?: string;
 
   private _isAuthenticated = false;
 
@@ -34,13 +34,13 @@ export class StudentAuthService {
       .post<{
         token: string;
         expires_in: number;
-        student_number: string;
-      }>(environment.apiUrl + '/login/student', authenticationData)
+        account_id: string;
+      }>(environment.apiUrl + '/login', authenticationData)
       .pipe(
         map((response) => {
           this._token = response.token;
           this._expiresIn = response.expires_in;
-          this._studentNumber = response.student_number;
+          this._accountId = response.account_id;
 
           const currentDate = new Date();
           const expirationDate = new Date(currentDate.getTime() + this._expiresIn * 1000);
@@ -51,14 +51,13 @@ export class StudentAuthService {
       );
   }
 
-  getStudentNumber() {
-    return this._studentNumber;
+  getAccountId() {
+    return this._accountId;
   }
 
-  private saveAuthenticationData(token: string, tokenExpirationDate: Date, studentNumber: string) {
-    console.log(tokenExpirationDate);
-    localStorage.setItem(StudentAuthService.TOKEN_KEY, token);
-    localStorage.setItem(StudentAuthService.TOKEN_EXPIRATION_DATE_KEY, tokenExpirationDate.toISOString());
-    localStorage.setItem(StudentAuthService.STUDENT_NUMBER_KEY, studentNumber);
+  private saveAuthenticationData(token: string, tokenExpirationDate: Date, account_id: string) {
+    localStorage.setItem(AuthService.TOKEN_KEY, token);
+    localStorage.setItem(AuthService.TOKEN_EXPIRATION_DATE_KEY, tokenExpirationDate.toISOString());
+    localStorage.setItem(AuthService.ACCOUNT_ID_KEY, account_id);
   }
 }

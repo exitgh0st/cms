@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Student Number</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Update Status</th>
+  </tr>
+  <tr *ngFor="let student of students">
+    <td>{{ student.student_number }}</td>
+    <td>{{ student.account?.first_name + " " + student.account?.last_name }}</td>
+    <td>{{ getStudentRequirementsForStudent(student.student_number) }}</td>
+    <td></td>
+  </tr>
+</table>

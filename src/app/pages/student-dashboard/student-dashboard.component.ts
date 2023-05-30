@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { first, pipe } from 'rxjs';
-import { StudentAuthService } from 'src/app/services/student-auth.service';
+import { Department } from 'src/app/models/department';
+import { Student } from 'src/app/models/student';
+import { AuthService } from 'src/app/services/auth.service';
+import { DepartmentService } from 'src/app/services/department.service';
 import { StudentService } from 'src/app/services/student.service';
 
 @Component({
@@ -10,25 +13,41 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./student-dashboard.component.scss']
 })
 export class StudentDashboardComponent {
-  studentName?: string;
+  student?: Student;
+  departments?: Department[];
 
-  constructor(private router: Router, private studentAuthService: StudentAuthService, private studentService: StudentService) {
-    const studentNumber = this.studentAuthService.getStudentNumber();
-
-    if (!studentNumber) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private studentService: StudentService,
+    private departmentService: DepartmentService
+  ) {
+    const accountId = this.authService.getAccountId();
+    if (!accountId) {
+      this.router.navigate(['login']);
       return;
     }
-
     this.studentService
-      .getStudent(studentNumber)
+      .getStudentByAccountId(accountId)
       .pipe(first())
       .subscribe((student) => {
-        this.studentName = student.name;
+        this.student = student;
+      });
+
+    this.departmentService
+      .getDepartments()
+      .pipe(first())
+      .subscribe((departments) => {
+        this.departments = departments;
       });
   }
 
-  goToDepartmentRequirementPage(departmentId: string) {
-    this.router.navigate(['student', 'deparment', departmentId]);
+  goToDepartmentRequirementPage(departmentId: string | undefined) {
+    if (!departmentId) {
+      return;
+    }
+
+    this.router.navigate(['student', 'requirements', departmentId]);
   }
 
   goToProfile() {
