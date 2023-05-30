@@ -1,4 +1,59 @@
-<h1>Hello {{ admin?.account?.first_name }}</h1>
-<h2>Department: {{ admin?.department?.name }}</h2>
-<button mat-raised-button color="primary" (click)="goToStudentList()">Students List</button>
-<button mat-raised-button color="primary" (click)="goToRequirementsList()">Requirements List</button>
+<div class="container">
+  <div class="sidebar">
+    <div class="logo-div">
+      <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="sidebar-selection">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Clearance Requirements</a></li>
+          <li><a href="#">Student List</a></li>
+        </ul>
+      </div>
+
+      <div class="logout-container">
+        <button class="logout-button">Logout</button>
+      </div>
+    </div>
+  </div>
+  <div class="admin-home-page-container">
+    <div class="department-name">
+      <h1>Information and Communication Technology Office</h1>
+    </div>
+    <div class="admin-home-page">
+      <div class="department-list">
+        <div class="department-tile zoom-container">
+          <p class="clearance-status zoom-text">Total Requirements: 3</p>
+          <p class="clearance-status zoom-text">Student Submitted: 19</p>
+          <br />
+          <p class="clearance-status zoom-text">Cleared Students: 17</p>
+          <p class="clearance-status zoom-text">Pending Students: 2</p>
+          <p class="clearance-status zoom-text">Not Cleared Students: 30</p>
+        </div>
+      </div>
+      <div class="department-list">
+        <div class="department-tile zoom-container">
+          <p class="submission-date-text zoom-text">Submission Deadline</p>
+          <p class="submission-deadline-date zoom-text">June 20, 2023 4:00 PM</p>
+        </div>
+      </div>
+      <div class="department-list">
+        <div class="department-tile requirements-tile clearance-requirement-list zoom-container">
+          <p class="clearance-status zoom-text-small">Department: Information and Communication Technology Office</p>
+          <p class="clearance-status zoom-text-small">Requirement Posting Date: May 25, 2023 11:29 PM</p>
+          <p class="clearance-status zoom-text-small">Admin Name: John Smith Doe</p>
+          <br />
+          <p class="clearance-status zoom-text-small">Clearance Requirements:</p>
+          <ol class="requirements-posted zoom-text-small">
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
