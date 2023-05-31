@@ -8,6 +8,7 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { StudentDepartmentRequirementComponent } from './pages/student-department-requirement/student-department-requirement.component';
 import { StudentProfileComponent } from './pages/student-profile/student-profile.component';
 import { SuperAdminDashboardComponent } from './pages/super-admin-dashboard/super-admin-dashboard.component';
+import { ErikaComponent } from './pages/erika/erika.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -17,18 +18,19 @@ const routes: Routes = [
   { path: 'student/dashboard', component: StudentDashboardComponent },
   { path: 'admin/dashboard', component: AdminDashboardComponent },
   { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent },
+  { path: 'erika', component: ErikaComponent },
   {
     path: 'student/deparment/:department_id',
-    component: StudentDepartmentRequirementComponent,
+    component: StudentDepartmentRequirementComponent
   },
   {
     path: 'student/profile',
-    component: StudentProfileComponent,
-  },
+    component: StudentProfileComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

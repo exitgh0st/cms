@@ -1,0 +1,257 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  width: 300px;
+  background-color: #37474f;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sidebar a {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+  padding: 10px;
+}
+
+.sidebar a:hover {
+  background-color: #ffffff;
+  color: #263238;
+}
+
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.logout-button {
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.3s;
+  margin-bottom: 30px;
+}
+
+.logout-button:hover {
+  color: #ffe57f;
+}
+
+.admin-home-page-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.admin-home-page {
+  display: flex;
+  flex-flow: row wrap;
+  height: 100%;
+}
+
+.department-list {
+  margin: 0 20px auto 20px;
+  flex-grow: 1;
+  align-self: flex-start;
+  width: 400px;
+  height: 30%;
+  background-color: #eceff1;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.table-tile {
+  margin: 0 20px auto 20px;
+  flex-grow: 1;
+  align-self: flex-start;
+  width: 400px;
+  height: 60%;
+  background-color: #eceff1;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.current-page {
+  background-color: #ffffff;
+  color: #263238 !important;
+  font-weight: 700;
+}
+
+.requirements-tile {
+  cursor: pointer;
+}
+
+h1 {
+  margin: 30px 30px 50px 0;
+  text-align: right;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.department-name {
+  max-width: 100%;
+}
+
+.department-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
+
+.clearance-status {
+  color: #263238;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.submission-date-text {
+  color: #f44336;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.submission-deadline-date {
+  margin-top: 3.6rem;
+  font-size: 2.2rem;
+  color: #f44336;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 700;
+}
+
+.department-list:hover {
+  border-radius: 20px;
+  background-color: #607d8b;
+  .clearance-status,
+  .submission-date-text,
+  .submission-deadline-date,
+  .requirements-posted {
+    color: #ffffff;
+  }
+}
+
+.zoom-container {
+  position: relative;
+}
+
+.zoom-container:hover .zoom-image {
+  transform: scale(1.2);
+}
+
+.zoom-container:hover .zoom-text {
+  transform: scale(1.2);
+}
+
+.zoom-image {
+  transition: transform 0.3s;
+}
+
+.zoom-text {
+  transition: transform 0.3s;
+}
+
+.zoom-text-small {
+  transition: transform 0.3s;
+}
+
+.zoom-container:hover .zoom-text-small {
+  transform: scale(1.1);
+}
+
+.logo-div {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 250px;
+}
+
+.logo-cms {
+  width: 60%;
+}
+
+.sidebar-menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.clearance-requirement-list {
+  align-items: flex-start;
+  margin-left: 10px;
+}
+
+.requirements-posted {
+  color: #263238;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  color: #263238;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.create-button {
+  border: 1px solid #263238;
+  border-radius: 8px;
+  height: 2rem;
+  background-color: #263238;
+  color: #ffffff;
+  font-weight: 500;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  margin-bottom: 2rem;
+}
+
+.create-button:hover {
+  background-color: #ffffff;
+  color: #263238;
+  cursor: pointer;
+}

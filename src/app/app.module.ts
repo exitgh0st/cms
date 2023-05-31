@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
+import { ErikaComponent } from './pages/erika/erika.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ErrorInterceptor } from './interceptors/error-interceptor';
     SuperAdminDashboardComponent,
     StudentDashboardComponent,
     StudentDepartmentRequirementComponent,
-    StudentProfileComponent
+    StudentProfileComponent,
+    ErikaComponent
   ],
   imports: [
     BrowserModule,
