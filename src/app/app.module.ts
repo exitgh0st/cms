@@ -1,11 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
-import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
-import { StudentLoginComponent } from './pages/student-login/student-login.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { SuperAdminDashboardComponent } from './pages/super-admin-dashboard/super-admin-dashboard.component';
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
@@ -20,18 +18,31 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
 import { ErikaComponent } from './pages/erika/erika.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoginComponent } from './pages/login/login.component';
+import { MatTableModule } from '@angular/material/table';
+import { StudentsComponent } from './pages/students/students.component';
+import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
+import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
+import { AuthService } from './services/auth.service';
+
+export function initApp(authService: AuthService) {
+  return () => authService.autoLogin();
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    AdminLoginComponent,
-    StudentLoginComponent,
     AdminDashboardComponent,
     SuperAdminDashboardComponent,
     StudentDashboardComponent,
     StudentDepartmentRequirementComponent,
     StudentProfileComponent,
+    LoginComponent,
+    StudentsComponent,
+    AdminRequirementsComponent,
+    AdminStudentsComponent,
     ErikaComponent
   ],
   imports: [
@@ -43,12 +54,20 @@ import { ErikaComponent } from './pages/erika/erika.component';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatTableModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      deps: [AuthService],
       multi: true
     }
   ],

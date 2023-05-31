@@ -1,0 +1,35 @@
+<div class="logo">
+  <img src="\assets\img\udm-logo-v2.png" alt="CMS Logo" />
+</div>
+<div class="container">
+  <form class="login-form" [formGroup]="loginForm">
+    <h1>Login</h1>
+    <mat-form-field hideRequiredMarker>
+      <mat-label>Email:</mat-label>
+      <input formControlName="email" matInput />
+      <mat-error *ngIf="loginForm.get('email')?.invalid">{{ getEmailErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field hideRequiredMarker>
+      <mat-label>Password:</mat-label>
+      <input type="password" formControlName="password" matInput />
+      <mat-error *ngIf="loginForm.get('password')?.invalid">You must enter a value.</mat-error>
+    </mat-form-field>
+    <button
+      [class.spinner]="loading"
+      [disabled]="loginForm.invalid"
+      mat-raised-button
+      [color]="loginType === 'student' ? 'primary' : 'accent'"
+      type="submit"
+      (click)="login()">
+      {{ !loading ? "Continue" : null }}
+    </button>
+    <mat-error *ngIf="unauthorized">The credentials you've entered is incorrect.</mat-error>
+    <p class="data-privacy-label">
+      By clicking "Continue", you agree to our
+      <span class="link-decoration">Terms</span>
+      and acknowledge our
+      <span class="link-decoration">Data Privacy Policy</span>
+      .
+    </p>
+  </form>
+</div>

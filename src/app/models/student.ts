@@ -1,6 +1,7 @@
+import { Account } from './account';
+
 export interface Student {
   student_number?: string;
-  name?: string;
-  email?: string;
-  password?: string;
+  account_id?: number;
+  account?: Account;
 }
