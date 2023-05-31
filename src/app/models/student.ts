@@ -1,6 +1,7 @@
 import { Account } from './account';
 
-export class Student {
+export interface Student {
   student_number?: string;
+  account_id?: number;
   account?: Account;
 }

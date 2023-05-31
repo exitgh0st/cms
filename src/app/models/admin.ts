@@ -1,8 +1,10 @@
 import { Account } from './account';
 import { Department } from './department';
 
-export class Admin {
-  id?: string;
+export interface Admin {
+  id?: number;
+  account_id: number;
   account?: Account;
+  department_id?: number;
   department?: Department;
 }

@@ -21,8 +21,6 @@ export class AdminDashboardComponent {
       return;
     }
 
-    console.log(accountId);
-
     this.adminService
       .getAdminByAccountId(accountId)
       .pipe(first())
@@ -44,5 +42,10 @@ export class AdminDashboardComponent {
     }
 
     this.router.navigate(['admin', 'requirements', this.admin?.department?.id]);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 }

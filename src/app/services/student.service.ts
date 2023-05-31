@@ -18,7 +18,7 @@ export class StudentService {
     return this.http.get<Student[]>(`${environment.apiUrl}/students`);
   }
 
-  getStudentByAccountId(accountId: string) {
+  getStudentByAccountId(accountId: number) {
     return this.http.get<Student>(`${environment.apiUrl}/students/account/${accountId}`);
   }
 }

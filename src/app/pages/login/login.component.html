@@ -1,5 +1,5 @@
 <div class="logo">
-  <img src="\assets\img\udm-logo.png" alt="CMS Logo" />
+  <img src="\assets\img\udm-logo-v2.png" alt="CMS Logo" />
 </div>
 <div class="container">
   <form class="login-form" [formGroup]="loginForm">
@@ -24,6 +24,12 @@
       {{ !loading ? "Continue" : null }}
     </button>
     <mat-error *ngIf="unauthorized">The credentials you've entered is incorrect.</mat-error>
-    <p class="data-privacy-label">By clicking "Continue", you agree to our Terms and acknowledge our Data Privacy Policy.</p>
+    <p class="data-privacy-label">
+      By clicking "Continue", you agree to our
+      <span class="link-decoration">Terms</span>
+      and acknowledge our
+      <span class="link-decoration">Data Privacy Policy</span>
+      .
+    </p>
   </form>
 </div>

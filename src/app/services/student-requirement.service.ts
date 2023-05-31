@@ -13,6 +13,10 @@ export class StudentRequirementService {
     return this.http.post<StudentRequirement>(environment.apiUrl + '/student_requirements', studentRequirement);
   }
 
+  updateStudentRequirement(id: number, studentRequirement: StudentRequirement) {
+    return this.http.patch(environment.apiUrl + '/student_requirements/' + id, studentRequirement);
+  }
+
   getStudentRequirementOfRequirement(requirementId: number) {
     return this.http.get<StudentRequirement>(`${environment.apiUrl}/student_requirements/requirement/${requirementId}`);
   }

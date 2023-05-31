@@ -42,7 +42,7 @@ export class StudentDashboardComponent {
       });
   }
 
-  goToDepartmentRequirementPage(departmentId: string | undefined) {
+  goToDepartmentRequirementPage(departmentId: number | undefined) {
     if (!departmentId) {
       return;
     }
@@ -52,5 +52,29 @@ export class StudentDashboardComponent {
 
   goToProfile() {
     this.router.navigate(['student', 'profile']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['login']);
+  }
+
+  getLogoURL(department: Department) {
+    switch (department.name) {
+      case 'Information and Communication Technology Office':
+        return '/assets/img/udm-logo-transparent.png';
+      case 'Security':
+        return '/assets/img/udm-logo-transparent.png';
+      case 'Library':
+        return '/assets/img/udm-library.png';
+      case 'Office of the Students Affair':
+        return '/assets/img/udm-osa.png';
+      case 'Guidance Counselling and Psychological Services':
+        return '/assets/img/udm-gcpso.png';
+      case 'Clinic':
+        return '/assets/img/udm-clinic.png';
+      default:
+        return '/assets/img/udm-logo-transparent.png';
+    }
   }
 }

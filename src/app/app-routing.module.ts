@@ -9,23 +9,27 @@ import { SuperAdminDashboardComponent } from './pages/super-admin-dashboard/supe
 import { LoginComponent } from './pages/login/login.component';
 import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
 import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
+import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', component: LandingPageComponent },
-  { path: 'login/:loginType', component: LoginComponent },
-  { path: 'student/dashboard', component: StudentDashboardComponent },
-  { path: 'admin/dashboard', component: AdminDashboardComponent },
-  { path: 'admin/students', component: AdminStudentsComponent },
-  { path: 'admin/requirements/:departmentId', component: AdminRequirementsComponent },
-  { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent },
+  { path: 'login', component: LandingPageComponent, canActivate: [LoginGuard] },
+  { path: 'login/:loginType', component: LoginComponent, canActivate: [LoginGuard] },
+  { path: 'student/dashboard', component: StudentDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin/students', component: AdminStudentsComponent, canActivate: [AuthGuard] },
+  { path: 'admin/requirements/:departmentId', component: AdminRequirementsComponent, canActivate: [AuthGuard] },
+  { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard] },
   {
     path: 'student/requirements/:departmentId',
-    component: StudentDepartmentRequirementComponent
+    component: StudentDepartmentRequirementComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'student/profile',
-    component: StudentProfileComponent
+    component: StudentProfileComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

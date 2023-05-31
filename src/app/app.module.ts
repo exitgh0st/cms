@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,11 @@ import { MatTableModule } from '@angular/material/table';
 import { StudentsComponent } from './pages/students/students.component';
 import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
 import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
+import { AuthService } from './services/auth.service';
+
+export function initApp(authService: AuthService) {
+  return () => authService.autoLogin();
+}
 
 @NgModule({
   declarations: [
@@ -55,6 +60,12 @@ import { AdminStudentsComponent } from './pages/admin-students/admin-students.co
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      deps: [AuthService],
       multi: true
     }
   ],

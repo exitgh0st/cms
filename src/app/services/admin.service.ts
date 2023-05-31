@@ -9,7 +9,7 @@ import { Admin } from '../models/admin';
 export class AdminService {
   constructor(private http: HttpClient) {}
 
-  getAdminByAccountId(accountId: string) {
+  getAdminByAccountId(accountId: number) {
     return this.http.get<Admin>(`${environment.apiUrl}/admins/account/${accountId}`);
   }
 }

@@ -9,7 +9,7 @@ import { Requirement } from '../models/requirement';
 export class RequirementService {
   constructor(private http: HttpClient) {}
 
-  getRequirementsByDepartment(departmentId: string) {
+  getRequirementsByDepartment(departmentId: number) {
     return this.http.get<Requirement[]>(`${environment.apiUrl}/requirements/department/${departmentId}`);
   }
 }

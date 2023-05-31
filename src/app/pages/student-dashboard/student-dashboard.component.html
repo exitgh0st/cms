@@ -9,37 +9,27 @@
 
 <div class="container">
   <div class="sidebar">
-    <<<<<<< HEAD
-    <ul>
-      <li>Home</li>
-      <li (click)="goToProfile()">Profile</li>
-      <li>FAQs</li>
-      <li>Contact</li>
-    </ul>
-    =======
     <div class="logo-div">
       <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
     </div>
-    >>>>>>> 9f153ff31e23d901c9631a9a5a31a6f8309651b1
 
     <div class="sidebar-menu">
       <div class="sidebar-selection">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a class="is-active">Home</a></li>
+          <li><a (click)="goToProfile()">Profile</a></li>
+          <li><a>FAQs</a></li>
+          <li><a>Contact</a></li>
         </ul>
       </div>
 
       <div class="logout-container">
-        <button class="logout-button">Logout</button>
+        <button (click)="logout()" class="logout-button">Logout</button>
       </div>
     </div>
   </div>
   <div class="student-home-page-container">
-    <<<<<<< HEAD
-    <div class="student-name-greetings">
+    <!-- <div class="student-name-greetings">
       <h1>Hi, {{ student?.account?.first_name }} !</h1>
     </div>
     <div class="student-home-page">
@@ -51,8 +41,8 @@
             <p class="department-security-subtext zoom-text">Submitted Requirements: 1/3</p>
           </div>
         </div>
-      </ng-container>
-      <!-- =======
+      </ng-container> -->
+
     <div class="header-container">
       <div class="deadline-container">
         <p class="deadline-red">
@@ -64,65 +54,17 @@
         </p>
       </div>
       <div class="student-name-greetings">
-        <h1>Hi, John Doe!</h1>
+        <h1>Hi, {{ student?.account?.first_name }}!</h1>
       </div>
     </div>
     <div class="student-home-page">
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <img class="icon-department zoom-image" src="\assets\img\udm-logo-transparent.png" alt="Security Department" />
-          <p class="department-text zoom-text">Security</p>
+      <div *ngFor="let department of departments" class="department-list">
+        <div (click)="goToDepartmentRequirementPage(department.id)" class="department-tile zoom-container">
+          <img class="icon-department zoom-image" [src]="getLogoURL(department)" alt="Security Department" />
+          <p class="department-text zoom-text">{{ department.name }}</p>
           <p class="department-subtext zoom-text">Submitted Requirements: 1/3</p>
         </div>
       </div>
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <img class="icon-department zoom-image" src="\assets\img\udm-library.png" alt="Security Department" />
-          <p class="department-text zoom-text">Library</p>
-          <p class="department-subtext zoom-text">Submitted Requirements: 0/1</p>
-        </div>
-      </div>
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <img class="icon-department zoom-image" src="\assets\img\udm-osa.png" alt="Security Department" />
-          <p class="department-text zoom-text">
-            Office of the
-            <br />
-            Student Affairs
-          </p>
-          <p class="department-subtext zoom-text">Submitted Requirements: 2/2</p>
-        </div>
-      </div>
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <img class="icon-department zoom-image" src="\assets\img\udm-clinic.png" alt="Security Department" />
-          <p class="department-text zoom-text">Clinic</p>
-          <p class="department-subtext zoom-text">Submitted Requirements: 0/0</p>
-        </div>
-      </div>
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <img class="icon-department zoom-image" src="\assets\img\udm-gcpso.png" alt="Security Department" />
-          <p class="department-text zoom-text">
-            Guidance Counseling
-            <br />
-            & Psychological Services
-          </p>
-          <p class="department-subtext zoom-text">Submitted Requirements: 3/10</p>
-        </div>
-      </div>
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <img class="icon-department zoom-image" src="\assets\img\udm-logo-transparent.png" alt="Security Department" />
-          <p class="department-text zoom-text">
-            Information and Communication
-            <br />
-            Technology Office
-          </p>
-          <p class="department-subtext zoom-text">Submitted Requirements: 1/3</p>
-        </div>
-      </div>
->>>>>>> 9f153ff31e23d901c9631a9a5a31a6f8309651b1 -->
     </div>
   </div>
 </div>

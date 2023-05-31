@@ -1,5 +1,5 @@
-export class Department {
-  id?: string;
+export interface Department {
+  id?: number;
   name?: string;
   description?: string;
 }

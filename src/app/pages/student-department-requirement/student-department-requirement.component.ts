@@ -65,7 +65,7 @@ export class StudentDepartmentRequirementComponent {
       });
 
     this.requirementsService
-      .getRequirementsByDepartment(departmentId)
+      .getRequirementsByDepartment(parseInt(departmentId))
       .pipe(first())
       .subscribe({
         next: (requirements) => {
@@ -94,11 +94,22 @@ export class StudentDepartmentRequirementComponent {
       });
   }
 
+  updateStudentRequirement(studentRequirementId: number, studentRequirement: StudentRequirement) {
+    this.studentRequirementService
+      .updateStudentRequirement(studentRequirementId, studentRequirement)
+      .pipe(first())
+      .subscribe(() => {
+        this.fetchStudentRequirementsOfRequirements();
+      });
+  }
+
   fetchStudentRequirementsOfRequirements() {
     const requirementPairs = this.requirementPairs;
 
     for (let requirementPair of requirementPairs) {
       if (requirementPair.requirement.id) {
+        console.log('ASDAS');
+
         this.studentRequirementService
           .getStudentRequirementOfRequirement(requirementPair.requirement.id)
           .pipe(first())
@@ -109,14 +120,10 @@ export class StudentDepartmentRequirementComponent {
               if (studentRequirement.file_name) {
                 this.googleDriveService.loadFIle(studentRequirement.file_name).subscribe((response) => {
                   console.log(response);
+                  const blob = new Blob([response], { type: 'image/jpeg' });
+                  const imageURL = URL.createObjectURL(blob);
 
-                  const reader = new FileReader();
-                  reader.onload = (e) => {
-                    if (reader.result) {
-                      requirementPair.fileUrl = reader.result;
-                    }
-                  };
-                  reader.readAsDataURL(response);
+                  requirementPair.fileUrl = imageURL;
                 });
               }
             }
@@ -130,7 +137,14 @@ export class StudentDepartmentRequirementComponent {
     console.log(this.file);
   }
 
-  uploadFile(requirement: Requirement) {
+  uploadFile(requirementPair: RequirementPair) {
+    if (requirementPair.studentRequirement) {
+      this.updateFile(requirementPair);
+      return;
+    }
+
+    const requirement = requirementPair.requirement;
+
     if (!this.file) {
       alert('No file selected');
       return;
@@ -140,6 +154,37 @@ export class StudentDepartmentRequirementComponent {
         console.log(response);
 
         this.createStudentRequirement(requirement, response.fileName);
+      },
+
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  updateFile(requirementPair: RequirementPair) {
+    if (!this.file) {
+      alert('No file selected');
+      return;
+    }
+
+    const studentRequirementId = requirementPair.studentRequirement?.id;
+
+    if (!studentRequirementId) {
+      return;
+    }
+    requirementPair.fileUrl = undefined;
+
+    this.googleDriveService.uploadFile(this.file).subscribe({
+      next: (response) => {
+        const studentRequirement: StudentRequirement = {
+          student_id: this.student?.student_number,
+          requirement_id: requirementPair.requirement.id,
+          status_id: 1,
+          file_name: response.fileName
+        };
+
+        this.updateStudentRequirement(studentRequirementId, studentRequirement);
       },
 
       error: (error) => {

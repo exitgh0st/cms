@@ -17,6 +17,6 @@ export class GoogleDriveService {
   }
 
   loadFIle(filename: string) {
-    return this.http.get<Blob>(environment.apiUrl + '/student_requirements_load/' + filename);
+    return this.http.get(environment.apiUrl + '/student_requirements_load/' + filename, { responseType: 'arraybuffer' });
   }
 }

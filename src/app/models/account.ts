@@ -1,9 +1,11 @@
+import { Role } from './role';
+
 export interface Account {
-  id?: string;
-  role_id?: string;
+  id?: number;
+  role_id?: number;
+  role: Role;
   first_name?: string;
   last_name?: string;
-  name?: string;
   email?: string;
   password?: string;
   last_login?: string;
