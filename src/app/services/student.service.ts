@@ -21,4 +21,8 @@ export class StudentService {
   getStudentByAccountId(accountId: number) {
     return this.http.get<Student>(`${environment.apiUrl}/students/account/${accountId}`);
   }
+
+  createStudentWithAccount(student: Student) {
+    return this.http.post<Student>(environment.apiUrl + '/students/account', student);
+  }
 }

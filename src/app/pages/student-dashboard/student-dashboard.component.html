@@ -47,10 +47,10 @@
       <div class="deadline-container">
         <p class="deadline-red">
           Submission Deadline:
-          <b>June 20, 2023</b>
+          <b>{{ submissionData?.date_end | date }}</b>
           <br />
-          Days remaining before deadline:
-          <b>20 days</b>
+          Time remaining before deadline:
+          <b>{{ daysLeft() }}</b>
         </p>
       </div>
       <div class="student-name-greetings">

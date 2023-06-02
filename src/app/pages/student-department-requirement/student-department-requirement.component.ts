@@ -11,11 +11,14 @@ import { Requirement } from 'src/app/models/requirement';
 import { StudentRequirementService } from 'src/app/services/student-requirement.service';
 import { StudentRequirement } from 'src/app/models/student-requirement';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
+import { SubmissionDataService } from 'src/app/services/submission-data.service';
+import { SubmissionData } from 'src/app/models/submission_data';
 
-type RequirementPair = {
+export type RequirementPair = {
   requirement: Requirement;
   studentRequirement?: StudentRequirement;
   fileUrl?: string | ArrayBuffer;
+  adminComments?: string;
 };
 
 @Component({
@@ -29,6 +32,9 @@ export class StudentDepartmentRequirementComponent {
   requirements?: Requirement[];
   requirementPairs: RequirementPair[] = [];
   file?: File;
+  submissionData?: SubmissionData;
+
+  previewFileURL?: string | ArrayBuffer;
 
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
 
@@ -40,7 +46,8 @@ export class StudentDepartmentRequirementComponent {
     private studentService: StudentService,
     private departmentService: DepartmentService,
     private studentRequirementService: StudentRequirementService,
-    private googleDriveService: GoogleDriveService
+    private googleDriveService: GoogleDriveService,
+    private submissionDataService: SubmissionDataService
   ) {
     const accountId = this.authService.getAccountId();
     const departmentId = this.route.snapshot.paramMap.get('departmentId');
@@ -78,6 +85,13 @@ export class StudentDepartmentRequirementComponent {
           this.fetchStudentRequirementsOfRequirements();
         }
       });
+
+    this.submissionDataService
+      .getSubmissionData()
+      .pipe(first())
+      .subscribe((submissionData) => {
+        this.submissionData = submissionData;
+      });
   }
 
   createStudentRequirement(requirement: Requirement, fileName: string) {
@@ -108,17 +122,21 @@ export class StudentDepartmentRequirementComponent {
 
     for (let requirementPair of requirementPairs) {
       if (requirementPair.requirement.id) {
-        console.log('ASDAS');
+        if (!this.student?.student_number) {
+          return;
+        }
 
         this.studentRequirementService
-          .getStudentRequirementOfRequirement(requirementPair.requirement.id)
+          .getStudentRequirementByStudentIdsAndRequirementIds([this.student?.student_number], [requirementPair.requirement.id.toString()])
           .pipe(first())
-          .subscribe((studentRequirement) => {
-            if (Object.keys(studentRequirement).length) {
+          .subscribe((studentRequirements) => {
+            if (studentRequirements.length > 0) {
+              const studentRequirement = studentRequirements[0];
+
               requirementPair.studentRequirement = studentRequirement;
 
               if (studentRequirement.file_name) {
-                this.googleDriveService.loadFIle(studentRequirement.file_name).subscribe((response) => {
+                this.googleDriveService.loadFile(studentRequirement.file_name).subscribe((response) => {
                   console.log(response);
                   const blob = new Blob([response], { type: 'image/jpeg' });
                   const imageURL = URL.createObjectURL(blob);
@@ -132,9 +150,15 @@ export class StudentDepartmentRequirementComponent {
     }
   }
 
-  onFileSelected(event: any) {
+  onFileSelected(event: any, requirementPair: RequirementPair) {
     this.file = event.target.files[0];
-    console.log(this.file);
+
+    const fr = new FileReader();
+    fr.onload = function () {
+      if (fr.result) requirementPair.fileUrl = fr.result;
+    };
+
+    fr.readAsDataURL(event.target.files[0]);
   }
 
   uploadFile(requirementPair: RequirementPair) {
@@ -151,7 +175,7 @@ export class StudentDepartmentRequirementComponent {
     }
     this.googleDriveService.uploadFile(this.file).subscribe({
       next: (response) => {
-        console.log(response);
+        alert('Done uploading!');
 
         this.createStudentRequirement(requirement, response.fileName);
       },
@@ -177,6 +201,8 @@ export class StudentDepartmentRequirementComponent {
 
     this.googleDriveService.uploadFile(this.file).subscribe({
       next: (response) => {
+        alert('Done updating uploaded picture!');
+
         const studentRequirement: StudentRequirement = {
           student_id: this.student?.student_number,
           requirement_id: requirementPair.requirement.id,
@@ -191,5 +217,13 @@ export class StudentDepartmentRequirementComponent {
         console.log(error);
       }
     });
+  }
+
+  previewFile(fileUrl: string | undefined | ArrayBuffer) {
+    this.previewFileURL = fileUrl;
+  }
+
+  clickGrayOverlay() {
+    this.previewFileURL = undefined;
   }
 }

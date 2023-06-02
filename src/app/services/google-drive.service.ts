@@ -16,7 +16,7 @@ export class GoogleDriveService {
     return this.http.post<{ fileName: string }>(environment.apiUrl + '/student_requirements_upload', formData);
   }
 
-  loadFIle(filename: string) {
+  loadFile(filename: string) {
     return this.http.get(environment.apiUrl + '/student_requirements_load/' + filename, { responseType: 'arraybuffer' });
   }
 }

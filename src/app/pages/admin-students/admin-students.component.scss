@@ -1,0 +1,102 @@
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.click-click {
+  cursor: pointer;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+
+.panel-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.75);
+}
+
+.panel {
+  position: absolute;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 800px;
+  height: 700px;
+  background-color: #eceff1;
+  border: 4px black solid;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.requirements {
+  display: flex;
+  flex-direction: row;
+}
+
+.requirement {
+  border: 1px black solid;
+  border-radius: 4px;
+  margin: 8px;
+  padding: 8px;
+  background-color: wheat;
+}
+
+.requirement-pic {
+  max-width: 200px;
+  max-height: 150px;
+}
+
+.done {
+  background-color: #04aa6d;
+}
+
+.pending {
+  background-color: red;
+}
+
+.status-pending {
+  color: red;
+}
+
+.status-cleared {
+  color: green;
+}
+
+.pic {
+  position: absolute;
+  width: 700px;
+  max-height: 700px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+button {
+  z-index: 0;
+}

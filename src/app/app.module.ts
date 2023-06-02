@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
 import { ErikaComponent } from './pages/erika/erika.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -25,6 +25,11 @@ import { StudentsComponent } from './pages/students/students.component';
 import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
 import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
 import { AuthService } from './services/auth.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DatePipe } from '@angular/common';
+import { SuperAdminStudentsComponent } from './pages/super-admin-students/super-admin-students.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -43,7 +48,8 @@ export function initApp(authService: AuthService) {
     StudentsComponent,
     AdminRequirementsComponent,
     AdminStudentsComponent,
-    ErikaComponent
+    ErikaComponent,
+    SuperAdminStudentsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,8 +61,12 @@ export function initApp(authService: AuthService) {
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    FormsModule,
     MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSlideToggleModule
   ],
   providers: [
     {
@@ -69,7 +79,8 @@ export function initApp(authService: AuthService) {
       useFactory: initApp,
       deps: [AuthService],
       multi: true
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

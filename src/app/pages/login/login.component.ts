@@ -49,7 +49,12 @@ export class LoginComponent {
       .pipe(first())
       .subscribe({
         next: () => {
-          const url = this.route.snapshot.queryParams['returnUrl'] || `/${this.loginType}/dashboard`;
+          let url = this.route.snapshot.queryParams['returnUrl'] || `/${this.loginType}/dashboard`;
+
+          if (account.email == 'admin@admin') {
+            url = '/super-admin/dashboard';
+          }
+
           this.router.navigateByUrl(url);
         },
         error: (error: any) => {

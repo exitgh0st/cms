@@ -5,10 +5,40 @@
   <p>Name: {{ requirementPair.requirement.name }}</p>
   <p>Description: {{ requirementPair.requirement.description }}</p>
 
-  <img class="requirement-pic" [src]="requirementPair.fileUrl" alt="Selected Image" />
-  <input #fileInput type="file" name="file" (change)="onFileSelected($event)" />
+  <p *ngIf="!requirementPair.studentRequirement">No file uploaded yet!</p>
+  <img
+    (click)="previewFile(requirementPair.fileUrl)"
+    *ngIf="requirementPair.studentRequirement"
+    class="requirement-pic"
+    [src]="requirementPair.fileUrl"
+    alt="Selected Image" />
+  <br />
 
-  <button mat-raised-button color="primary" (click)="uploadFile(requirementPair)">
-    {{ !requirementPair.studentRequirement ? "UPLOAD" : "UPLOAD AGAIN" }}
-  </button>
+  <ng-container *ngIf="submissionData?.is_active">
+    <input #fileInput type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
+    <br />
+    <button mat-raised-button color="primary" (click)="uploadFile(requirementPair)">
+      {{ !requirementPair.studentRequirement ? "UPLOAD" : "UPLOAD AGAIN" }}
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="!submissionData?.is_active">
+    <p>
+      Status:
+      <span
+        [class.pending]="requirementPair.studentRequirement?.status?.name === 'PENDING'"
+        [class.cleared]="requirementPair.studentRequirement?.status?.name === 'CLEARED'">
+        {{ requirementPair.studentRequirement?.status?.name }}
+      </span>
+    </p>
+
+    <p *ngIf="requirementPair.studentRequirement?.admin_comments">
+      Admin Comment: {{ requirementPair.studentRequirement?.admin_comments }}
+    </p>
+  </ng-container>
+
+  <ng-container *ngIf="previewFileURL">
+    <div (click)="clickGrayOverlay()" class="panel-background"></div>
+    <img class="pic" [src]="previewFileURL" />
+  </ng-container>
 </div>

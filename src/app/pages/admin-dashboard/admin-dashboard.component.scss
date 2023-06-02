@@ -26,7 +26,7 @@
   font-weight: 500;
 }
 
-.sidebar a {
+.sidebar a:not(.selected-tab) {
   display: block;
   text-decoration: none;
   color: #fff;
@@ -37,6 +37,18 @@
 .sidebar a:hover {
   background-color: #ffffff;
   color: #263238;
+}
+
+a {
+  cursor: pointer;
+}
+
+.selected-tab {
+  background-color: #ffffff;
+  color: #263238;
+  display: block;
+  text-decoration: none;
+  padding: 10px;
 }
 
 .logout-container {
@@ -54,6 +66,7 @@
   font-weight: 500;
   transition: color 0.3s;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 
 .logout-button:hover {
