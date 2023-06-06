@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
 import { ErikaComponent } from './pages/erika/erika.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,6 +26,14 @@ import { AdminRequirementsComponent } from './pages/admin-requirements/admin-req
 import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
 import { AuthService } from './services/auth.service';
 import { StudentListComponent } from './pages/student-list/student-list.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DatePipe } from '@angular/common';
+import { SuperAdminStudentsComponent } from './pages/super-admin-students/super-admin-students.component';
+import { SuperAdminAdminsComponent } from './pages/super-admin-admins/super-admin-admins.component';
+import { MatSelectModule } from '@angular/material/select';
+import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -45,7 +53,10 @@ export function initApp(authService: AuthService) {
     AdminRequirementsComponent,
     AdminStudentsComponent,
     ErikaComponent,
-    StudentListComponent
+    StudentListComponent,
+    SuperAdminStudentsComponent,
+    SuperAdminAdminsComponent,
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -57,8 +68,13 @@ export function initApp(authService: AuthService) {
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    FormsModule,
     MatProgressSpinnerModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSlideToggleModule,
+    MatSelectModule
   ],
   providers: [
     {
@@ -71,7 +87,8 @@ export function initApp(authService: AuthService) {
       useFactory: initApp,
       deps: [AuthService],
       multi: true
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

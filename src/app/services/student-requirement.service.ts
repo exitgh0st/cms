@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { StudentRequirement } from '../models/student-requirement';
 import { environment } from 'src/environment/environment';
 
@@ -22,8 +22,12 @@ export class StudentRequirementService {
   }
 
   getStudentRequirementByStudentIdsAndRequirementIds(studentIds: string[], requirementIds: string[]) {
+    let params = new HttpParams();
+    params = params.set('student_ids', studentIds.join(','));
+    params = params.set('requirement_ids', requirementIds.join(','));
+
     return this.http.get<StudentRequirement[]>(`${environment.apiUrl}/student_requirements_by_student_ids_and_requirement_ids`, {
-      params: { student_ids: studentIds, requirement_ids: requirementIds }
+      params: params
     });
   }
 }

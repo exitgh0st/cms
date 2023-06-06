@@ -13,6 +13,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
 import { ErikaComponent } from './pages/erika/erika.component';
 import { StudentListComponent } from './pages/student-list/student-list.component';
+import { SuperAdminStudentsComponent } from './pages/super-admin-students/super-admin-students.component';
+import { SuperAdminAdminsComponent } from './pages/super-admin-admins/super-admin-admins.component';
+import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -22,9 +25,16 @@ const routes: Routes = [
   { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin/students', component: AdminStudentsComponent, canActivate: [AuthGuard] },
   { path: 'admin/requirements/:departmentId', component: AdminRequirementsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'admin/profile',
+    component: AdminProfileComponent,
+    canActivate: [AuthGuard]
+  },
   { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin/student-list', component: StudentListComponent },
 
+  { path: 'super-admin/students', component: SuperAdminStudentsComponent, canActivate: [AuthGuard] },
+  { path: 'super-admin/admins', component: SuperAdminAdminsComponent, canActivate: [AuthGuard] },
   {
     path: 'student/requirements/:departmentId',
     component: StudentDepartmentRequirementComponent,

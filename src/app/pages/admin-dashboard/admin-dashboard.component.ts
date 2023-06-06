@@ -4,6 +4,8 @@ import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { first } from 'rxjs';
 import { Router } from '@angular/router';
+import { SubmissionDataService } from 'src/app/services/submission-data.service';
+import { SubmissionData } from 'src/app/models/submission_data';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,8 +14,14 @@ import { Router } from '@angular/router';
 })
 export class AdminDashboardComponent {
   admin?: Admin;
+  submissionData?: SubmissionData;
 
-  constructor(private adminService: AdminService, private authService: AuthService, private router: Router) {
+  constructor(
+    private submissionDataService: SubmissionDataService,
+    private adminService: AdminService,
+    private authService: AuthService,
+    private router: Router
+  ) {
     const accountId = this.authService.getAccountId();
 
     if (!accountId) {
@@ -29,9 +37,16 @@ export class AdminDashboardComponent {
           this.admin = admin;
         }
       });
+
+    this.submissionDataService
+      .getSubmissionData()
+      .pipe(first())
+      .subscribe((submissionData) => {
+        this.submissionData = submissionData;
+      });
   }
 
-  goToStudentList() {
+  goToStudentsList() {
     this.router.navigate(['admin', 'students']);
   }
 
@@ -47,5 +62,9 @@ export class AdminDashboardComponent {
   logout() {
     this.authService.logout();
     this.router.navigate(['login']);
+  }
+
+  goToProfile() {
+    this.router.navigate(['admin', 'profile']);
   }
 }

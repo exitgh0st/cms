@@ -1,1 +1,18 @@
-<p>student-profile works!</p>
+<h1>Hello {{ student?.account?.first_name }}</h1>
+
+<div #profileTable>
+  <table>
+    <tr>
+      <th>Department</th>
+      <th>Requirement Status</th>
+      <th>Check Status</th>
+    </tr>
+    <tr *ngFor="let departmentRequirements of departmentRequirementsList">
+      <td>{{ departmentRequirements.department.name }}</td>
+      <td>{{ getDepartmentRequirementsStatusString(departmentRequirements) }}</td>
+      <td>{{ getDepartmentCheckStatus(departmentRequirements) }}</td>
+    </tr>
+  </table>
+
+  <button (click)="savePDF()" mat-raised-button color="primary">Save PDF</button>
+</div>

@@ -1,32 +1,110 @@
-<h1>Requirements for {{ department?.name }} department</h1>
+<div class="container">
+  <div class="sidebar">
+    <div class="logo-div">
+      <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
+    </div>
 
-<ng-container *ngIf="requirements">
-  <mat-table [dataSource]="requirements">
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
+    <div class="sidebar-menu">
+      <div class="sidebar-selection">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a class="current-page" href="#">Clearance Requirements</a></li>
+          <li><a href="#">Student List</a></li>
+        </ul>
+      </div>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="created_by">
-      <th mat-header-cell *matHeaderCellDef>Created by</th>
-      <td mat-cell *matCellDef="let element">{{ element.created_by.account.first_name }}</td>
-    </ng-container>
+      <div class="logout-container">
+        <button class="logout-button">Logout</button>
+      </div>
+    </div>
+  </div>
+  <div class="admin-home-page-container">
+    <div class="department-name">
+      <h1>Information and Communication Technology Office</h1>
+    </div>
+    <div class="admin-home-page">
+      <div class="table-tile">
+        <div class="department-tile requirements-tile clearance-requirement-list">
+          <div>
+            <button (click)="clickCreateRequirementButton()" class="create-button">CREATE REQUIREMENTS</button>
+            <table>
+              <tr>
+                <th>No.</th>
+                <th>Requirement</th>
+                <th>Description</th>
+                <th>Created By</th>
+                <th>EDIT</th>
+                <th>DELETE</th>
+              </tr>
+              <tr *ngFor="let requirement of requirements">
+                <td>{{ requirement.id }}</td>
+                <td>{{ requirement.name }}</td>
+                <td>{{ requirement.description }}</td>
+                <td>{{ requirement?.created_by?.account?.first_name }}</td>
+                <td (click)="editRequirement(requirement)"><mat-icon>edit</mat-icon></td>
+                <td (click)="deleteRequirement(requirement)"><mat-icon>delete</mat-icon></td>
+              </tr>
+            </table>
+          </div>
+          <!-- <p class="clearance-status zoom-text-small">Department: Information and Communication Technology Office</p>
+          <p class="clearance-status zoom-text-small">Requirement Posting Date: May 25, 2023 11:29 PM</p>
+          <p class="clearance-status zoom-text-small">Admin Name: John Smith Doe</p>
+          <br />
+          <p class="clearance-status zoom-text-small">Clearance Requirements:</p>
+          <ol class="requirements-posted zoom-text-small">
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+          </ol> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
+<ng-container *ngIf="selectedRequirement">
+  <div class="panel-background"></div>
+  <div class="panel">
+    <form [formGroup]="requirementForm">
+      <div class="input-fields">
+        <p>Requirement Id: {{ selectedRequirement.id }}</p>
+        <mat-form-field>
+          <mat-label>Name:</mat-label>
+          <input formControlName="name" matInput />
+        </mat-form-field>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
-    </ng-container>
+        <mat-form-field>
+          <mat-label>Description:</mat-label>
+          <input formControlName="description" matInput />
+        </mat-form-field>
 
-    <tr mat-header-row *matHeaderRowDef="displayedTableColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedTableColumns"></tr>
-  </mat-table>
+        <button (click)="updateRequirement()" mat-raised-button color="primary" type="submit">Confirm</button>
+        <button (click)="selectedRequirement = undefined" mat-raised-button color="warn" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="showCreatePanel">
+  <div class="panel-background"></div>
+  <div class="panel">
+    <form [formGroup]="requirementForm">
+      <div class="input-fields">
+        <h2>Create Requirement</h2>
+        <mat-form-field>
+          <mat-label>Name:</mat-label>
+          <input formControlName="name" matInput />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Description:</mat-label>
+          <input formControlName="description" matInput />
+        </mat-form-field>
+
+        <button (click)="createRequirement()" mat-raised-button color="primary" type="submit">Confirm</button>
+        <button (click)="showCreatePanel = false" mat-raised-button color="warn" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
 </ng-container>

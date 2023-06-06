@@ -28,7 +28,7 @@ export class LoginGuard implements CanActivate {
       const account$ = this.accountService.getAccount(accountId);
 
       return firstValueFrom(account$).then((account) => {
-        if (!account.role.id) {
+        if (!account?.role?.id) {
           return false;
         }
 

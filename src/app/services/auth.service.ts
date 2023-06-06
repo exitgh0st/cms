@@ -11,9 +11,9 @@ export class AuthService {
   private static readonly TOKEN_EXPIRATION_DATE_KEY = 'token_expiration_date';
   private static readonly ACCOUNT_ID_KEY = 'account_id_key';
 
-  private _token?: string;
-  private _expiresIn?: number;
-  private _accountId?: number;
+  private token?: string;
+  private expiresIn?: number;
+  private accountId?: number;
 
   private _isAuthenticated = false;
 
@@ -24,7 +24,11 @@ export class AuthService {
   }
 
   getToken() {
-    return this._token;
+    return this.token;
+  }
+
+  getAccountId() {
+    return this.accountId;
   }
 
   login(email: string, password: string | null) {
@@ -35,24 +39,20 @@ export class AuthService {
         token: string;
         expires_in: number;
         account_id: number;
-      }>(environment.apiUrl + '/login', authenticationData)
+      }>(`${environment.apiUrl}/login`, authenticationData)
       .pipe(
         map((response) => {
-          this._token = response.token;
-          this._expiresIn = response.expires_in;
-          this._accountId = response.account_id;
+          this.token = response.token;
+          this.expiresIn = response.expires_in;
+          this.accountId = response.account_id;
 
           const currentDate = new Date();
-          const expirationDate = new Date(currentDate.getTime() + this._expiresIn * 1000);
+          const expirationDate = new Date(currentDate.getTime() + this.expiresIn * 1000);
 
-          this.saveAuthenticationData(this._token, expirationDate, this._accountId);
+          this.saveAuthenticationData(this.token, expirationDate, this.accountId);
           this._isAuthenticated = true;
         })
       );
-  }
-
-  getAccountId() {
-    return this._accountId;
   }
 
   private saveAuthenticationData(token: string, tokenExpirationDate: Date, account_id: number) {
@@ -74,53 +74,43 @@ export class AuthService {
   }
 
   autoLogin() {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<void>(async (resolve, reject) => {
       const token = localStorage.getItem(AuthService.TOKEN_KEY);
       const expiresIn = localStorage.getItem(AuthService.TOKEN_EXPIRATION_DATE_KEY);
       const accountId = localStorage.getItem(AuthService.ACCOUNT_ID_KEY);
 
       if (!token || !expiresIn || !accountId) {
         this.clearAuthenticationData();
-        resolve(true);
         return;
       }
+
+      let isValid = false;
 
       await this.isTokenValid(token)
         .pipe(first())
         .subscribe({
           next: (response) => {
-            if (response.isValid === undefined || response.isValid === null) {
-              resolve(true);
-
-              return;
+            if (response.isValid) {
+              this.token = token;
+              this.expiresIn = new Date(expiresIn).getTime();
+              this.accountId = parseInt(accountId);
+              this._isAuthenticated = true;
             }
 
-            if (!response.isValid) {
-              resolve(true);
-
-              return;
-            }
+            resolve();
           },
           error: (error) => {
-            resolve(true);
-
-            return;
+            resolve();
           }
         });
-
-      this._token = token;
-      this._expiresIn = new Date(expiresIn).getTime();
-      this._accountId = parseInt(accountId);
-      this._isAuthenticated = true;
-      resolve(true);
     });
   }
 
   logout() {
-    this._token = undefined;
+    this.token = undefined;
     this._isAuthenticated = false;
-    this._accountId = undefined;
-    this._expiresIn = undefined;
+    this.accountId = undefined;
+    this.expiresIn = undefined;
     this.clearAuthenticationData();
   }
 }

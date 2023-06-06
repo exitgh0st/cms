@@ -7,10 +7,10 @@
     <div class="sidebar-menu">
       <div class="sidebar-selection">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">Clearance Requirements</a></li>
-          <li><a href="#">Student List</a></li>
+          <li><a class="selected-tab">Home</a></li>
+          <li><a (click)="goToProfile()">Profile</a></li>
+          <li><a (click)="goToRequirementsList()">Clearance Requirements</a></li>
+          <li><a (click)="goToStudentsList()">Student List</a></li>
         </ul>
       </div>
 
@@ -37,7 +37,7 @@
       <div class="department-list">
         <div class="department-tile zoom-container">
           <p class="submission-date-text zoom-text">Submission Deadline</p>
-          <p class="submission-deadline-date zoom-text">June 20, 2023 4:00 PM</p>
+          <p class="submission-deadline-date zoom-text">{{ submissionData?.date_end | date }}</p>
         </div>
       </div>
       <div class="department-list">
