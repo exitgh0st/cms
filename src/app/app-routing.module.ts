@@ -11,6 +11,8 @@ import { AdminStudentsComponent } from './pages/admin-students/admin-students.co
 import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { ErikaComponent } from './pages/erika/erika.component';
+import { StudentListComponent } from './pages/student-list/student-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -21,6 +23,8 @@ const routes: Routes = [
   { path: 'admin/students', component: AdminStudentsComponent, canActivate: [AuthGuard] },
   { path: 'admin/requirements/:departmentId', component: AdminRequirementsComponent, canActivate: [AuthGuard] },
   { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'admin/student-list', component: StudentListComponent },
+
   {
     path: 'student/requirements/:departmentId',
     component: StudentDepartmentRequirementComponent,
@@ -30,6 +34,10 @@ const routes: Routes = [
     path: 'student/profile',
     component: StudentProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'erika',
+    component: ErikaComponent
   }
 ];
 

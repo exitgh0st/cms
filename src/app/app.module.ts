@@ -25,6 +25,7 @@ import { StudentsComponent } from './pages/students/students.component';
 import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
 import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
 import { AuthService } from './services/auth.service';
+import { StudentListComponent } from './pages/student-list/student-list.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -43,7 +44,8 @@ export function initApp(authService: AuthService) {
     StudentsComponent,
     AdminRequirementsComponent,
     AdminStudentsComponent,
-    ErikaComponent
+    ErikaComponent,
+    StudentListComponent
   ],
   imports: [
     BrowserModule,
