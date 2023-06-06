@@ -3,6 +3,7 @@
   height: 100vh;
 }
 
+//
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -89,7 +90,7 @@
   flex-grow: 1;
   align-self: flex-start;
   width: 400px;
-  height: auto;
+  height: 60%;
   background-color: #eceff1;
   border-radius: 20px;
   justify-content: center;

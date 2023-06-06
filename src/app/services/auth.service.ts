@@ -81,12 +81,11 @@ export class AuthService {
 
       if (!token || !expiresIn || !accountId) {
         this.clearAuthenticationData();
+        resolve();
         return;
       }
 
-      let isValid = false;
-
-      await this.isTokenValid(token)
+      return this.isTokenValid(token)
         .pipe(first())
         .subscribe({
           next: (response) => {
