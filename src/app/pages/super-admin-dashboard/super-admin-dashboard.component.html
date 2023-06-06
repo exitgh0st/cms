@@ -5,6 +5,8 @@
 <h3>Current Status: {{ submissionData?.is_active ? "ACTIVE" : "INACTIVE" }}</h3>
 
 <button (click)="logout()" mat-raised-button color="primary">Logout</button>
+<button (click)="goToStudents()" mat-raised-button color="primary">Students</button>
+<button (click)="goToAdmins()" mat-raised-button color="primary">Admins</button>
 
 <h2>Edit date for submission:</h2>
 

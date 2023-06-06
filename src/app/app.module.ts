@@ -30,6 +30,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DatePipe } from '@angular/common';
 import { SuperAdminStudentsComponent } from './pages/super-admin-students/super-admin-students.component';
+import { SuperAdminAdminsComponent } from './pages/super-admin-admins/super-admin-admins.component';
+import { MatSelectModule } from '@angular/material/select';
+import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -49,7 +52,9 @@ export function initApp(authService: AuthService) {
     AdminRequirementsComponent,
     AdminStudentsComponent,
     ErikaComponent,
-    SuperAdminStudentsComponent
+    SuperAdminStudentsComponent,
+    SuperAdminAdminsComponent,
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ export function initApp(authService: AuthService) {
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSelectModule
   ],
   providers: [
     {

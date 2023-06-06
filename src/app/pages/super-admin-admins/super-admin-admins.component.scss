@@ -1,0 +1,41 @@
+.panel-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.75);
+}
+
+.panel {
+  position: absolute;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 800px;
+  height: 300px;
+  background-color: #eceff1;
+  border: 4px black solid;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  margin: 0 8px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+button {
+  margin: 0 8px;
+}

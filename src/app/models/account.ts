@@ -9,4 +9,5 @@ export interface Account {
   email?: string;
   password?: string;
   last_login?: string;
+  profile_picture_name?: string;
 }

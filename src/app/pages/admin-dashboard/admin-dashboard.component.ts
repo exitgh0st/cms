@@ -63,4 +63,8 @@ export class AdminDashboardComponent {
     this.authService.logout();
     this.router.navigate(['login']);
   }
+
+  goToProfile() {
+    this.router.navigate(['admin', 'profile']);
+  }
 }

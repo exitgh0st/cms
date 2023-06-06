@@ -71,4 +71,12 @@ export class SuperAdminDashboardComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  goToStudents() {
+    this.router.navigate(['super-admin', 'students']);
+  }
+
+  goToAdmins() {
+    this.router.navigate(['super-admin', 'admins']);
+  }
 }
