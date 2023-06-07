@@ -1,78 +1,83 @@
-<h1>Students List</h1>
-<h2>Department: {{ admin?.department?.name }}</h2>
-<table>
-  <tr>
-    <th>Student Number</th>
-    <th>Name</th>
-    <th>Requirement Status</th>
-    <th>Check status</th>
-  </tr>
-  <tr class="click-click" (click)="selectStudent(student)" *ngFor="let student of students">
-    <td>{{ student.student_number }}</td>
-    <td>{{ student.account?.first_name + " " + student.account?.last_name }}</td>
-    <td>{{ getRequirementStatusForStudent(student.student_number) }}</td>
-    <td
-      [class.done]="getCheckStatusForStudent(student.student_number) === 'DONE'"
-      [class.pending]="getCheckStatusForStudent(student.student_number) === 'WITH PENDING'">
-      {{ getCheckStatusForStudent(student.student_number) }}
-    </td>
-  </tr>
-</table>
+<div class="container">
+  <admin-side-menu [departmentId]="admin?.department?.id" [pageSelected]="'students'"></admin-side-menu>
+  <div>
+    <h1>Students List</h1>
+    <h2>Department: {{ admin?.department?.name }}</h2>
+    <table>
+      <tr>
+        <th>Student Number</th>
+        <th>Name</th>
+        <th>Requirement Status</th>
+        <th>Check status</th>
+      </tr>
+      <tr class="click-click" (click)="selectStudent(student)" *ngFor="let student of students">
+        <td>{{ student.student_number }}</td>
+        <td>{{ student.account?.first_name + " " + student.account?.last_name }}</td>
+        <td>{{ getRequirementStatusForStudent(student.student_number) }}</td>
+        <td
+          [class.done]="getCheckStatusForStudent(student.student_number) === 'DONE'"
+          [class.pending]="getCheckStatusForStudent(student.student_number) === 'WITH PENDING'">
+          {{ getCheckStatusForStudent(student.student_number) }}
+        </td>
+      </tr>
+    </table>
+  </div>
 
-<ng-container *ngIf="selectedStudent && selectedStudent.student_number">
-  <div (click)="clickGrayOverlay()" class="panel-background"></div>
-  <div class="panel">
-    <h3>Student name: {{ selectedStudent.account?.first_name + " " + selectedStudent.account?.last_name }}</h3>
-    <h3>Requirements</h3>
+  <ng-container *ngIf="selectedStudent && selectedStudent.student_number">
+    <div (click)="clickGrayOverlay()" class="panel-background"></div>
+    <div class="panel">
+      <h3>Student name: {{ selectedStudent.account?.first_name + " " + selectedStudent.account?.last_name }}</h3>
+      <h3>Requirements</h3>
 
-    <div class="requirements">
-      <div class="requirement" *ngFor="let requirementPair of selectedStudentRequirementPairs" class="requirement">
-        <ng-container *ngIf="requirementPair.requirement.id">
-          <p>Name: {{ requirementPair.requirement.name }}</p>
-          <p>Description: {{ requirementPair.requirement.description }}</p>
-          <p>
-            Status:
-            <span
-              [class.status-pending]="requirementPair.studentRequirement?.status?.id === 2"
-              [class.status-cleared]="requirementPair.studentRequirement?.status?.id === 3">
-              <b>{{ requirementPair.studentRequirement?.status?.name }}</b>
-            </span>
-          </p>
+      <div class="requirements">
+        <div class="requirement" *ngFor="let requirementPair of selectedStudentRequirementPairs" class="requirement">
+          <ng-container *ngIf="requirementPair.requirement.id">
+            <p>Name: {{ requirementPair.requirement.name }}</p>
+            <p>Description: {{ requirementPair.requirement.description }}</p>
+            <p>
+              Status:
+              <span
+                [class.status-pending]="requirementPair.studentRequirement?.status?.id === 2"
+                [class.status-cleared]="requirementPair.studentRequirement?.status?.id === 3">
+                <b>{{ requirementPair.studentRequirement?.status?.name }}</b>
+              </span>
+            </p>
 
-          <p *ngIf="!requirementPair.studentRequirement">No file uploaded yet!</p>
-          <img
-            (click)="previewFile(requirementPair.fileUrl)"
-            *ngIf="requirementPair.studentRequirement"
-            class="requirement-pic"
-            [src]="requirementPair.fileUrl"
-            alt="Selected Image" />
-        </ng-container>
+            <p *ngIf="!requirementPair.studentRequirement">No file uploaded yet!</p>
+            <img
+              (click)="previewFile(requirementPair.fileUrl)"
+              *ngIf="requirementPair.studentRequirement"
+              class="requirement-pic"
+              [src]="requirementPair.fileUrl"
+              alt="Selected Image" />
+          </ng-container>
 
-        <p>Admin Comments:</p>
-        <textarea [(ngModel)]="requirementPair.adminComments"></textarea>
+          <p>Admin Comments:</p>
+          <textarea [(ngModel)]="requirementPair.adminComments"></textarea>
 
-        <div *ngIf="requirementPair.studentRequirement">
-          <button
-            [disabled]="requirementPair.studentRequirement.status?.id === 2"
-            (click)="setRequirementAsPending(requirementPair)"
-            mat-raised-button
-            color="accent">
-            Set as Pending
-          </button>
-          <button
-            [disabled]="requirementPair.studentRequirement.status?.id === 3"
-            (click)="setRequirementAsCleared(requirementPair)"
-            mat-raised-button
-            color="primary">
-            Set as Cleared
-          </button>
+          <div *ngIf="requirementPair.studentRequirement">
+            <button
+              [disabled]="requirementPair.studentRequirement.status?.id === 2"
+              (click)="setRequirementAsPending(requirementPair)"
+              mat-raised-button
+              color="accent">
+              Set as Pending
+            </button>
+            <button
+              [disabled]="requirementPair.studentRequirement.status?.id === 3"
+              (click)="setRequirementAsCleared(requirementPair)"
+              mat-raised-button
+              color="primary">
+              Set as Cleared
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
 
-<ng-container *ngIf="previewFileURL">
-  <div (click)="clickPreviewOverlay()" class="panel-background"></div>
-  <img class="pic" [src]="previewFileURL" />
-</ng-container>
+  <ng-container *ngIf="previewFileURL">
+    <div (click)="clickPreviewOverlay()" class="panel-background"></div>
+    <img class="pic" [src]="previewFileURL" />
+  </ng-container>
+</div>

@@ -88,6 +88,11 @@ export class AdminStudentsComponent {
                           requirementIds.push(requirement.id.toString());
                         }
                       }
+
+                      if (studentIds.length <= 0 || requirementIds.length <= 0) {
+                        return;
+                      }
+
                       this.fetchStudentRequirements(studentIds, requirementIds)
                         .pipe(first())
                         .subscribe((studentRequirements) => {
@@ -197,6 +202,12 @@ export class AdminStudentsComponent {
       if (requirement.id) {
         requirementIds.push(requirement.id.toString());
       }
+    }
+
+    console.log(studentIds, requirementIds);
+
+    if (studentIds.length <= 0 || requirementIds.length <= 0) {
+      return;
     }
 
     this.fetchStudentRequirements(studentIds, requirementIds)

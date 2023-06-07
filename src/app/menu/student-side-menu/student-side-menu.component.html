@@ -1,1 +1,22 @@
-<p>student-side-menu works!</p>
+<div class="sidebar-space"></div>
+
+<div class="sidebar">
+  <div class="logo-div">
+    <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
+  </div>
+
+  <div class="sidebar-menu">
+    <div class="sidebar-selection">
+      <ul>
+        <li><a [class.selected-tab]="pageSelected === 'home'" (click)="goToHome()">Home</a></li>
+        <li><a [class.selected-tab]="pageSelected === 'profile'" (click)="goToProfile()">Profile</a></li>
+        <li><a [class.selected-tab]="pageSelected === 'faqs'" (click)="goToFaqs()">Faqs</a></li>
+        <li><a [class.selected-tab]="pageSelected === 'contact'" (click)="goToContact()">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="logout-container">
+      <button (click)="logout()" class="logout-button">Logout</button>
+    </div>
+  </div>
+</div>

@@ -5,10 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'super-admin-side-menu',
   templateUrl: './super-admin-side-menu.component.html',
-  styleUrls: ['./super-admin-side-menu.component.scss'],
-  host: {
-    width: '500px'
-  }
+  styleUrls: ['./super-admin-side-menu.component.scss']
 })
 export class SuperAdminSideMenuComponent {
   @Input() pageSelected?: 'home' | 'clearance' | 'admins' | 'students';

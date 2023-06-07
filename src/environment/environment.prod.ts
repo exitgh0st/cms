@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://potpot-server.onrender.com'
+  apiUrl: 'https://udm-cms-server.onrender.com/api'
 };

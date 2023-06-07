@@ -1,24 +1,6 @@
 <div class="container">
-  <div class="sidebar">
-    <div class="logo-div">
-      <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
-    </div>
+  <admin-side-menu [departmentId]="admin?.department?.id" [pageSelected]="'requirements'"></admin-side-menu>
 
-    <div class="sidebar-menu">
-      <div class="sidebar-selection">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Profile</a></li>
-          <li><a class="current-page" href="#">Clearance Requirements</a></li>
-          <li><a href="#">Student List</a></li>
-        </ul>
-      </div>
-
-      <div class="logout-container">
-        <button class="logout-button">Logout</button>
-      </div>
-    </div>
-  </div>
   <div class="admin-home-page-container">
     <div class="department-name">
       <h1>Information and Communication Technology Office</h1>
