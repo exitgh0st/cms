@@ -74,6 +74,7 @@ export class SuperAdminAdminsComponent {
       .subscribe((admin) => {
         this.fetchAdmins();
         alert('Successfully created admin!');
+        this.showCreateAdminPanel = false;
       });
   }
 
