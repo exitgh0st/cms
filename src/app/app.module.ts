@@ -25,6 +25,7 @@ import { StudentsComponent } from './pages/students/students.component';
 import { AdminRequirementsComponent } from './pages/admin-requirements/admin-requirements.component';
 import { AdminStudentsComponent } from './pages/admin-students/admin-students.component';
 import { AuthService } from './services/auth.service';
+import { StudentListComponent } from './pages/student-list/student-list.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -53,6 +54,7 @@ export function initApp(authService: AuthService) {
     AdminRequirementsComponent,
     AdminStudentsComponent,
     ErikaComponent,
+    StudentListComponent,
     SuperAdminStudentsComponent,
     SuperAdminAdminsComponent,
     AdminProfileComponent,

@@ -217,7 +217,7 @@ export class StudentProfileComponent {
       html2canvas: {
         scale: 0.3
       },
-      callback: function (pdfMaker) {
+      callback: function (pdfMaker: jsPDF) {
         pdfMaker.save();
       }
     });
