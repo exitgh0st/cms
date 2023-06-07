@@ -7,7 +7,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
 
-type Pic = {
+export type Pic = {
   picURL?: string | ArrayBuffer;
   previewPicURL?: string | ArrayBuffer;
 };

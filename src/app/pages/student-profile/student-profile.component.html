@@ -1,5 +1,14 @@
 <h1>Hello {{ student?.account?.first_name }}</h1>
 
+<h2>Profile Pic</h2>
+<p *ngIf="!profilePic.picURL">No profile pic uploaded yet.</p>
+<img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
+<br />
+
+<input #fileInput type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
+<br />
+<button mat-raised-button color="primary" (click)="updateProfilePic()">Update</button>
+
 <div #profileTable>
   <table>
     <tr>

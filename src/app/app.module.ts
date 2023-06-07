@@ -33,6 +33,7 @@ import { SuperAdminStudentsComponent } from './pages/super-admin-students/super-
 import { SuperAdminAdminsComponent } from './pages/super-admin-admins/super-admin-admins.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
+import { AdminSideMenuComponent } from './menu/admin-side-menu/admin-side-menu.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -54,7 +55,8 @@ export function initApp(authService: AuthService) {
     ErikaComponent,
     SuperAdminStudentsComponent,
     SuperAdminAdminsComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    AdminSideMenuComponent
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,8 @@ import { DepartmentService } from 'src/app/services/department.service';
 import { RequirementService } from '../../services/requirements.service';
 import { StudentRequirementService } from 'src/app/services/student-requirement.service';
 import jsPDF, { HTMLOptions } from 'jspdf';
+import { Pic } from '../admin-profile/admin-profile.component';
+import { GoogleDriveService } from 'src/app/services/google-drive.service';
 
 type DepartmentRequirements = {
   department: Department;
@@ -28,6 +30,10 @@ export class StudentProfileComponent {
   departments?: Department[];
   requirements?: Requirement[];
   departmentRequirementsList: DepartmentRequirements[] = [];
+  profilePic: Pic = {};
+  profilePicFile?: File;
+  accountId!: number;
+
   @ViewChild('profileTable') profileTable?: ElementRef;
 
   constructor(
@@ -36,7 +42,9 @@ export class StudentProfileComponent {
     private requirementsService: RequirementService,
     private studentRequirementService: StudentRequirementService,
     private router: Router,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private googleDriveService: GoogleDriveService,
+    private accountService: AccountService
   ) {
     const accountId = this.authService.getAccountId();
 
@@ -45,11 +53,25 @@ export class StudentProfileComponent {
       return;
     }
 
+    this.accountId = accountId;
+
     this.studentService
       .getStudentByAccountId(accountId)
       .pipe(first())
       .subscribe((student) => {
         this.student = student;
+
+        if (student.account?.profile_picture_name) {
+          this.googleDriveService
+            .loadFile(student.account.profile_picture_name)
+            .pipe(first())
+            .subscribe((filedata) => {
+              const blob = new Blob([filedata], { type: 'image/jpeg' });
+              const imageURL = URL.createObjectURL(blob);
+
+              this.profilePic.picURL = imageURL;
+            });
+        }
       });
 
     this.departmentService
@@ -91,6 +113,47 @@ export class StudentProfileComponent {
               }
             }
           });
+      });
+  }
+
+  clickProfilePic() {
+    if (this.profilePic) {
+      this.profilePic.previewPicURL = this.profilePic.picURL;
+    }
+  }
+
+  onProfilePicFileSelected(event: any, profilePic: Pic) {
+    this.profilePicFile = event.target.files[0];
+
+    const fr = new FileReader();
+    fr.onload = function () {
+      if (fr.result && profilePic) {
+        profilePic.picURL = fr.result;
+      }
+    };
+
+    fr.readAsDataURL(event.target.files[0]);
+  }
+
+  updateProfilePic() {
+    if (!this.profilePicFile) {
+      alert('No file selected!');
+      return;
+    }
+
+    this.googleDriveService
+      .uploadFile(this.profilePicFile)
+      .pipe(first())
+      .subscribe((response) => {
+        if (response.fileName && this.accountId) {
+          console.log(this.accountId);
+          this.accountService
+            .updateAccount(this.accountId, { profile_picture_name: response.fileName })
+            .pipe(first())
+            .subscribe((response) => {
+              alert('Successfully updated profile pic!');
+            });
+        }
       });
   }
 

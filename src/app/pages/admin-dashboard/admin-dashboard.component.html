@@ -1,5 +1,7 @@
 <div class="container">
-  <div class="sidebar">
+  <admin-side-menu [pageSelected]="'home'"></admin-side-menu>
+
+  <!-- <div class="sidebar">
     <div class="logo-div">
       <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
     </div>
@@ -18,10 +20,10 @@
         <button (click)="logout()" class="logout-button">Logout</button>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="admin-home-page-container">
     <div class="department-name">
-      <h1>Information and Communication Technology Office</h1>
+      <div>Information and Communication Technology Office</div>
     </div>
     <div class="admin-home-page">
       <div class="department-list">
