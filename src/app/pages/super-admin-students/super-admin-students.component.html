@@ -1,105 +1,116 @@
 <div class="container">
   <super-admin-side-menu [pageSelected]="'students'"></super-admin-side-menu>
-  <div>
-    <h1>Students List</h1>
+  <div class="student-list-container">
+    <div class="student-list-title-container">
+      <h1>Student List</h1>
+    </div>
 
-    <button (click)="clickCreateStudentButton()" mat-raised-button color="primary">Create Student</button>
-    <table>
-      <tr>
-        <th>Student Number</th>
-        <th>Name</th>
-        <th>email</th>
-        <th>Actions</th>
-      </tr>
-      <tr *ngFor="let student of students">
-        <td>{{ student.student_number }}</td>
-        <td>{{ student.account?.first_name + " " + student.account?.last_name }}</td>
-        <td>{{ student.account?.email }}</td>
-        <td>
-          <button (click)="clickUpdateStudentButton(student)" mat-icon-button matTooltip="Click to Edit" color="primary">
-            <mat-icon aria-label="Edit">edit</mat-icon>
-          </button>
-          <button (click)="studentNumberForDeletion = student.student_number" mat-icon-button matTooltip="Click to Delete" color="warn">
-            <mat-icon aria-label="Delete">delete</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </table>
+    <div class="create-student-button">
+      <button class="subtext" (click)="clickCreateStudentButton()" mat-raised-button color="primary">Create Student</button>
+    </div>
+
+    <div class="student-table">
+      <table cellspacing="0">
+        <tr>
+          <th>Student Number</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th class="actions-col">Actions</th>
+        </tr>
+        <tr *ngFor="let student of students">
+          <td>{{ student.student_number }}</td>
+          <td>{{ student.account?.first_name + " " + student.account?.last_name }}</td>
+          <td>{{ student.account?.email }}</td>
+          <td>
+            <button (click)="clickUpdateStudentButton(student)" mat-icon-button matTooltip="Click to Edit" color="primary">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button (click)="studentNumberForDeletion = student.student_number" mat-icon-button matTooltip="Click to Delete" color="warn">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <ng-container *ngIf="showCreateStudentPanel">
+      <div (click)="showCreateStudentPanel = false" class="panel-background"></div>
+      <div class="panel">
+        <h2 class="title">Create Student</h2>
+        <form [formGroup]="studentForm">
+          <mat-form-field>
+            <mat-label class="subtext">Student number:</mat-label>
+            <input class="subtext" formControlName="studentNumber" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label class="subtext">First name:</mat-label>
+            <input class="subtext" formControlName="firstName" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label class="subtext">Last name:</mat-label>
+            <input class="subtext" formControlName="lastName" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label class="subtext">Email:</mat-label>
+            <input class="subtext" formControlName="email" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label class="subtext">Password:</mat-label>
+            <input class="subtext" formControlName="password" type="password" matInput />
+          </mat-form-field>
+
+          <div class="buttons">
+            <button class="subtext" (click)="createStudentWithAccount()" type="submit" mat-raised-button color="primary">Create</button>
+            <button class="subtext" (click)="showCreateStudentPanel = false" type="button" mat-raised-button color="warn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedStudent">
+      <div (click)="selectedStudent = undefined" class="panel-background"></div>
+      <div class="panel">
+        <h2 class="title">Update Student</h2>
+        <form [formGroup]="studentForm">
+          <mat-form-field>
+            <mat-label class="subtext">First name:</mat-label>
+            <input class="subtext" formControlName="firstName" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label class="subtext">Last name:</mat-label>
+            <input class="subtext" formControlName="lastName" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label class="subtext">Email:</mat-label>
+            <input class="subtext" formControlName="email" matInput />
+          </mat-form-field>
+
+          <div class="buttons">
+            <button class="subtext" (click)="updateStudentWithAccount()" type="submit" mat-raised-button color="primary">Update</button>
+            <button class="subtext" (click)="selectedStudent = undefined" type="button" mat-raised-button color="warn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+
+    <small-modal (clickGrayOverlay)="studentNumberForDeletion = undefined" *ngIf="studentNumberForDeletion">
+      <p class="subtext">Are you sure you want to delete this student?</p>
+      <p class="warn subtext">This will also delete all requirements passed by the said student!</p>
+
+      <div>
+        <button class="subtext" (click)="deleteStudent(studentNumberForDeletion)" type="submit" mat-raised-button color="warn">
+          Delete
+        </button>
+        <button class="subtext" (click)="studentNumberForDeletion = undefined" type="button" mat-raised-button color="primary">
+          Cancel
+        </button>
+      </div>
+    </small-modal>
   </div>
-
-  <ng-container *ngIf="showCreateStudentPanel">
-    <div (click)="showCreateStudentPanel = false" class="panel-background"></div>
-    <div class="panel">
-      <h2>Create Student</h2>
-      <form [formGroup]="studentForm">
-        <mat-form-field>
-          <mat-label>Student number:</mat-label>
-          <input formControlName="studentNumber" matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>First name:</mat-label>
-          <input formControlName="firstName" matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Last name:</mat-label>
-          <input formControlName="lastName" matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Email:</mat-label>
-          <input formControlName="email" matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Password:</mat-label>
-          <input formControlName="password" type="password" matInput />
-        </mat-form-field>
-
-        <div class="buttons">
-          <button (click)="createStudentWithAccount()" type="submit" mat-raised-button color="primary">Create</button>
-          <button (click)="showCreateStudentPanel = false" type="button" mat-raised-button color="warn">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="selectedStudent">
-    <div (click)="selectedStudent = undefined" class="panel-background"></div>
-    <div class="panel">
-      <h2>Update Student</h2>
-      <form [formGroup]="studentForm">
-        <mat-form-field>
-          <mat-label>First name:</mat-label>
-          <input formControlName="firstName" matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Last name:</mat-label>
-          <input formControlName="lastName" matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Email:</mat-label>
-          <input formControlName="email" matInput />
-        </mat-form-field>
-
-        <div class="buttons">
-          <button (click)="updateStudentWithAccount()" type="submit" mat-raised-button color="primary">Update</button>
-          <button (click)="selectedStudent = undefined" type="button" mat-raised-button color="warn">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </ng-container>
-
-  <small-modal (clickGrayOverlay)="studentNumberForDeletion = undefined" *ngIf="studentNumberForDeletion">
-    <p>Are you sure you want to delete this student?</p>
-    <p class="warn">This will also delete all requirements passed by the said student!</p>
-
-    <div>
-      <button (click)="deleteStudent(studentNumberForDeletion)" type="submit" mat-raised-button color="warn">Delete</button>
-      <button (click)="studentNumberForDeletion = undefined" type="button" mat-raised-button color="primary">Cancel</button>
-    </div>
-  </small-modal>
 </div>

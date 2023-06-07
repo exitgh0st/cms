@@ -18,7 +18,6 @@
   width: 800px;
   height: 300px;
   background-color: #eceff1;
-  border: 4px black solid;
   border-radius: 8px;
   justify-content: center;
   align-items: center;
@@ -47,4 +46,68 @@ button {
 
 .warn {
   color: red;
+}
+
+.student-list-container {
+  width: 100%;
+}
+
+.student-list-title-container {
+  width: 100%;
+}
+
+h1 {
+  margin: 30px 30px 50px 0;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.create-student-button {
+  margin: 0 0 50px 50px;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.student-table {
+  margin: 0 0 0 50px;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  border: none;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #cfd8dc;
+}
+
+th {
+  background-color: #607d8b;
+  color: white;
+}
+.actions-col {
+  text-align: center;
+}
+.title {
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.subtext {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
 }

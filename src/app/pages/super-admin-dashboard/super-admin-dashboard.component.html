@@ -1,5 +1,69 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
 <div class="container">
   <super-admin-side-menu class="side-menu" [pageSelected]="'home'"></super-admin-side-menu>
+  <div class="home-container">
+    <div class="super-admin-home-container">
+      <a
+        href="https://www.facebook.com/ManilaPIO/posts/news-update-udm-completes-transition-to-blended-learningthe-universidad-de-manil/886500811834609/">
+        <img class="news-tile" src="\assets\img\news1.jpg" alt="UDM News" />
+      </a>
+      <a href="https://www.facebook.com/UdM.Merlions/photos/a.694393490661251/5308401879260366">
+        <img class="news-tile" src="\assets\img\news2.jpg" alt="UDM News" />
+      </a>
+      <a href="https://www.facebook.com/udmanila/posts/pfbid02KB3MELo9wUb2nkHp88VWZybf4jMTuzrhS39moFsRttEHpoCnECVxkvHMycVjNyfwl">
+        <img class="news-tile" src="\assets\img\news3.jpg" alt="UDM News" />
+      </a>
+      <div class="student-list">
+        <p class="list-title">Student List</p>
+        <ol>
+          <li class="subtext-formatting">Juan Dela Cruz</li>
+          <li class="subtext-formatting">Roberto Delos Santos</li>
+          <li class="subtext-formatting">Pedro Dimakulangan</li>
+          <li class="subtext-formatting">Saturnina Macapagal</li>
+          <li class="subtext-formatting">Maria Clara Alcantara</li>
+        </ol>
+        <a class="link-format" (click)="goToStudents()">View more</a>
+      </div>
+      <div class="admin-list">
+        <p class="list-title">Admin List</p>
+        <ol>
+          <li class="subtext-formatting">Security Admin</li>
+          <li class="subtext-formatting">Library Admin</li>
+          <li class="subtext-formatting">Office of the Student Affairs Admin</li>
+          <li class="subtext-formatting">Guidance Counseling and Psychological Services Admin</li>
+          <li class="subtext-formatting">Clinic Admin</li>
+        </ol>
+        <a class="link-format" (click)="goToAdmins()">View More</a>
+      </div>
+      <div class="social-media-tile">
+        <p class="list-title">UDM Social Media</p>
+        <ul class="social-media-icons">
+          <li>
+            <a href="https://www.facebook.com/udmanila"><i class="fab fa-facebook"></i></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/officialudmla?lang=en"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/universidaddemanila/"><i class="fab fa-instagram"></i></a>
+          </li>
+          <li>
+            <a class="soc-med-margin" href="https://udm.edu.ph/udm2/"><i class="fa fa-globe"></i></a>
+          </li>
+        </ul>
 
-  <div></div>
+        <p class="list-title">UDM Portal</p>
+        <ul class="remove-bullet-points">
+          <li>
+            <a class="link-format" href="https://portal.udm.edu.ph/register/">Student Portal</a>
+          </li>
+          <li>
+            <a class="link-format" href="https://portal.udm.edu.ph/faculty/">Faculty Portal</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
