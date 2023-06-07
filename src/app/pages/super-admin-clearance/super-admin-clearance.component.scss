@@ -1,0 +1,24 @@
+mat-form-field {
+  margin: 8px;
+}
+
+.submission-container {
+  display: flex;
+  flex-direction: column;
+  background-color: antiquewhite;
+  width: 40%;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slide {
+  margin: 8px;
+}

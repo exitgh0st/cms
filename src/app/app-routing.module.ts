@@ -16,6 +16,7 @@ import { StudentListComponent } from './pages/student-list/student-list.componen
 import { SuperAdminStudentsComponent } from './pages/super-admin-students/super-admin-students.component';
 import { SuperAdminAdminsComponent } from './pages/super-admin-admins/super-admin-admins.component';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
+import { SuperAdminClearanceComponent } from './pages/super-admin-clearance/super-admin-clearance.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -30,8 +31,10 @@ const routes: Routes = [
     component: AdminProfileComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'admin/student-list', component: StudentListComponent },
+
+  { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'super-admin/clearance', component: SuperAdminClearanceComponent, canActivate: [AuthGuard] },
 
   { path: 'super-admin/students', component: SuperAdminStudentsComponent, canActivate: [AuthGuard] },
   { path: 'super-admin/admins', component: SuperAdminAdminsComponent, canActivate: [AuthGuard] },

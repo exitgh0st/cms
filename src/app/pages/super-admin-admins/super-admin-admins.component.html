@@ -1,105 +1,110 @@
-<h1>Admins List</h1>
+<div class="container">
+  <super-admin-side-menu [pageSelected]="'admins'"></super-admin-side-menu>
+  <div>
+    <h1>Admins List</h1>
 
-<button (click)="clickCreateAdminButton()" mat-raised-button color="primary">Create Admin</button>
-<table>
-  <tr>
-    <th>Admin Id</th>
-    <th>Name</th>
-    <th>Department</th>
-    <th>Email</th>
-    <th>Actions</th>
-  </tr>
-  <tr *ngFor="let admin of admins">
-    <td>{{ admin.id }}</td>
-    <td>{{ admin.account?.first_name + " " + admin.account?.last_name }}</td>
-    <td>{{ admin.department?.name }}</td>
-    <td>{{ admin.account?.email }}</td>
-    <td>
-      <button (click)="clickUpdateAdminButton(admin)" mat-icon-button matTooltip="Click to Edit" color="primary">
-        <mat-icon aria-label="Edit">edit</mat-icon>
-      </button>
-      <button (click)="deleteAdmin(admin.id)" mat-icon-button matTooltip="Click to Delete" color="warn">
-        <mat-icon aria-label="Delete">delete</mat-icon>
-      </button>
-    </td>
-  </tr>
-</table>
+    <button (click)="clickCreateAdminButton()" mat-raised-button color="primary">Create Admin</button>
+    <table>
+      <tr>
+        <th>Admin Id</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let admin of admins">
+        <td>{{ admin.id }}</td>
+        <td>{{ admin.account?.first_name + " " + admin.account?.last_name }}</td>
+        <td>{{ admin.department?.name }}</td>
+        <td>{{ admin.account?.email }}</td>
+        <td>
+          <button (click)="clickUpdateAdminButton(admin)" mat-icon-button matTooltip="Click to Edit" color="primary">
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <button (click)="deleteAdmin(admin.id)" mat-icon-button matTooltip="Click to Delete" color="warn">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
 
-<ng-container *ngIf="showCreateAdminPanel">
-  <div (click)="showCreateAdminPanel = false" class="panel-background"></div>
-  <div class="panel">
-    <h2>Create Admin</h2>
-    <form [formGroup]="adminForm">
-      <mat-form-field>
-        <mat-label>First name:</mat-label>
-        <input formControlName="firstName" matInput />
-      </mat-form-field>
+    <ng-container *ngIf="showCreateAdminPanel">
+      <div (click)="showCreateAdminPanel = false" class="panel-background"></div>
+      <div class="panel">
+        <h2>Create Admin</h2>
+        <form [formGroup]="adminForm">
+          <mat-form-field>
+            <mat-label>First name:</mat-label>
+            <input formControlName="firstName" matInput />
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Last name:</mat-label>
-        <input formControlName="lastName" matInput />
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last name:</mat-label>
+            <input formControlName="lastName" matInput />
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Department</mat-label>
-        <mat-select formControlName="departmentId">
-          <mat-option [value]="department.id" *ngFor="let department of departments">
-            {{ department.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="departmentId">
+              <mat-option [value]="department.id" *ngFor="let department of departments">
+                {{ department.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Email:</mat-label>
-        <input formControlName="email" matInput />
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email:</mat-label>
+            <input formControlName="email" matInput />
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Password:</mat-label>
-        <input formControlName="password" type="password" matInput />
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password:</mat-label>
+            <input formControlName="password" type="password" matInput />
+          </mat-form-field>
 
-      <div class="buttons">
-        <button (click)="createAdminWithAccount()" type="submit" mat-raised-button color="primary">Create</button>
-        <button (click)="showCreateAdminPanel = false" type="button" mat-raised-button color="warn">Cancel</button>
+          <div class="buttons">
+            <button (click)="createAdminWithAccount()" type="submit" mat-raised-button color="primary">Create</button>
+            <button (click)="showCreateAdminPanel = false" type="button" mat-raised-button color="warn">Cancel</button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</ng-container>
+    </ng-container>
 
-<ng-container *ngIf="selectedAdmin">
-  <div (click)="selectedAdmin = undefined" class="panel-background"></div>
-  <div class="panel">
-    <h2>Update Admin</h2>
-    <form [formGroup]="adminForm">
-      <mat-form-field>
-        <mat-label>First name:</mat-label>
-        <input formControlName="firstName" matInput />
-      </mat-form-field>
+    <ng-container *ngIf="selectedAdmin">
+      <div (click)="selectedAdmin = undefined" class="panel-background"></div>
+      <div class="panel">
+        <h2>Update Admin</h2>
+        <form [formGroup]="adminForm">
+          <mat-form-field>
+            <mat-label>First name:</mat-label>
+            <input formControlName="firstName" matInput />
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Last name:</mat-label>
-        <input formControlName="lastName" matInput />
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last name:</mat-label>
+            <input formControlName="lastName" matInput />
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Department</mat-label>
-        <mat-select formControlName="departmentId">
-          <mat-option [value]="department.id" *ngFor="let department of departments">
-            {{ department.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="departmentId">
+              <mat-option [value]="department.id" *ngFor="let department of departments">
+                {{ department.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Email:</mat-label>
-        <input formControlName="email" matInput />
-      </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email:</mat-label>
+            <input formControlName="email" matInput />
+          </mat-form-field>
 
-      <div class="buttons">
-        <button (click)="updateAdminWithAccount()" type="submit" mat-raised-button color="primary">Update</button>
-        <button (click)="selectedAdmin = undefined" type="button" mat-raised-button color="warn">Cancel</button>
+          <div class="buttons">
+            <button (click)="updateAdminWithAccount()" type="submit" mat-raised-button color="primary">Update</button>
+            <button (click)="selectedAdmin = undefined" type="button" mat-raised-button color="warn">Cancel</button>
+          </div>
+        </form>
       </div>
-    </form>
+    </ng-container>
   </div>
-</ng-container>
+</div>

@@ -54,4 +54,12 @@ export class SuperAdminStudentsComponent {
         this.fetchStudents();
       });
   }
+
+  clickUpdateStudentButton(student: Student) {}
+
+  deleteStudent(studentNumber: string | undefined) {
+    if (!studentNumber) {
+      return;
+    }
+  }
 }
