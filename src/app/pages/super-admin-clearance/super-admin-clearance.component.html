@@ -8,10 +8,11 @@
     <h3>End Date: {{ getDate(submissionData?.date_end) | date }}</h3>
     <h3>Current Status: {{ submissionData?.is_active ? "ACTIVE" : "INACTIVE" }}</h3>
 
-    <h2>Edit date for submission:</h2>
+    <h2>Edit submission data:</h2>
 
     <div class="submission-container">
-      <div></div>
+      <mat-slide-toggle color="warn" [(ngModel)]="isActive" class="slide">Is submission active?</mat-slide-toggle>
+
       <mat-form-field>
         <mat-label>Start date:</mat-label>
         <input [(ngModel)]="startDate" matInput [matDatepicker]="startPicker" />
@@ -28,9 +29,7 @@
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
 
-      <mat-slide-toggle [(ngModel)]="isActive" class="slide" color="primary">Is submission active?</mat-slide-toggle>
       <button mat-raised-button color="warn" (click)="updateSubmissionData()">SAVE</button>
-      <div class="bottom-container"></div>
     </div>
   </div>
 </div>

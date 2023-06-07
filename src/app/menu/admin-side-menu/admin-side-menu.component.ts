@@ -5,10 +5,14 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'admin-side-menu',
   templateUrl: './admin-side-menu.component.html',
-  styleUrls: ['./admin-side-menu.component.scss']
+  styleUrls: ['./admin-side-menu.component.scss'],
+  host: {
+    position: 'fixed'
+  }
 })
 export class AdminSideMenuComponent {
   @Input() pageSelected?: 'home' | 'profile' | 'requirements' | 'students';
+  @Input() departmentId?: number;
   constructor(private router: Router, private authService: AuthService) {}
 
   goToHome() {
@@ -30,7 +34,7 @@ export class AdminSideMenuComponent {
     if (this.pageSelected == 'requirements') {
       return;
     }
-    this.router.navigate(['admin', 'requirements']);
+    this.router.navigate(['admin', 'requirements', this.departmentId]);
   }
 
   goToStudentsList() {

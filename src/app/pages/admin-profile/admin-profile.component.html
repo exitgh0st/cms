@@ -1,5 +1,5 @@
 <div class="container">
-  <admin-side-menu [pageSelected]="'profile'"></admin-side-menu>
+  <admin-side-menu [departmentId]="admin?.department?.id" [pageSelected]="'profile'"></admin-side-menu>
   <div class="profile-page">
     <h1>Hello {{ admin?.account?.first_name }}</h1>
     <h2>Profile Pic</h2>

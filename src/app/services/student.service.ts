@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
 import { Student } from '../models/student';
-// import { Student } from '../models/account';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +23,13 @@ export class StudentService {
 
   createStudentWithAccount(student: Student) {
     return this.http.post<Student>(environment.apiUrl + '/students/account', student);
+  }
+
+  updateStudentWithAccount(studentNumber: string, student: Student) {
+    return this.http.patch(`${environment.apiUrl}/students/account/${studentNumber}`, student);
+  }
+
+  deleteStudent(studentNumber: string) {
+    return this.http.delete(`${environment.apiUrl}/students/${studentNumber}`);
   }
 }

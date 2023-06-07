@@ -10,7 +10,7 @@ export class SubmissionDataService {
   constructor(private http: HttpClient) {}
 
   getSubmissionData() {
-    return this.http.get(environment.apiUrl + '/submission_data/1');
+    return this.http.get<SubmissionData>(environment.apiUrl + '/submission_data/1');
   }
 
   updateSubmissionData(submissionData: SubmissionData) {

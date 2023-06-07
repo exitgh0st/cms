@@ -37,6 +37,10 @@ import { AdminProfileComponent } from './pages/admin-profile/admin-profile.compo
 import { AdminSideMenuComponent } from './menu/admin-side-menu/admin-side-menu.component';
 import { SuperAdminSideMenuComponent } from './menu/super-admin-side-menu/super-admin-side-menu.component';
 import { SuperAdminClearanceComponent } from './pages/super-admin-clearance/super-admin-clearance.component';
+import { SmallModalComponent } from './modals/small-modal/small-modal.component';
+import { FaqPageComponent } from './pages/faq-page/faq-page.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { StudentSideMenuComponent } from './menu/student-side-menu/student-side-menu.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -62,7 +66,11 @@ export function initApp(authService: AuthService) {
     AdminProfileComponent,
     AdminSideMenuComponent,
     SuperAdminSideMenuComponent,
-    SuperAdminClearanceComponent
+    SuperAdminClearanceComponent,
+    SmallModalComponent,
+    FaqPageComponent,
+    ContactPageComponent,
+    StudentSideMenuComponent
   ],
   imports: [
     BrowserModule,

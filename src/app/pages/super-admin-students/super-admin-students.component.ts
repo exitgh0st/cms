@@ -19,6 +19,8 @@ export class SuperAdminStudentsComponent {
     email: new FormControl(''),
     password: new FormControl('')
   });
+  selectedStudent?: Student;
+  studentNumberForDeletion?: string;
 
   constructor(private studentService: StudentService) {
     this.fetchStudents();
@@ -55,11 +57,56 @@ export class SuperAdminStudentsComponent {
       });
   }
 
-  clickUpdateStudentButton(student: Student) {}
+  clickUpdateStudentButton(student: Student) {
+    this.selectedStudent = student;
+
+    if (student.account?.first_name) {
+      this.studentForm.controls.firstName.setValue(student.account.first_name);
+    }
+
+    if (student.account?.last_name) {
+      this.studentForm.controls.lastName.setValue(student.account.last_name);
+    }
+    if (student.account?.email) {
+      this.studentForm.controls.email.setValue(student.account.email);
+    }
+  }
+
+  updateStudentWithAccount() {
+    if (!this.selectedStudent || !this.selectedStudent.student_number) {
+      return;
+    }
+
+    const studentData: Student = {
+      account: {
+        first_name: this.studentForm.value.firstName ? this.studentForm.value.firstName : undefined,
+        last_name: this.studentForm.value.lastName ? this.studentForm.value.lastName : undefined,
+        email: this.studentForm.value.email ? this.studentForm.value.email : undefined
+      }
+    };
+
+    this.studentService
+      .updateStudentWithAccount(this.selectedStudent.student_number, studentData)
+      .pipe(first())
+      .subscribe(() => {
+        alert('Successfully updated student!');
+        this.fetchStudents();
+        this.selectedStudent = undefined;
+      });
+  }
 
   deleteStudent(studentNumber: string | undefined) {
     if (!studentNumber) {
       return;
     }
+
+    this.studentService
+      .deleteStudent(studentNumber)
+      .pipe(first())
+      .subscribe(() => {
+        this.fetchStudents();
+        alert('Succesfully deleted student!');
+        this.studentNumberForDeletion = undefined;
+      });
   }
 }

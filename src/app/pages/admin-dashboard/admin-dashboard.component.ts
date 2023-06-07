@@ -35,6 +35,7 @@ export class AdminDashboardComponent {
       .subscribe({
         next: (admin) => {
           this.admin = admin;
+          console.log(admin);
         }
       });
 

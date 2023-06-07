@@ -25,6 +25,7 @@ export class SuperAdminAdminsComponent {
   });
 
   selectedAdmin?: Admin;
+  adminIdForDeletion?: number;
 
   constructor(private adminService: AdminService, private departmentService: DepartmentService) {
     this.fetchAdmins();
@@ -79,7 +80,6 @@ export class SuperAdminAdminsComponent {
   }
 
   clickUpdateAdminButton(admin: Admin) {
-    console.log(admin);
     this.selectedAdmin = admin;
 
     if (admin.account?.first_name) {
@@ -131,6 +131,7 @@ export class SuperAdminAdminsComponent {
       .subscribe(() => {
         this.fetchAdmins();
         alert('Successfully deleted admin!');
+        this.adminIdForDeletion = undefined;
       });
   }
 }

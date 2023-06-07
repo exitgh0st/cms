@@ -28,19 +28,17 @@ export class SuperAdminClearanceComponent {
       .pipe(first())
       .subscribe((submissionData) => {
         this.submissionData = submissionData;
-        console.log(this.submissionData);
+        this.isActive = submissionData.is_active;
       });
   }
 
   updateSubmissionData() {
-    if (!this.startDate || !this.endDate) {
-      alert('Input must be complete!');
-      return;
-    }
+    const startDate = this.startDate ? this.startDate.toISOString() : undefined;
+    const endDate = this.endDate ? this.endDate.toISOString() : undefined;
 
     const submissionData = {
-      date_start: this.startDate.toISOString(),
-      date_end: this.endDate.toISOString(),
+      date_start: startDate,
+      date_end: endDate,
       is_active: this.isActive ? true : false
     };
 
