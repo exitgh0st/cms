@@ -1,33 +1,5 @@
-<!-- <button mat-raised-button color="primary" (click)="goToProfile()">Profile</button>
-
-<h2>Hello {{ studentName }}</h2>
-<h1>Departments:</h1>
-
-<button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('1')">Department 1</button>
-<button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('2')">Department 2</button>
-<button mat-raised-button color="primary" (click)="goToDepartmentRequirementPage('3')">Department 3</button> -->
-
 <div class="container">
-  <div class="sidebar">
-    <div class="logo-div">
-      <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
-    </div>
-
-    <div class="sidebar-menu">
-      <div class="sidebar-selection">
-        <ul>
-          <li><a class="is-active">Home</a></li>
-          <li><a (click)="goToProfile()">Profile</a></li>
-          <li><a>FAQs</a></li>
-          <li><a>Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="logout-container">
-        <button (click)="logout()" class="logout-button">Logout</button>
-      </div>
-    </div>
-  </div>
+  <student-side-menu [pageSelected]="'home'"></student-side-menu>
   <div class="student-home-page-container">
     <!-- <div class="student-name-greetings">
       <h1>Hi, {{ student?.account?.first_name }} !</h1>

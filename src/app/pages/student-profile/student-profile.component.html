@@ -1,27 +1,32 @@
-<h1>Hello {{ student?.account?.first_name }}</h1>
+<div class="container">
+  <student-side-menu [pageSelected]="'profile'"></student-side-menu>
+  <div>
+    <h1>Hello {{ student?.account?.first_name }}</h1>
 
-<h2>Profile Pic</h2>
-<p *ngIf="!profilePic.picURL">No profile pic uploaded yet.</p>
-<img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
-<br />
+    <h2>Profile Pic</h2>
+    <p *ngIf="!profilePic.picURL">No profile pic uploaded yet.</p>
+    <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
+    <br />
 
-<input #fileInput type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
-<br />
-<button mat-raised-button color="primary" (click)="updateProfilePic()">Update</button>
+    <input #fileInput type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
+    <br />
+    <button mat-raised-button color="primary" (click)="updateProfilePic()">Update</button>
 
-<div #profileTable>
-  <table>
-    <tr>
-      <th>Department</th>
-      <th>Requirement Status</th>
-      <th>Check Status</th>
-    </tr>
-    <tr *ngFor="let departmentRequirements of departmentRequirementsList">
-      <td>{{ departmentRequirements.department.name }}</td>
-      <td>{{ getDepartmentRequirementsStatusString(departmentRequirements) }}</td>
-      <td>{{ getDepartmentCheckStatus(departmentRequirements) }}</td>
-    </tr>
-  </table>
+    <div #profileTable>
+      <table>
+        <tr>
+          <th>Department</th>
+          <th>Requirement Status</th>
+          <th>Check Status</th>
+        </tr>
+        <tr *ngFor="let departmentRequirements of departmentRequirementsList">
+          <td>{{ departmentRequirements.department.name }}</td>
+          <td>{{ getDepartmentRequirementsStatusString(departmentRequirements) }}</td>
+          <td>{{ getDepartmentCheckStatus(departmentRequirements) }}</td>
+        </tr>
+      </table>
 
-  <button (click)="savePDF()" mat-raised-button color="primary">Save PDF</button>
+      <button (click)="savePDF()" mat-raised-button color="primary">Save PDF</button>
+    </div>
+  </div>
 </div>
