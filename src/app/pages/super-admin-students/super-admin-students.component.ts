@@ -109,4 +109,13 @@ export class SuperAdminStudentsComponent {
         this.studentNumberForDeletion = undefined;
       });
   }
+
+  clickCreateStudentButton() {
+    this.studentForm.controls.studentNumber.setValue('');
+    this.studentForm.controls.firstName.setValue('');
+    this.studentForm.controls.lastName.setValue('');
+    this.studentForm.controls.email.setValue('');
+    this.studentForm.controls.password.setValue('');
+    this.showCreateStudentPanel = true;
+  }
 }
