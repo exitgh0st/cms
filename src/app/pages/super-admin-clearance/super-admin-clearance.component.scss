@@ -5,7 +5,8 @@ mat-form-field {
 .submission-container {
   display: flex;
   flex-direction: column;
-  background-color: antiquewhite;
+  padding-left: 50px;
+  width: 40%;
 }
 
 .container {
@@ -29,3 +30,47 @@ mat-form-field {
 // :host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
 //   background-color: #49c5b6;
 // }
+
+.clearance-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.clearance-title-container {
+  width: 100%;
+}
+.submission-deadline-tile {
+  padding-left: 50px;
+  padding-bottom: 50px;
+}
+h1 {
+  margin: 30px 30px 50px 0;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+}
+.title {
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.subtext {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+.update-submission-deadline-title {
+  padding-left: 50px;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.save-button:hover {
+  background-color: #b0bec5;
+  color: black;
+}

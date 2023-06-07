@@ -1,35 +1,41 @@
 <div class="container">
   <super-admin-side-menu [pageSelected]="'clearance'"></super-admin-side-menu>
 
-  <div>
-    <h1>Hello super admin!</h1>
-    <h2>Current Submission Data:</h2>
-    <h3>Start Date: {{ getDate(submissionData?.date_start) | date }}</h3>
-    <h3>End Date: {{ getDate(submissionData?.date_end) | date }}</h3>
-    <h3>Current Status: {{ submissionData?.is_active ? "ACTIVE" : "INACTIVE" }}</h3>
+  <div class="clearance-container">
+    <div class="clearance-title-container">
+      <h1>Clearance Management</h1>
+    </div>
+    <div class="submission-deadline-tile">
+      <h2 class="title">Posted Submission Deadline:</h2>
+      <h3 class="subtext">Start Date: {{ getDate(submissionData?.date_start) | date }}</h3>
+      <h3 class="subtext">End Date: {{ getDate(submissionData?.date_end) | date }}</h3>
+      <h3 class="subtext">Current Status: {{ submissionData?.is_active ? "ACTIVE" : "INACTIVE" }}</h3>
+    </div>
 
-    <h2>Edit submission data:</h2>
+    <div>
+      <h2 class="update-submission-deadline-title">Update Submission Deadline:</h2>
+    </div>
 
     <div class="submission-container">
-      <mat-slide-toggle color="warn" [(ngModel)]="isActive" class="slide">Is submission active?</mat-slide-toggle>
+      <mat-slide-toggle color="warn" [(ngModel)]="isActive" class="slide subtext">Submission Deadline</mat-slide-toggle>
 
       <mat-form-field>
-        <mat-label>Start date:</mat-label>
+        <mat-label class="subtext">Start Date</mat-label>
         <input [(ngModel)]="startDate" matInput [matDatepicker]="startPicker" />
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-hint>Format should be in "MM/DD/YYYY"</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
         <mat-datepicker #startPicker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>End date:</mat-label>
+        <mat-label class="subtext">End Date</mat-label>
         <input [(ngModel)]="endDate" matInput [matDatepicker]="endPicker" />
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-hint>Format should be in "MM/DD/YYYY"</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
 
-      <button mat-raised-button color="warn" (click)="updateSubmissionData()">SAVE</button>
+      <button mat-raised-button color="primary" class="subtext save-button" (click)="updateSubmissionData()">SAVE</button>
     </div>
   </div>
 </div>
