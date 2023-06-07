@@ -16,9 +16,8 @@
   bottom: 0;
   margin: auto;
   width: 800px;
-  height: 300px;
+  height: 400px;
   background-color: #eceff1;
-  border: 4px black solid;
   border-radius: 8px;
   justify-content: center;
   align-items: center;
@@ -36,6 +35,10 @@ mat-form-field {
   justify-content: space-around;
 }
 
+.update-admin-form {
+  margin: 20px 20px 0 30px;
+}
+
 button {
   margin: 0 8px;
 }
@@ -47,4 +50,67 @@ button {
 
 .warn {
   color: red;
+}
+
+.admin-list-container {
+  width: 100%;
+}
+
+.admin-list-title-container {
+  width: 100%;
+}
+
+h1 {
+  margin: 30px 30px 50px 0;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.create-admin-button {
+  margin: 0 0 50px 50px;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+}
+
+.admin-table {
+  margin: 0 0 0 50px;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  border: none;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: #cfd8dc;
+}
+
+th {
+  background-color: #607d8b;
+  color: white;
+}
+.actions-col {
+  text-align: center;
+}
+.update-admin {
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.subtext {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
 }
