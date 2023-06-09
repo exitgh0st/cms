@@ -1,1 +1,92 @@
-<p>student-clearance works!</p>
+<div class="container">
+  <student-side-menu [pageSelected]="'clearance'"></student-side-menu>
+  <div class="flex-container">
+    <button (click)="savePDF()" class="pdf-button" mat-raised-button color="primary">Save PDF</button>
+    <div #clearanceForm class="student-profile-page">
+      <div class="student-profile-container">
+        <div class="form-container">
+          <div class="clearance-form">
+            <div class="clearance-form-title">
+              <h2 class="clearance-form-name">UDM-CMS CLEARANCE FORM 2023</h2>
+            </div>
+            <div class="clearance-form-header">
+              <img class="udm-logo" src="/assets/img/udm_logo_with_text.png" alt="UDM Logo" />
+              <div class="clearance-header">
+                <p class="title">OFFICE OF THE UNIVERSITY REGISTRAR</p>
+                <p class="subtext">CLEARANCE FOR ENROLLMENT</p>
+                <p class="subtext-small">_______ Semester, SY _______-_______</p>
+              </div>
+            </div>
+            <div class="clearance-form-body">
+              <div class="clearance-details">
+                <p>
+                  Course:
+                  <span class="text-underline">BSED Major in Social Sciences</span>
+                </p>
+                <p>
+                  Student Number:
+                  <span class="text-underline">{{ student?.student_number }}</span>
+                </p>
+                <p>Last Enrollment: _______ Semester, SY _______________</p>
+              </div>
+              <div class="department-signature-container">
+                <div class="department-signature">
+                  <img
+                    class="e-signature"
+                    [src]="isDepartmentCleared(1) ? getAdminPairWithDepartmentId(1) : 'assets/img/e-signature_blank.png'"
+                    alt="Security Department E-Signature" />
+                  <div class="signature-line"></div>
+                  <p class="text">SECURITY</p>
+                  <img
+                    class="e-signature"
+                    [src]="isDepartmentCleared(6) ? getAdminPairWithDepartmentId(6) : 'assets/img/e-signature_blank.png'"
+                    alt="OSA Department E-Signature" />
+                  <div class="signature-line"></div>
+                  <p class="text">OFFICE OF THE STUDENT AFFAIRS</p>
+                  <img
+                    class="e-signature"
+                    [src]="isDepartmentCleared(4) ? getAdminPairWithDepartmentId(4) : 'assets/img/e-signature_blank.png'"
+                    alt="Guidance Department E-Signature" />
+                  <div class="signature-line"></div>
+                  <p class="text">GUIDANCE COUNSELING & PSYCHOLOGICAL SERVICES</p>
+                </div>
+
+                <div class="department-signature">
+                  <img
+                    class="e-signature"
+                    [src]="isDepartmentCleared(2) ? getAdminPairWithDepartmentId(2) : 'assets/img/e-signature_blank.png'"
+                    alt="Security Department E-Signature" />
+                  <div class="signature-line"></div>
+                  <p class="text">LIBRARY</p>
+                  <img
+                    class="e-signature"
+                    [src]="isDepartmentCleared(5) ? getAdminPairWithDepartmentId(5) : 'assets/img/e-signature_blank.png'"
+                    alt="OSA Department E-Signature" />
+                  <div class="signature-line"></div>
+                  <p class="text">CLINIC</p>
+                  <img
+                    class="e-signature"
+                    [src]="isDepartmentCleared(6) ? getAdminPairWithDepartmentId(6) : 'assets/img/e-signature_blank.png'"
+                    alt="Guidance Department E-Signature" />
+                  <div class="signature-line"></div>
+                  <p class="text">INFORMATION & COMMUNICATIONS TECHNOLOGY OFFICE</p>
+                </div>
+              </div>
+            </div>
+            <div class="footer">
+              <div class="student-signature">
+                <div class="signature-line"></div>
+                <p class="text">Student’s signature over printed name</p>
+
+                <div class="footer-text">
+                  <p>This is to certify that the clearance form is generated through the UDM-CMS</p>
+                  <p>Clearance Form Generation Date is 06/10/2023 02:14 AM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
