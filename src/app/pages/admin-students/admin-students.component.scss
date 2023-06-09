@@ -3,6 +3,47 @@
   height: 100vh;
 }
 
+.student-list-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.student-list {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+h1 {
+  margin: 30px 30px 50px 0;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+}
+
+h2 {
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+h3 {
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+table {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
 td,
 th {
   border: 1px solid #ddd;
@@ -10,7 +51,7 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #eceff1;
 }
 
 .click-click {
@@ -25,12 +66,12 @@ th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04aa6d;
+  background-color: #607d8b;
   color: white;
 }
 
 .panel-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -46,33 +87,36 @@ th {
   top: 0;
   bottom: 0;
   margin: auto;
-  width: 800px;
+  width: 1300px;
   height: 700px;
   background-color: #eceff1;
-  border: 4px black solid;
-  border-radius: 8px;
+  border-radius: 15px;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .requirements {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .requirement {
-  border: 1px black solid;
-  border-radius: 4px;
+  border-radius: 10px;
   margin: 8px;
   padding: 8px;
-  background-color: wheat;
+  background-color: #cfd8dc;
 }
 
 .requirement-pic {
-  max-width: 200px;
-  max-height: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .done {
@@ -104,4 +148,21 @@ th {
 
 button {
   z-index: 0;
+}
+
+.text-bold {
+  font-weight: 900;
+}
+
+.text-warn {
+  color: red;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.student-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 50px;
 }
