@@ -28,9 +28,9 @@
           <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
           <br />
           <div class="buttons-container">
-            <button mat-raised-button color="primary" class="white-button">
+            <button (click)="fileInput1.click()" mat-raised-button color="primary" class="white-button">
               Upload Picture
-              <input class="hide-button" #fileInput type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
+              <input class="hide-button" #fileInput1 type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
             </button>
             <br />
             <button mat-raised-button color="primary" (click)="updateProfilePic()">Save Picture</button>
@@ -43,9 +43,9 @@
           <img (click)="clickESignaturePic()" class="e-signature" [src]="eSignaturePic.picURL" />
           <br />
           <div class="buttons-container">
-            <button class="white-button" mat-raised-button color="primary">
+            <button (click)="fileInput2.click()" class="white-button" mat-raised-button color="primary">
               Upload E-signature
-              <input class="hide-button" #fileInput type="file" name="file" (change)="onESignatureFileSelected($event, eSignaturePic)" />
+              <input class="hide-button" #fileInput2 type="file" name="file" (change)="onESignatureFileSelected($event, eSignaturePic)" />
             </button>
             <br />
             <button mat-raised-button color="primary" (click)="updateESignaturePic()">Save E-signature</button>
