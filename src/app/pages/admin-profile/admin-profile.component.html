@@ -2,6 +2,9 @@
   <admin-side-menu [departmentId]="admin?.department?.id" [pageSelected]="'profile'"></admin-side-menu>
   <div class="profile-page">
     <h1>Hello {{ admin?.account?.first_name }}</h1>
+    <p>Department: {{ admin?.department?.name }}</p>
+    <p>Email: {{ admin?.account?.email }}</p>
+
     <h2>Profile Pic</h2>
     <p *ngIf="!admin?.account?.profile_picture_name">No profile pic uploaded yet.</p>
     <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
