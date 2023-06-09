@@ -1,60 +1,70 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
 <div class="container">
   <admin-side-menu [departmentId]="admin?.department?.id" [pageSelected]="'home'"></admin-side-menu>
 
-  <!-- <div class="sidebar">
-    <div class="logo-div">
-      <img class="logo-cms" src="\assets\img\udm-logo-v3.png" alt="CMS Logo" />
-    </div>
-
-    <div class="sidebar-menu">
-      <div class="sidebar-selection">
-        <ul>
-          <li><a class="selected-tab">Home</a></li>
-          <li><a (click)="goToProfile()">Profile</a></li>
-          <li><a (click)="goToRequirementsList()">Clearance Requirements</a></li>
-          <li><a (click)="goToStudentsList()">Student List</a></li>
+  <div class="home-container">
+    <div class="super-admin-home-container">
+      <a
+        href="https://www.facebook.com/ManilaPIO/posts/news-update-udm-completes-transition-to-blended-learningthe-universidad-de-manil/886500811834609/">
+        <img class="news-tile" src="\assets\img\news1.jpg" alt="UDM News" />
+      </a>
+      <a href="https://www.facebook.com/UdM.Merlions/photos/a.694393490661251/5308401879260366">
+        <img class="news-tile" src="\assets\img\news2.jpg" alt="UDM News" />
+      </a>
+      <a href="https://www.facebook.com/udmanila/posts/pfbid02KB3MELo9wUb2nkHp88VWZybf4jMTuzrhS39moFsRttEHpoCnECVxkvHMycVjNyfwl">
+        <img class="news-tile" src="\assets\img\news3.jpg" alt="UDM News" />
+      </a>
+      <div class="student-list">
+        <p class="list-title">Student List</p>
+        <ol>
+          <li class="subtext-formatting">Juan Dela Cruz</li>
+          <li class="subtext-formatting">Roberto Delos Santos</li>
+          <li class="subtext-formatting">Pedro Dimakulangan</li>
+          <li class="subtext-formatting">Saturnina Macapagal</li>
+          <li class="subtext-formatting">Maria Clara Alcantara</li>
+        </ol>
+        <a class="link-format">View more</a>
+      </div>
+      <div class="admin-list">
+        <p class="list-title">Clearance List (Posted):</p>
+        <ol>
+          <li class="subtext-formatting">Security Admin</li>
+          <li class="subtext-formatting">Library Admin</li>
+          <li class="subtext-formatting">Office of the Student Affairs Admin</li>
+          <li class="subtext-formatting">Guidance Counseling and Psychological Services Admin</li>
+          <li class="subtext-formatting">Clinic Admin</li>
+        </ol>
+        <a class="link-format">View More</a>
+      </div>
+      <div class="social-media-tile">
+        <p class="list-title">UDM Social Media</p>
+        <ul class="social-media-icons">
+          <li>
+            <a href="https://www.facebook.com/udmanila"><i class="fab fa-facebook"></i></a>
+          </li>
+          <li>
+            <a href="https://twitter.com/officialudmla?lang=en"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/universidaddemanila/"><i class="fab fa-instagram"></i></a>
+          </li>
+          <li>
+            <a class="soc-med-margin" href="https://udm.edu.ph/udm2/"><i class="fa fa-globe"></i></a>
+          </li>
         </ul>
-      </div>
 
-      <div class="logout-container">
-        <button (click)="logout()" class="logout-button">Logout</button>
-      </div>
-    </div>
-  </div> -->
-  <div class="admin-home-page-container">
-    <div class="department-name">
-      <div>Information and Communication Technology Office</div>
-    </div>
-    <div class="admin-home-page">
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <p class="clearance-status zoom-text">Total Requirements: 3</p>
-          <p class="clearance-status zoom-text">Student Submitted: 19</p>
-          <br />
-          <p class="clearance-status zoom-text">Cleared Students: 17</p>
-          <p class="clearance-status zoom-text">Pending Students: 2</p>
-          <p class="clearance-status zoom-text">Not Cleared Students: 30</p>
-        </div>
-      </div>
-      <div class="department-list">
-        <div class="department-tile zoom-container">
-          <p class="submission-date-text zoom-text">Submission Deadline</p>
-          <p class="submission-deadline-date zoom-text">{{ submissionData?.date_end | date }}</p>
-        </div>
-      </div>
-      <div class="department-list">
-        <div class="department-tile requirements-tile clearance-requirement-list zoom-container">
-          <p class="clearance-status zoom-text-small">Department: Information and Communication Technology Office</p>
-          <p class="clearance-status zoom-text-small">Requirement Posting Date: May 25, 2023 11:29 PM</p>
-          <p class="clearance-status zoom-text-small">Admin Name: John Smith Doe</p>
-          <br />
-          <p class="clearance-status zoom-text-small">Clearance Requirements:</p>
-          <ol class="requirements-posted zoom-text-small">
-            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-          </ol>
-        </div>
+        <p class="list-title">UDM Portal</p>
+        <ul class="remove-bullet-points">
+          <li>
+            <a class="link-format" href="https://portal.udm.edu.ph/register/">Student Portal</a>
+          </li>
+          <li>
+            <a class="link-format" href="https://portal.udm.edu.ph/faculty/">Faculty Portal</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
