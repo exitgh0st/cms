@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./student-side-menu.component.scss']
 })
 export class StudentSideMenuComponent {
-  @Input() pageSelected?: 'home' | 'profile' | 'faqs' | 'contact';
+  @Input() pageSelected?: 'home' | 'profile' | 'clearance' | 'contact';
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -27,11 +27,11 @@ export class StudentSideMenuComponent {
     this.router.navigate(['student', 'profile']);
   }
 
-  goToFaqs() {
-    if (this.pageSelected == 'faqs') {
+  goToClearance() {
+    if (this.pageSelected == 'clearance') {
       return;
     }
-    this.router.navigate(['student', 'faqs']);
+    this.router.navigate(['student', 'clearance']);
   }
 
   goToContact() {

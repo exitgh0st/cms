@@ -41,6 +41,7 @@ import { SmallModalComponent } from './modals/small-modal/small-modal.component'
 import { FaqPageComponent } from './pages/faq-page/faq-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { StudentSideMenuComponent } from './menu/student-side-menu/student-side-menu.component';
+import { StudentClearanceComponent } from './pages/student-clearance/student-clearance.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -70,7 +71,8 @@ export function initApp(authService: AuthService) {
     SmallModalComponent,
     FaqPageComponent,
     ContactPageComponent,
-    StudentSideMenuComponent
+    StudentSideMenuComponent,
+    StudentClearanceComponent
   ],
   imports: [
     BrowserModule,

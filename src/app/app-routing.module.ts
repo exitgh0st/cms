@@ -19,6 +19,7 @@ import { AdminProfileComponent } from './pages/admin-profile/admin-profile.compo
 import { SuperAdminClearanceComponent } from './pages/super-admin-clearance/super-admin-clearance.component';
 import { FaqPageComponent } from './pages/faq-page/faq-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { StudentClearanceComponent } from './pages/student-clearance/student-clearance.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -51,8 +52,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'student/faqs',
-    component: FaqPageComponent,
+    path: 'student/clearance',
+    component: StudentClearanceComponent,
     canActivate: [AuthGuard]
   },
   {
