@@ -209,22 +209,11 @@ export class StudentProfileComponent {
     return 'DONE';
   }
 
-  savePDF() {
-    if (!this.profileTable) {
+  goToRequirementDepartment(departmentId: number | undefined) {
+    if (!departmentId) {
       return;
     }
 
-    const pdfMaker = new jsPDF('p', 'mm', 'letter');
-
-    const dateToday = this.datePipe.transform(new Date(), 'MM-dd-YYYY');
-    const fileName = `Clearance Form-${this.student?.student_number}-${this.student?.account?.last_name},${this.student?.account?.first_name}-${dateToday}.pdf`;
-    pdfMaker.html(this.profileTable.nativeElement, {
-      html2canvas: {
-        scale: 0.3
-      },
-      callback: function (pdfMaker: jsPDF) {
-        pdfMaker.save(fileName.toUpperCase());
-      }
-    });
+    this.router.navigate(['student', 'requirements', departmentId]);
   }
 }
