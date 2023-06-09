@@ -24,36 +24,36 @@
         <br />
 
         <div class="submit-buttons">
-          <div class="submit-container">
-            <ng-container *ngIf="submissionData?.is_active">
-              <input #fileInput type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
-              <br />
-              <button mat-raised-button color="primary" (click)="uploadFile(requirementPair)">
-                {{ !requirementPair.studentRequirement ? "SUBMIT" : "SUBMIT AGAIN" }}
-              </button>
-            </ng-container>
-          </div>
+          <ng-container *ngIf="submissionData?.is_active">
+            <button (click)="fileInput2.click()" class="white-button" mat-raised-button color="primary">
+              Upload Clearance
+              <input class="hide-button" #fileInput2 type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
+            </button>
+            <button mat-raised-button color="primary" (click)="uploadFile(requirementPair)">
+              {{ !requirementPair.studentRequirement ? "SUBMIT" : "SUBMIT AGAIN" }}
+            </button>
+          </ng-container>
+          <ng-container *ngIf="!submissionData?.is_active">
+            <p>
+              <span class="text-bold">Status:</span>
+              <span
+                [class.pending]="requirementPair.studentRequirement?.status?.name === 'PENDING'"
+                [class.cleared]="requirementPair.studentRequirement?.status?.name === 'CLEARED'">
+                {{ requirementPair.studentRequirement?.status?.name }}
+              </span>
+            </p>
+
+            <p *ngIf="requirementPair.studentRequirement?.admin_comments">
+              <span class="text-bold">Admin Comment:</span>
+              {{ requirementPair.studentRequirement?.admin_comments }}
+            </p>
+          </ng-container>
+
+          <ng-container *ngIf="previewFileURL">
+            <div (click)="clickGrayOverlay()" class="panel-background"></div>
+            <img class="pic" [src]="previewFileURL" />
+          </ng-container>
         </div>
-        <ng-container *ngIf="!submissionData?.is_active">
-          <p>
-            <span class="text-bold">Status:</span>
-            <span
-              [class.pending]="requirementPair.studentRequirement?.status?.name === 'PENDING'"
-              [class.cleared]="requirementPair.studentRequirement?.status?.name === 'CLEARED'">
-              {{ requirementPair.studentRequirement?.status?.name }}
-            </span>
-          </p>
-
-          <p *ngIf="requirementPair.studentRequirement?.admin_comments">
-            <span class="text-bold">Admin Comment:</span>
-            {{ requirementPair.studentRequirement?.admin_comments }}
-          </p>
-        </ng-container>
-
-        <ng-container *ngIf="previewFileURL">
-          <div (click)="clickGrayOverlay()" class="panel-background"></div>
-          <img class="pic" [src]="previewFileURL" />
-        </ng-container>
       </div>
     </div>
   </div>

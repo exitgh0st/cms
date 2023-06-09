@@ -12,11 +12,14 @@
 }
 
 .pdf-button {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
   margin-top: 20px;
   margin-left: 20px;
   padding: 20px;
-  width: 40%;
-
+  width: 15%;
+  border-radius: 10px;
   justify-content: center;
 }
 
@@ -136,8 +139,6 @@
 .e-signature {
   width: 250px;
   height: 100px;
-  // height: 250px;
-  // border-bottom: #000 solid;
   margin-bottom: 20px;
 }
 
