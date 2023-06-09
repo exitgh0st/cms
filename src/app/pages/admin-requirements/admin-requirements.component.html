@@ -3,21 +3,21 @@
 
   <div class="admin-home-page-container">
     <div class="department-name">
-      <h1>Information and Communication Technology Office</h1>
+      <h1>{{ admin?.department?.name }}</h1>
     </div>
     <div class="admin-home-page">
       <div class="table-tile">
-        <div class="department-tile requirements-tile clearance-requirement-list">
+        <div class="">
           <div>
-            <button (click)="clickCreateRequirementButton()" class="create-button">CREATE REQUIREMENTS</button>
+            <button (click)="clickCreateRequirementButton()" class="create-button">Create Requirements</button>
             <table>
               <tr>
                 <th>No.</th>
                 <th>Requirement</th>
                 <th>Description</th>
                 <th>Created By</th>
-                <th>EDIT</th>
-                <th>DELETE</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
               <tr *ngFor="let requirement of requirements">
                 <td>{{ requirement.id }}</td>
@@ -73,19 +73,19 @@
   <div class="panel">
     <form [formGroup]="requirementForm">
       <div class="input-fields">
-        <h2>Create Requirement</h2>
+        <h2 class="form-title">Create Requirement</h2>
         <mat-form-field>
-          <mat-label>Name:</mat-label>
-          <input formControlName="name" matInput />
+          <mat-label class="text">Name:</mat-label>
+          <input class="text" formControlName="name" matInput />
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Description:</mat-label>
-          <input formControlName="description" matInput />
+          <mat-label class="text">Description:</mat-label>
+          <textarea class="text" formControlName="description" matInput></textarea>
         </mat-form-field>
 
-        <button (click)="createRequirement()" mat-raised-button color="primary" type="submit">Confirm</button>
-        <button (click)="showCreatePanel = false" mat-raised-button color="warn" type="button">Cancel</button>
+        <button class="text" (click)="createRequirement()" mat-raised-button color="primary" type="submit">Confirm</button>
+        <button class="text" (click)="showCreatePanel = false" mat-raised-button color="warn" type="button">Cancel</button>
       </div>
     </form>
   </div>
