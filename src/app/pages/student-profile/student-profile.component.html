@@ -10,7 +10,7 @@
           <p *ngIf="!student?.account?.profile_picture_name">No profile picture uploaded yet</p>
           <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
           <div class="buttons-container">
-            <button mat-raised-button color="primary" class="white-button">
+            <button (click)="fileInput.click()" mat-raised-button color="primary" class="white-button">
               Choose Picture
               <input class="hide-button" #fileInput type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
             </button>
