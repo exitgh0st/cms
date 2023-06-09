@@ -159,7 +159,7 @@ export class AdminStudentsComponent {
       }
     }
 
-    if (clearCount == studentRequirementsPassed.length) {
+    if (clearCount == this.requirements.length) {
       return 'DONE';
     }
 
