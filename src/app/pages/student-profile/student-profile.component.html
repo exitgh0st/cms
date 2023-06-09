@@ -2,6 +2,9 @@
   <student-side-menu [pageSelected]="'profile'"></student-side-menu>
   <div>
     <h1>Hello {{ student?.account?.first_name }}</h1>
+    <p>Student Number: {{ student?.student_number }}</p>
+
+    <p>Email: {{ student?.account?.email }}</p>
 
     <h2>Profile Pic</h2>
     <p *ngIf="!profilePic.picURL">No profile pic uploaded yet.</p>
