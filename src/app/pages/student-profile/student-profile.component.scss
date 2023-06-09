@@ -30,5 +30,225 @@ th {
 }
 
 .profile-pic {
+  border-radius: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.student-profile-page {
+  width: 100%;
+  display: flex;
+}
+
+.student-profile-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+h1 {
+  margin: 0 30px 50px 0;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.student-profile-details-container {
+  background-color: #eceff1;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+h2 {
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.picture-container {
+  margin: 20px;
+}
+
+button {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 20px;
+}
+
+.white-button {
+  background-color: #fff !important;
+  color: #607d8b !important;
+  margin-right: 20px;
+}
+
+.hide-button {
+  opacity: 0;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.student-details-container {
+  margin: 50px 0 0 100px;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.form-container {
+  display: flex;
+  padding: 50px;
+  background-color: #eceff1;
+  padding: 15px;
+  border-radius: 15px;
+  width: 100%;
+}
+
+.clearance-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.clearance-form-title {
+  width: 100%;
+}
+
+.clearance-form-name {
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  text-align: right;
+}
+
+.clearance-form-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.udm-logo {
   max-width: 300px;
+  max-height: 80px;
+  margin-bottom: 100px;
+}
+
+.clearance-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.subtext {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.subtext-small {
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 100px;
+}
+
+.clearance-form-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.clearance-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.department-signature-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.department-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.e-signature {
+  max-width: 250px;
+  max-height: 250px;
+  // border-bottom: #000 solid;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.text-overline {
+  text-decoration: overline;
+}
+
+.signature-line {
+  border-bottom: #000 solid;
+  width: 450px;
+}
+
+.student-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.footer-text {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+  font-weight: 500;
 }

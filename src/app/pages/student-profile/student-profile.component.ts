@@ -223,7 +223,7 @@ export class StudentProfileComponent {
         scale: 0.3
       },
       callback: function (pdfMaker: jsPDF) {
-        pdfMaker.save(fileName);
+        pdfMaker.save(fileName.toUpperCase());
       }
     });
   }

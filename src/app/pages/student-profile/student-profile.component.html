@@ -1,35 +1,111 @@
 <div class="container">
   <student-side-menu [pageSelected]="'profile'"></student-side-menu>
-  <div>
-    <h1>Hello {{ student?.account?.first_name }}</h1>
-    <p>Student Number: {{ student?.student_number }}</p>
+  <div class="student-profile-page">
+    <div class="student-profile-container">
+      <h1>Hello {{ student?.account?.first_name }}!</h1>
 
-    <p>Email: {{ student?.account?.email }}</p>
+      <div class="student-profile-details-container">
+        <div class="picture-container">
+          <h2>Profile Details</h2>
+          <p *ngIf="!student?.account?.profile_picture_name">No profile picture uploaded yet</p>
+          <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
+          <div class="buttons-container">
+            <button mat-raised-button color="primary" class="white-button">
+              Choose Picture
+              <input class="hide-button" #fileInput type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
+            </button>
+            <button mat-raised-button color="primary" (click)="updateProfilePic()">Save</button>
+          </div>
+        </div>
+        <div class="student-details-container">
+          <p>Course: Bachelor of Secondary Education Major in Social Sciences</p>
+          <p>College: College of Education</p>
+          <p>Student Number: {{ student?.student_number }}</p>
+          <p>Name: {{ student?.account?.first_name + " " + student?.account?.last_name }}</p>
+          <p>Email: {{ student?.account?.email }}</p>
+        </div>
+      </div>
 
-    <h2>Profile Pic</h2>
-    <p *ngIf="!profilePic.picURL">No profile pic uploaded yet.</p>
-    <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
-    <br />
+      <div class="form-container">
+        <div class="clearance-form">
+          <div class="clearance-form-title">
+            <h2 class="clearance-form-name">UDM-CMS CLEARANCE FORM 2023</h2>
+          </div>
+          <div class="clearance-form-header">
+            <img class="udm-logo" src="https://udm.edu.ph/udm2/wp-content/themes/kingster/images/logo.png" alt="UDM Logo" />
+            <div class="clearance-header">
+              <p class="title">OFFICE OF THE UNIVERSITY REGISTRAR</p>
+              <p class="subtext">CLEARANCE FOR ENROLLMENT</p>
+              <p class="subtext-small">_______ Semester, SY _______-_______</p>
+            </div>
+          </div>
+          <div class="clearance-form-body">
+            <div class="clearance-details">
+              <p>
+                Course:
+                <span class="text-underline">Bachelor of Secondary Education Major in Social Sciences</span>
+              </p>
+              <p>
+                Student Number:
+                <span class="text-underline">{{ student?.student_number }}</span>
+              </p>
+              <p>Last Enrollment: _______ Semester, SY _______________</p>
+            </div>
+            <div class="department-signature-container">
+              <div class="department-signature">
+                <img class="e-signature" src="assets/img/e-signature.png" alt="Security Department E-Signature" />
+                <div class="signature-line"></div>
+                <p class="text">SECURITY</p>
+                <img class="e-signature" src="assets/img/e-signature.png" alt="OSA Department E-Signature" />
+                <div class="signature-line"></div>
+                <p class="text">OFFICE OF THE STUDENT AFFAIRS</p>
+                <img class="e-signature" src="assets/img/e-signature.png" alt="Guidance Department E-Signature" />
+                <div class="signature-line"></div>
+                <p class="text">GUIDANCE COUNSELING & PSYCHOLOGICAL SERVICES</p>
+              </div>
 
-    <input #fileInput type="file" name="file" (change)="onProfilePicFileSelected($event, profilePic)" />
-    <br />
-    <button mat-raised-button color="primary" (click)="updateProfilePic()">Update</button>
+              <div class="department-signature">
+                <img class="e-signature" src="assets/img/e-signature.png" alt="Security Department E-Signature" />
+                <div class="signature-line"></div>
+                <p class="text">LIBRARY</p>
+                <img class="e-signature" src="assets/img/e-signature.png" alt="OSA Department E-Signature" />
+                <div class="signature-line"></div>
+                <p class="text">CLINIC</p>
+                <img class="e-signature" src="assets/img/e-signature.png" alt="Guidance Department E-Signature" />
+                <div class="signature-line"></div>
+                <p class="text">INFORMATION & COMMUNICATIONS TECHNOLOGY OFFICE</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="student-signature">
+              <div class="signature-line"></div>
+              <p class="text">Student’s signature over printed name</p>
 
-    <div #profileTable>
-      <table>
-        <tr>
-          <th>Department</th>
-          <th>Requirement Status</th>
-          <th>Check Status</th>
-        </tr>
-        <tr *ngFor="let departmentRequirements of departmentRequirementsList">
-          <td>{{ departmentRequirements.department.name }}</td>
-          <td>{{ getDepartmentRequirementsStatusString(departmentRequirements) }}</td>
-          <td>{{ getDepartmentCheckStatus(departmentRequirements) }}</td>
-        </tr>
-      </table>
-
-      <button (click)="savePDF()" mat-raised-button color="primary">Save PDF</button>
+              <div class="footer-text">
+                <p>This is to certify that the clearance form is generated through the UDM-CMS</p>
+                <p>Clearance Form Generation Date is 06/10/2023 02:14 AM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <!-- <div #profileTable>
+              <table>
+                <tr>
+                  <th>Department</th>
+                  <th>Requirement Status</th>
+                  <th>Check Status</th>
+                </tr>
+                <tr *ngFor="let departmentRequirements of departmentRequirementsList">
+                  <td>{{ departmentRequirements.department.name }}</td>
+                  <td>{{ getDepartmentRequirementsStatusString(departmentRequirements) }}</td>
+                  <td>{{ getDepartmentCheckStatus(departmentRequirements) }}</td>
+                </tr>
+              </table>
+
+              <button (click)="savePDF()" mat-raised-button color="primary">Save PDF</button>
+            </div> -->
 </div>
