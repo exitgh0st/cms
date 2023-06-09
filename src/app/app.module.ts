@@ -38,7 +38,6 @@ import { AdminSideMenuComponent } from './menu/admin-side-menu/admin-side-menu.c
 import { SuperAdminSideMenuComponent } from './menu/super-admin-side-menu/super-admin-side-menu.component';
 import { SuperAdminClearanceComponent } from './pages/super-admin-clearance/super-admin-clearance.component';
 import { SmallModalComponent } from './modals/small-modal/small-modal.component';
-import { FaqPageComponent } from './pages/faq-page/faq-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { StudentSideMenuComponent } from './menu/student-side-menu/student-side-menu.component';
 import { StudentClearanceComponent } from './pages/student-clearance/student-clearance.component';
@@ -69,7 +68,6 @@ export function initApp(authService: AuthService) {
     SuperAdminSideMenuComponent,
     SuperAdminClearanceComponent,
     SmallModalComponent,
-    FaqPageComponent,
     ContactPageComponent,
     StudentSideMenuComponent,
     StudentClearanceComponent

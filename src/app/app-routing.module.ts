@@ -17,7 +17,6 @@ import { SuperAdminStudentsComponent } from './pages/super-admin-students/super-
 import { SuperAdminAdminsComponent } from './pages/super-admin-admins/super-admin-admins.component';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 import { SuperAdminClearanceComponent } from './pages/super-admin-clearance/super-admin-clearance.component';
-import { FaqPageComponent } from './pages/faq-page/faq-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { StudentClearanceComponent } from './pages/student-clearance/student-clearance.component';
 
