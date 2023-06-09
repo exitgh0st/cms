@@ -216,7 +216,7 @@ export class StudentProfileComponent {
 
     const pdfMaker = new jsPDF('p', 'mm', 'letter');
 
-    const dateToday = this.datePipe.transform(new Date(), 'MM-DD-YYYY');
+    const dateToday = this.datePipe.transform(new Date(), 'MM-dd-YYYY');
     const fileName = `Clearance Form-${this.student?.student_number}-${this.student?.account?.last_name},${this.student?.account?.first_name}-${dateToday}.pdf`;
     pdfMaker.html(this.profileTable.nativeElement, {
       html2canvas: {
