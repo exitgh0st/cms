@@ -213,12 +213,15 @@ export class StudentProfileComponent {
     }
 
     const pdfMaker = new jsPDF('p', 'mm', 'letter');
+
+    const dateToday = new Date().toDateString();
+    const fileName = `Clearance Form-${this.student?.student_number}-${this.student?.account?.last_name}-${this.student?.account?.first_name}-${dateToday}`;
     pdfMaker.html(this.profileTable.nativeElement, {
       html2canvas: {
         scale: 0.3
       },
       callback: function (pdfMaker: jsPDF) {
-        pdfMaker.save();
+        pdfMaker.save(fileName);
       }
     });
   }
