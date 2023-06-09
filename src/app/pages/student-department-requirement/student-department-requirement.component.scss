@@ -5,16 +5,18 @@
 
 .requirement {
   height: 300px;
-  width: 400px;
-  border: 1px solid black;
-  border-radius: 4px;
-  margin: 4px;
-  background-color: wheat;
+  width: 600px;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 30px;
+  background-color: #eceff1;
 }
 
 .requirement-pic {
-  max-width: 200px;
-  max-height: 150px;
+  width: 200px;
+  height: 150px;
+  border-radius: 20px;
+  margin: 15px 0 15px 0;
 }
 
 .pic {
@@ -29,12 +31,13 @@
 }
 
 .panel-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(128, 128, 128, 0.75);
+  overflow-y: hidden;
 }
 
 button {
@@ -42,9 +45,79 @@ button {
 }
 
 .pending {
-  color: RED;
+  background-color: red;
+  color: #fff;
+  font-weight: 700;
 }
 
 .cleared {
   color: green;
+  font-weight: 700;
+}
+
+.clearance-submission-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.clearance-submission-page-header {
+  margin-left: 50px;
+}
+
+h1 {
+  margin: 30px 30px 50px 0;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+}
+
+h2 {
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.clearance-list-tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-right: 50px;
+  flex-wrap: wrap;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.text-bold {
+  font-weight: 900;
+}
+
+.text-italicized {
+  margin-top: 20px;
+  font-style: italic;
+  color: red;
+}
+
+.submit-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.submit-container {
+  display: flex;
+}
+
+.button-choose-file {
+  margin-bottom: 20px;
+  background-color: #607d8b !important;
+  border-color: #607d8b !important;
+  color: #fff !important;
 }

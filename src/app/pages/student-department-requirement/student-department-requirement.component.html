@@ -1,48 +1,60 @@
 <div class="container">
-  <div>
-    <h1>Hi {{ student?.account?.first_name }}</h1>
-    <h2>Requirements for {{ department?.name }} department</h2>
-
-    <div *ngFor="let requirementPair of requirementPairs" class="requirement">
-      <p>Name: {{ requirementPair.requirement.name }}</p>
-      <p>Description: {{ requirementPair.requirement.description }}</p>
-
-      <p *ngIf="!requirementPair.studentRequirement">No file uploaded yet!</p>
-      <img
-        (click)="previewFile(requirementPair.fileUrl)"
-        *ngIf="requirementPair.studentRequirement"
-        class="requirement-pic"
-        [src]="requirementPair.fileUrl"
-        alt="Selected Image" />
-      <br />
-
-      <ng-container *ngIf="submissionData?.is_active">
-        <input #fileInput type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
-        <br />
-        <button mat-raised-button color="primary" (click)="uploadFile(requirementPair)">
-          {{ !requirementPair.studentRequirement ? "UPLOAD" : "UPLOAD AGAIN" }}
-        </button>
-      </ng-container>
-
-      <ng-container *ngIf="!submissionData?.is_active">
+  <div class="clearance-submission-page">
+    <div class="clearance-submission-page-header">
+      <h1>Hi {{ student?.account?.first_name }}!</h1>
+      <h2>List of Clearance for {{ department?.name }} Department</h2>
+    </div>
+    <div class="clearance-list-tile">
+      <div *ngFor="let requirementPair of requirementPairs" class="requirement">
         <p>
-          Status:
-          <span
-            [class.pending]="requirementPair.studentRequirement?.status?.name === 'PENDING'"
-            [class.cleared]="requirementPair.studentRequirement?.status?.name === 'CLEARED'">
-            {{ requirementPair.studentRequirement?.status?.name }}
-          </span>
+          <span class="text-bold">Clearance Name:</span>
+          {{ requirementPair.requirement.name }}
+        </p>
+        <p>
+          <span class="text-bold">Description:</span>
+          {{ requirementPair.requirement.description }}
         </p>
 
-        <p *ngIf="requirementPair.studentRequirement?.admin_comments">
-          Admin Comment: {{ requirementPair.studentRequirement?.admin_comments }}
-        </p>
-      </ng-container>
+        <p class="text-italicized" *ngIf="!requirementPair.studentRequirement">NO FILE UPLOADED YET!</p>
+        <img
+          (click)="previewFile(requirementPair.fileUrl)"
+          class="requirement-pic"
+          [src]="requirementPair.fileUrl ? requirementPair.fileUrl : 'assets/img/img-preview-default.png'"
+          alt="Selected Image" />
+        <br />
 
-      <ng-container *ngIf="previewFileURL">
-        <div (click)="clickGrayOverlay()" class="panel-background"></div>
-        <img class="pic" [src]="previewFileURL" />
-      </ng-container>
+        <div class="submit-buttons">
+          <div class="submit-container">
+            <ng-container *ngIf="submissionData?.is_active">
+              <input #fileInput type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
+              <br />
+              <button mat-raised-button color="primary" (click)="uploadFile(requirementPair)">
+                {{ !requirementPair.studentRequirement ? "SUBMIT" : "SUBMIT AGAIN" }}
+              </button>
+            </ng-container>
+          </div>
+        </div>
+        <ng-container *ngIf="!submissionData?.is_active">
+          <p>
+            <span class="text-bold">Status:</span>
+            <span
+              [class.pending]="requirementPair.studentRequirement?.status?.name === 'PENDING'"
+              [class.cleared]="requirementPair.studentRequirement?.status?.name === 'CLEARED'">
+              {{ requirementPair.studentRequirement?.status?.name }}
+            </span>
+          </p>
+
+          <p *ngIf="requirementPair.studentRequirement?.admin_comments">
+            <span class="text-bold">Admin Comment:</span>
+            {{ requirementPair.studentRequirement?.admin_comments }}
+          </p>
+        </ng-container>
+
+        <ng-container *ngIf="previewFileURL">
+          <div (click)="clickGrayOverlay()" class="panel-background"></div>
+          <img class="pic" [src]="previewFileURL" />
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>

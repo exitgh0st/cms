@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="form-container">
+      <!-- <div class="form-container">
         <div class="clearance-form">
           <div class="clearance-form-title">
             <h2 class="clearance-form-name">UDM-CMS CLEARANCE FORM 2023</h2>
@@ -89,23 +89,30 @@
             </div>
           </div>
         </div>
+      </div> -->
+
+      <div #profileTable class="clearance-form-table-container">
+        <div class="clearance-status-table">
+          <h2>Clearance Status</h2>
+          <table>
+            <tr>
+              <th>Department</th>
+              <th>Requirement Status</th>
+              <th>Status</th>
+            </tr>
+            <tr *ngFor="let departmentRequirements of departmentRequirementsList">
+              <td>{{ departmentRequirements.department.name }}</td>
+              <td>{{ getDepartmentRequirementsStatusString(departmentRequirements) }}</td>
+              <td [class.status-pending]="getDepartmentCheckStatus(departmentRequirements) === 'WITH PENDING'">
+                {{ getDepartmentCheckStatus(departmentRequirements) }}
+              </td>
+            </tr>
+          </table>
+          <!-- <div class="print-button">
+            <button (click)="savePDF()" mat-raised-button color="primary">SAVE AS PDF</button>
+          </div> -->
+        </div>
       </div>
     </div>
   </div>
-  <!-- <div #profileTable>
-              <table>
-                <tr>
-                  <th>Department</th>
-                  <th>Requirement Status</th>
-                  <th>Check Status</th>
-                </tr>
-                <tr *ngFor="let departmentRequirements of departmentRequirementsList">
-                  <td>{{ departmentRequirements.department.name }}</td>
-                  <td>{{ getDepartmentRequirementsStatusString(departmentRequirements) }}</td>
-                  <td>{{ getDepartmentCheckStatus(departmentRequirements) }}</td>
-                </tr>
-              </table>
-
-              <button (click)="savePDF()" mat-raised-button color="primary">Save PDF</button>
-            </div> -->
 </div>

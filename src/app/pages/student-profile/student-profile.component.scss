@@ -3,14 +3,36 @@
   height: 100vh;
 }
 
+.clearance-form-table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #eceff1;
+  border-radius: 15px;
+}
+
+.clearance-status-table {
+  padding: 50px 50px 20px 50px;
+}
+
+table {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+}
+
+td {
+  font-weight: 500;
+}
+
 td,
 th {
   border: 1px solid #ddd;
   padding: 8px;
 }
-
+tr {
+  background-color: #cfd8dc;
+}
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #b0bec5;
 }
 
 .click-click {
@@ -18,14 +40,14 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-  background-color: #ddd;
+  background-color: #b2dfdb;
 }
 
 th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04aa6d;
+  background-color: #607d8b;
   color: white;
 }
 
@@ -216,7 +238,6 @@ button {
 .e-signature {
   max-width: 250px;
   max-height: 250px;
-  // border-bottom: #000 solid;
   margin-bottom: 20px;
 }
 
@@ -251,4 +272,14 @@ button {
   font-family: "Roboto", sans-serif;
   font-size: 10px;
   font-weight: 500;
+}
+
+.print-button {
+  margin-top: 30px;
+}
+
+.status-pending {
+  background-color: red;
+  color: #fff;
+  font-weight: 700;
 }
