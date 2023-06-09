@@ -14,6 +14,7 @@ import { StudentRequirementService } from 'src/app/services/student-requirement.
 import jsPDF, { HTMLOptions } from 'jspdf';
 import { Pic } from '../admin-profile/admin-profile.component';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
+import { DatePipe } from '@angular/common';
 
 type DepartmentRequirements = {
   department: Department;
@@ -44,7 +45,8 @@ export class StudentProfileComponent {
     private router: Router,
     private studentService: StudentService,
     private googleDriveService: GoogleDriveService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private datePipe: DatePipe
   ) {
     const accountId = this.authService.getAccountId();
 
@@ -214,8 +216,8 @@ export class StudentProfileComponent {
 
     const pdfMaker = new jsPDF('p', 'mm', 'letter');
 
-    const dateToday = new Date().toDateString();
-    const fileName = `Clearance Form-${this.student?.student_number}-${this.student?.account?.last_name}-${this.student?.account?.first_name}-${dateToday}`;
+    const dateToday = this.datePipe.transform(new Date(), 'MM-DD-YYYY');
+    const fileName = `Clearance Form-${this.student?.student_number}-${this.student?.account?.last_name},${this.student?.account?.first_name}-${dateToday}.pdf`;
     pdfMaker.html(this.profileTable.nativeElement, {
       html2canvas: {
         scale: 0.3
