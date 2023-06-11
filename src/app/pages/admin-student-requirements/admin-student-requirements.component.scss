@@ -1,0 +1,116 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.panel-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.75);
+}
+
+.panel {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #eceff1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.requirements {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.requirement {
+  border-radius: 10px;
+  margin: 8px;
+  padding: 8px;
+  background-color: #cfd8dc;
+}
+
+.requirement-pic {
+  width: 100%;
+  height: 100%;
+}
+
+.done {
+  background-color: #04aa6d;
+}
+
+.pending {
+  background-color: red;
+}
+
+.status-pending {
+  color: red;
+}
+
+.status-cleared {
+  color: green;
+}
+
+.pic {
+  position: absolute;
+  width: 700px;
+  max-height: 700px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+button {
+  z-index: 0;
+}
+
+.text-bold {
+  font-weight: 900;
+}
+
+.text-warn {
+  color: red;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.student-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 50px;
+}
+
+.preview-file-div {
+  width: 150px;
+  height: 150px;
+  background-color: wheat;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-preview {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}

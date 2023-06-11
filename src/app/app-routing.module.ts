@@ -25,6 +25,7 @@ import { SuperAdminFaqComponent } from './pages/super-admin-faq/super-admin-faq.
 import { SuperAdminUsersManualComponent } from './pages/super-admin-users-manual/super-admin-users-manual.component';
 import { AdminFaqComponent } from './pages/admin-faq/admin-faq.component';
 import { AdminUsersManualComponent } from './pages/admin-users-manual/admin-users-manual.component';
+import { AdminStudentRequirementsComponent } from './pages/admin-student-requirements/admin-student-requirements.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -51,6 +52,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
 
+  {
+    path: 'admin/students/:studentNumber',
+    component: AdminStudentRequirementsComponent,
+    canActivate: [AuthGuard]
+  },
   { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'super-admin/clearance', component: SuperAdminClearanceComponent, canActivate: [AuthGuard] },
 

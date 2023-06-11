@@ -10,8 +10,6 @@ import { StudentRequirementService } from 'src/app/services/student-requirement.
 import { StudentService } from 'src/app/services/student.service';
 import { first } from 'rxjs';
 import { StudentRequirement } from 'src/app/models/student-requirement';
-import { GoogleDriveService } from 'src/app/services/google-drive.service';
-import { RequirementPair } from '../student-department-requirement/student-department-requirement.component';
 
 @Component({
   selector: 'app-admin-students',
@@ -24,9 +22,9 @@ export class AdminStudentsComponent {
   students?: Student[];
   studentRequirements?: StudentRequirement[];
 
-  selectedStudent?: Student;
-  selectedStudentRequirementPairs?: RequirementPair[];
-  previewFileURL?: string | ArrayBuffer;
+  // selectedStudent?: Student;
+  // selectedStudentRequirementPairs?: RequirementPair[];
+  // previewFileURL?: string | ArrayBuffer;
 
   constructor(
     private authService: AuthService,
@@ -34,9 +32,7 @@ export class AdminStudentsComponent {
     private router: Router,
     private studentService: StudentService,
     private requirementService: RequirementService,
-    private studentRequirementService: StudentRequirementService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private googleDriveService: GoogleDriveService
+    private studentRequirementService: StudentRequirementService
   ) {
     const accountId = this.authService.getAccountId();
 
@@ -175,212 +171,216 @@ export class AdminStudentsComponent {
   }
 
   selectStudent(student: Student) {
-    if (!this.requirements || !student.student_number) {
-      return;
-    }
-
-    this.selectedStudent = student;
-    this.fetchRequirementPairs();
+    this.router.navigate(['admin', 'students', student.student_number]);
   }
 
-  fetchRequirementPairs() {
-    if (!this.requirements || !this.selectedStudent?.student_number || !this.students) {
-      return;
-    }
+  // selectStudent(student: Student) {
+  //   if (!this.requirements || !student.student_number) {
+  //     return;
+  //   }
 
-    const studentIds: string[] = [];
+  //   this.selectedStudent = student;
+  //   this.fetchRequirementPairs();
+  // }
 
-    for (let student of this.students) {
-      if (student.student_number) {
-        studentIds.push(student.student_number);
-      }
-    }
+  // fetchRequirementPairs() {
+  //   if (!this.requirements || !this.selectedStudent?.student_number || !this.students) {
+  //     return;
+  //   }
 
-    const requirementIds: string[] = [];
+  //   const studentIds: string[] = [];
 
-    for (let requirement of this.requirements) {
-      if (requirement.id) {
-        requirementIds.push(requirement.id.toString());
-      }
-    }
+  //   for (let student of this.students) {
+  //     if (student.student_number) {
+  //       studentIds.push(student.student_number);
+  //     }
+  //   }
 
-    console.log(studentIds, requirementIds);
+  //   const requirementIds: string[] = [];
 
-    if (studentIds.length <= 0 || requirementIds.length <= 0) {
-      return;
-    }
+  //   for (let requirement of this.requirements) {
+  //     if (requirement.id) {
+  //       requirementIds.push(requirement.id.toString());
+  //     }
+  //   }
 
-    this.fetchStudentRequirements(studentIds, requirementIds)
-      .pipe(first())
-      .subscribe((studentRequirements) => {
-        this.studentRequirements = studentRequirements;
+  //   console.log(studentIds, requirementIds);
 
-        studentRequirements = studentRequirements.filter((studentRequirement) => {
-          if (studentRequirement.student?.student_number === this.selectedStudent?.student_number) {
-            return true;
-          }
-          return false;
-        });
+  //   if (studentIds.length <= 0 || requirementIds.length <= 0) {
+  //     return;
+  //   }
 
-        this.selectedStudentRequirementPairs = [];
+  //   this.fetchStudentRequirements(studentIds, requirementIds)
+  //     .pipe(first())
+  //     .subscribe((studentRequirements) => {
+  //       this.studentRequirements = studentRequirements;
 
-        if (!this.requirements) {
-          return;
-        }
+  //       studentRequirements = studentRequirements.filter((studentRequirement) => {
+  //         if (studentRequirement.student?.student_number === this.selectedStudent?.student_number) {
+  //           return true;
+  //         }
+  //         return false;
+  //       });
 
-        for (let requirement of this.requirements) {
-          let studentRequirementSelected;
-          for (let studentRequirement of studentRequirements) {
-            if (requirement.id === studentRequirement.requirement?.id) {
-              studentRequirementSelected = studentRequirement;
-              break;
-            }
-          }
+  //       this.selectedStudentRequirementPairs = [];
 
-          this.selectedStudentRequirementPairs.push({
-            requirement: requirement,
-            studentRequirement: studentRequirementSelected,
-            adminComments: studentRequirementSelected?.admin_comments
-          });
-        }
+  //       if (!this.requirements) {
+  //         return;
+  //       }
 
-        for (let selectedStudentRequirementPair of this.selectedStudentRequirementPairs) {
-          if (selectedStudentRequirementPair.studentRequirement?.file_name) {
-            this.googleDriveService
-              .loadFile(selectedStudentRequirementPair.studentRequirement?.file_name)
-              .pipe(first())
-              .subscribe((file) => {
-                const blob = new Blob([file], { type: 'image/jpeg' });
-                const imageURL = URL.createObjectURL(blob);
+  //       for (let requirement of this.requirements) {
+  //         let studentRequirementSelected;
+  //         for (let studentRequirement of studentRequirements) {
+  //           if (requirement.id === studentRequirement.requirement?.id) {
+  //             studentRequirementSelected = studentRequirement;
+  //             break;
+  //           }
+  //         }
 
-                selectedStudentRequirementPair.fileUrl = imageURL;
-              });
-          }
-        }
-      });
-  }
+  //         this.selectedStudentRequirementPairs.push({
+  //           requirement: requirement,
+  //           studentRequirement: studentRequirementSelected,
+  //           adminComments: studentRequirementSelected?.admin_comments
+  //         });
+  //       }
 
-  getStudentRequirementsForStudent(studentNumber: string) {
-    if (!this.studentRequirements) {
-      return;
-    }
+  //       for (let selectedStudentRequirementPair of this.selectedStudentRequirementPairs) {
+  //         if (selectedStudentRequirementPair.studentRequirement?.file_name) {
+  //           this.googleDriveService
+  //             .loadFile(selectedStudentRequirementPair.studentRequirement?.file_name)
+  //             .pipe(first())
+  //             .subscribe((file) => {
+  //               const blob = new Blob([file], { type: 'image/jpeg' });
+  //               const imageURL = URL.createObjectURL(blob);
 
-    console.log('ABNO', studentNumber);
+  //               selectedStudentRequirementPair.fileUrl = imageURL;
+  //             });
+  //         }
+  //       }
+  //     });
+  // }
 
-    const studentRequirements = [];
+  // getStudentRequirementsForStudent(studentNumber: string) {
+  //   if (!this.studentRequirements) {
+  //     return;
+  //   }
 
-    for (let studentRequirement of this.studentRequirements) {
-      if (studentRequirement.student?.student_number == studentNumber) {
-        studentRequirements.push(studentRequirement);
-      }
-    }
+  //   console.log('ABNO', studentNumber);
 
-    console.log('ABNO', studentRequirements);
+  //   const studentRequirements = [];
 
-    return studentRequirements;
-  }
+  //   for (let studentRequirement of this.studentRequirements) {
+  //     if (studentRequirement.student?.student_number == studentNumber) {
+  //       studentRequirements.push(studentRequirement);
+  //     }
+  //   }
 
-  getStudentRequirementForRequirement(studentNumber: string, requirementId: number) {
-    if (!this.requirements) {
-      return;
-    }
+  //   console.log('ABNO', studentRequirements);
 
-    let studentRequirements = this.getStudentRequirementsForStudent(studentNumber);
+  //   return studentRequirements;
+  // }
 
-    if (!studentRequirements) {
-      studentRequirements = [];
-    }
+  // getStudentRequirementForRequirement(studentNumber: string, requirementId: number) {
+  //   if (!this.requirements) {
+  //     return;
+  //   }
 
-    for (let requirement of this.requirements) {
-      for (let studentRequirement of studentRequirements) {
-        if (studentRequirement.requirement?.id === requirement.id) {
-          return studentRequirement;
-        }
-      }
-    }
+  //   let studentRequirements = this.getStudentRequirementsForStudent(studentNumber);
 
-    return null;
-  }
+  //   if (!studentRequirements) {
+  //     studentRequirements = [];
+  //   }
 
-  async getPictureURLforStudentRequirement(studentRequirement: StudentRequirement | undefined | null) {
-    if (!studentRequirement) {
-      return;
-    }
+  //   for (let requirement of this.requirements) {
+  //     for (let studentRequirement of studentRequirements) {
+  //       if (studentRequirement.requirement?.id === requirement.id) {
+  //         return studentRequirement;
+  //       }
+  //     }
+  //   }
 
-    if (!studentRequirement.file_name) {
-      return undefined;
-    }
+  //   return null;
+  // }
 
-    let imageUrl;
+  // async getPictureURLforStudentRequirement(studentRequirement: StudentRequirement | undefined | null) {
+  //   if (!studentRequirement) {
+  //     return;
+  //   }
 
-    this.googleDriveService
-      .loadFile(studentRequirement.file_name)
-      .pipe(first())
-      .subscribe((file) => {
-        console.log('xx');
-      });
-    // .pipe(first())
-    // .subscribe((response) => {
-    //   console.log(response);
-    //   const blob = new Blob([response], { type: 'image/jpeg' });
-    //   imageUrl = URL.createObjectURL(blob);
-    // });
+  //   if (!studentRequirement.file_name) {
+  //     return undefined;
+  //   }
 
-    return imageUrl;
-  }
+  //   let imageUrl;
 
-  setRequirementAsPending(requirementPair: RequirementPair) {
-    const studentRequirement = requirementPair.studentRequirement;
-    const adminComments = requirementPair.adminComments;
+  //   this.googleDriveService
+  //     .loadFile(studentRequirement.file_name)
+  //     .pipe(first())
+  //     .subscribe((file) => {
+  //       console.log('xx');
+  //     });
+  //   // .pipe(first())
+  //   // .subscribe((response) => {
+  //   //   console.log(response);
+  //   //   const blob = new Blob([response], { type: 'image/jpeg' });
+  //   //   imageUrl = URL.createObjectURL(blob);
+  //   // });
 
-    if (!studentRequirement?.id) {
-      return;
-    }
+  //   return imageUrl;
+  // }
 
-    this.studentRequirementService
-      .updateStudentRequirement(studentRequirement.id, {
-        status_id: 2,
-        checked_by_id: this.admin?.id,
-        admin_comments: adminComments ? adminComments : undefined
-      })
-      .pipe(first())
-      .subscribe((message) => {
-        alert('Successfully set requirement to PENDING!');
-        this.fetchRequirementPairs();
-      });
-  }
+  // setRequirementAsPending(requirementPair: RequirementPair) {
+  //   const studentRequirement = requirementPair.studentRequirement;
+  //   const adminComments = requirementPair.adminComments;
 
-  setRequirementAsCleared(requirementPair: RequirementPair) {
-    const studentRequirement = requirementPair.studentRequirement;
-    const adminComments = requirementPair.adminComments;
+  //   if (!studentRequirement?.id) {
+  //     return;
+  //   }
 
-    if (!studentRequirement?.id) {
-      return;
-    }
+  //   this.studentRequirementService
+  //     .updateStudentRequirement(studentRequirement.id, {
+  //       status_id: 2,
+  //       checked_by_id: this.admin?.id,
+  //       admin_comments: adminComments ? adminComments : undefined
+  //     })
+  //     .pipe(first())
+  //     .subscribe((message) => {
+  //       alert('Successfully set requirement to PENDING!');
+  //       this.fetchRequirementPairs();
+  //     });
+  // }
 
-    this.studentRequirementService
-      .updateStudentRequirement(studentRequirement.id, {
-        status_id: 3,
-        checked_by_id: this.admin?.id,
-        admin_comments: adminComments ? adminComments : undefined
-      })
-      .pipe(first())
-      .subscribe((message) => {
-        alert('Successfully set requirement to CLEARED!');
-        this.fetchRequirementPairs();
-      });
-  }
+  // setRequirementAsCleared(requirementPair: RequirementPair) {
+  //   const studentRequirement = requirementPair.studentRequirement;
+  //   const adminComments = requirementPair.adminComments;
 
-  clickGrayOverlay() {
-    this.selectedStudent = undefined;
-    this.selectedStudentRequirementPairs = undefined;
-  }
+  //   if (!studentRequirement?.id) {
+  //     return;
+  //   }
 
-  clickPreviewOverlay() {
-    this.previewFileURL = undefined;
-  }
+  //   this.studentRequirementService
+  //     .updateStudentRequirement(studentRequirement.id, {
+  //       status_id: 3,
+  //       checked_by_id: this.admin?.id,
+  //       admin_comments: adminComments ? adminComments : undefined
+  //     })
+  //     .pipe(first())
+  //     .subscribe((message) => {
+  //       alert('Successfully set requirement to CLEARED!');
+  //       this.fetchRequirementPairs();
+  //     });
+  // }
 
-  previewFile(fileUrl: string | undefined | ArrayBuffer) {
-    this.previewFileURL = fileUrl;
-  }
+  // clickGrayOverlay() {
+  //   this.selectedStudent = undefined;
+  //   this.selectedStudentRequirementPairs = undefined;
+  // }
+
+  // clickPreviewOverlay() {
+  //   this.previewFileURL = undefined;
+  // }
+
+  // previewFile(fileUrl: string | undefined | ArrayBuffer) {
+  //   this.previewFileURL = fileUrl;
+  // }
 }

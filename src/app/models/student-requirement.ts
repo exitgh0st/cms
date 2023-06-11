@@ -13,6 +13,8 @@ export interface StudentRequirement {
   status?: Status;
   checked_by_id?: number;
   checked_by?: Admin;
-  admin_comments?: string;
+  admin_comments?: string | null;
   file_name?: string;
+  file_type?: string;
+  original_file_name?: string;
 }

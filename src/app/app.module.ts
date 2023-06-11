@@ -47,6 +47,7 @@ import { StudentFaqComponent } from './pages/student-faq/student-faq.component';
 import { SuperAdminUsersManualComponent } from './pages/super-admin-users-manual/super-admin-users-manual.component';
 import { AdminUsersManualComponent } from './pages/admin-users-manual/admin-users-manual.component';
 import { StudentUsersManualComponent } from './pages/student-users-manual/student-users-manual.component';
+import { AdminStudentRequirementsComponent } from './pages/admin-student-requirements/admin-student-requirements.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -82,7 +83,8 @@ export function initApp(authService: AuthService) {
     StudentFaqComponent,
     SuperAdminUsersManualComponent,
     AdminUsersManualComponent,
-    StudentUsersManualComponent
+    StudentUsersManualComponent,
+    AdminStudentRequirementsComponent
   ],
   imports: [
     BrowserModule,

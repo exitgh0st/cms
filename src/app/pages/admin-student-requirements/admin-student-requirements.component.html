@@ -1,0 +1,90 @@
+<div class="panel">
+  <div class="student-details">
+    <h3>View Submitted Clearance</h3>
+    <p>Student name: {{ student?.account?.first_name + " " + student?.account?.last_name }}</p>
+    <p>Student Number: {{ student?.student_number }}</p>
+    <br />
+  </div>
+  <div class="requirements">
+    <div class="requirement" *ngFor="let requirementPair of studentRequirementPairs" class="requirement">
+      <ng-container *ngIf="requirementPair.requirement.id">
+        <p>
+          <span class="text-bold">Name:</span>
+          {{ requirementPair.requirement.name }}
+        </p>
+        <p>
+          <span class="text-bold">Description:</span>
+          {{ requirementPair.requirement.description }}
+        </p>
+        <p>
+          <span class="text-bold">Status:</span>
+          <span
+            [class.status-pending]="requirementPair.studentRequirement?.status?.id === 2"
+            [class.status-cleared]="requirementPair.studentRequirement?.status?.id === 3">
+            <b>{{ requirementPair.studentRequirement?.status?.name }}</b>
+          </span>
+        </p>
+
+        <p class="text-warn" *ngIf="!requirementPair.studentRequirement">No file uploaded yet</p>
+
+        <ng-container *ngIf="requirementPair.studentRequirement">
+          <div class="preview-file-div">
+            <div *ngIf="!requirementPair.isDoneLoading" class="spinner-div">
+              <mat-spinner></mat-spinner>
+            </div>
+
+            <div
+              class="file-preview"
+              (click)="previewFile(requirementPair.fileUrl)"
+              *ngIf="
+                requirementPair.fileUrl &&
+                requirementPair.fileType !== 'image/bmp' &&
+                requirementPair.fileType !== 'image/jpeg' &&
+                requirementPair.fileType !== 'image/png'
+              ">
+              {{ requirementPair.studentRequirement.original_file_name }}
+            </div>
+
+            <img
+              *ngIf="
+                requirementPair.fileUrl &&
+                (requirementPair.fileType === 'image/bmp' ||
+                  requirementPair.fileType === 'image/jpeg' ||
+                  requirementPair.fileType === 'image/png')
+              "
+              (click)="previewFileURL = requirementPair.fileUrl"
+              class="requirement-pic"
+              [src]="requirementPair.fileUrl"
+              alt="Selected Image" />
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <p><span class="text-bold">Comments:</span></p>
+      <textarea [(ngModel)]="requirementPair.adminComments"></textarea>
+
+      <div *ngIf="requirementPair.studentRequirement">
+        <button
+          (click)="setToPending(requirementPair.studentRequirement)"
+          [disabled]="requirementPair.studentRequirement.status?.id === 2"
+          mat-raised-button
+          color="accent">
+          Set as Pending
+        </button>
+        <button
+          (click)="setToCleared(requirementPair.studentRequirement)"
+          [disabled]="requirementPair.studentRequirement.status?.id === 3"
+          mat-raised-button
+          color="primary">
+          Set as Cleared
+        </button>
+      </div>
+    </div>
+    <button (click)="saveChanges()" mat-raised-button>Save Changes</button>
+  </div>
+</div>
+
+<ng-container *ngIf="previewFileURL">
+  <div (click)="previewFileURL = undefined" class="panel-background"></div>
+  <img class="pic" [src]="previewFileURL" />
+</ng-container>

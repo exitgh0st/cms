@@ -15,8 +15,6 @@
 .requirement-pic {
   width: 200px;
   height: 150px;
-  border-radius: 20px;
-  margin: 15px 0 15px 0;
 }
 
 .pic {
@@ -143,4 +141,43 @@ button {
 .white-button {
   background-color: #fff !important;
   color: #607d8b !important;
+}
+
+.upload-div {
+  height: 100%;
+  width: 100%;
+  background-color: wheat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.plus {
+  font-size: 30px;
+}
+
+.div-div {
+  width: 200px;
+  height: 150px;
+  position: relative;
+}
+
+.close {
+  font-size: 30px;
+  color: black;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 90%;
+  cursor: pointer;
+}
+
+.spinner-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

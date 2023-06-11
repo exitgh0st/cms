@@ -30,4 +30,8 @@ export class StudentRequirementService {
       params: params
     });
   }
+
+  updateStudentRequirements(studentRequirements: StudentRequirement[]) {
+    return this.http.patch(environment.apiUrl + '/student_requirements ', studentRequirements);
+  }
 }

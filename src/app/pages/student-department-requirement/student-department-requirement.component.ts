@@ -18,7 +18,9 @@ export type RequirementPair = {
   requirement: Requirement;
   studentRequirement?: StudentRequirement;
   fileUrl?: string | ArrayBuffer;
-  adminComments?: string;
+  fileType?: string;
+  adminComments?: string | null;
+  isDoneLoading?: boolean;
 };
 
 @Component({
@@ -33,6 +35,8 @@ export class StudentDepartmentRequirementComponent {
   requirementPairs: RequirementPair[] = [];
   file?: File;
   submissionData?: SubmissionData;
+
+  doneLoading = false;
 
   previewFileURL?: string | ArrayBuffer;
 
@@ -94,13 +98,15 @@ export class StudentDepartmentRequirementComponent {
       });
   }
 
-  createStudentRequirement(requirement: Requirement, fileName: string) {
+  createStudentRequirement(requirement: Requirement, fileName: string, fileType: string, originalFileName: string) {
     this.studentRequirementService
       .createStudentRequirement({
         student_id: this.student?.student_number,
         requirement_id: requirement?.id,
         status_id: 1,
-        file_name: fileName
+        file_name: fileName,
+        file_type: fileType,
+        original_file_name: originalFileName
       })
       .pipe(first())
       .subscribe((newStudentRequirement) => {
@@ -137,12 +143,15 @@ export class StudentDepartmentRequirementComponent {
 
               if (studentRequirement.file_name) {
                 this.googleDriveService.loadFile(studentRequirement.file_name).subscribe((response) => {
-                  console.log(response);
-                  const blob = new Blob([response], { type: 'image/jpeg' });
-                  const imageURL = URL.createObjectURL(blob);
+                  const blob = new Blob([response], { type: studentRequirement.file_type });
+                  const url = URL.createObjectURL(blob);
 
-                  requirementPair.fileUrl = imageURL;
+                  requirementPair.fileUrl = url;
+                  requirementPair.fileType = studentRequirement.file_type;
+                  requirementPair.isDoneLoading = true;
                 });
+              } else {
+                requirementPair.isDoneLoading = true;
               }
             }
           });
@@ -150,8 +159,19 @@ export class StudentDepartmentRequirementComponent {
     }
   }
 
+  openFileInAnotherWindow(fileUrl: string | ArrayBuffer) {
+    if (this.file) {
+      const url = URL.createObjectURL(this.file);
+      window.open(url, 'Preview');
+    } else {
+      window.open(fileUrl as string, 'Preview');
+    }
+  }
+
   onFileSelected(event: any, requirementPair: RequirementPair) {
+    console.log('AAA');
     this.file = event.target.files[0];
+    requirementPair.fileType = this.file?.type;
 
     const fr = new FileReader();
     fr.onload = function () {
@@ -173,11 +193,15 @@ export class StudentDepartmentRequirementComponent {
       alert('No file selected');
       return;
     }
+
+    const fileType = this.file.type;
+    const originalFileName = this.file.name;
+
     this.googleDriveService.uploadFile(this.file).subscribe({
       next: (response) => {
         alert('Done uploading!');
 
-        this.createStudentRequirement(requirement, response.fileName);
+        this.createStudentRequirement(requirement, response.fileName, fileType, originalFileName);
       },
 
       error: (error) => {
@@ -192,12 +216,14 @@ export class StudentDepartmentRequirementComponent {
       return;
     }
 
+    const fileType = this.file.type;
+    const originalFileName = this.file.name;
+
     const studentRequirementId = requirementPair.studentRequirement?.id;
 
     if (!studentRequirementId) {
       return;
     }
-    requirementPair.fileUrl = undefined;
 
     this.googleDriveService.uploadFile(this.file).subscribe({
       next: (response) => {
@@ -207,7 +233,9 @@ export class StudentDepartmentRequirementComponent {
           student_id: this.student?.student_number,
           requirement_id: requirementPair.requirement.id,
           status_id: 1,
-          file_name: response.fileName
+          file_name: response.fileName,
+          file_type: fileType,
+          original_file_name: originalFileName
         };
 
         this.updateStudentRequirement(studentRequirementId, studentRequirement);
