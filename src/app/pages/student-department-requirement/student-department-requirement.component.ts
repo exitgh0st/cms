@@ -82,6 +82,10 @@ export class StudentDepartmentRequirementComponent {
         next: (requirements) => {
           this.requirements = requirements;
 
+          if (!this.requirements.length) {
+            return;
+          }
+
           for (let requirement of requirements) {
             this.requirementPairs.push({ requirement: requirement });
           }

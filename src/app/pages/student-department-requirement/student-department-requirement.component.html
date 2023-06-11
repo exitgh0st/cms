@@ -4,7 +4,9 @@
       <h1>Hi {{ student?.account?.first_name }}!</h1>
       <h2>List of Clearance for {{ department?.name }} Department</h2>
     </div>
-    <div class="clearance-list-tile">
+    <div *ngIf="!this.requirements?.length">No clearance for this department.</div>
+
+    <div *ngIf="this.requirements?.length" class="clearance-list-tile">
       <div *ngFor="let requirementPair of requirementPairs" class="requirement">
         <p>
           <span class="text-bold">Clearance Name:</span>
