@@ -1,15 +1,22 @@
 <div class="panel">
   <div *ngIf="submissionData?.is_active" class="submission-text">Cannot update status at the moment, student submission is in progress</div>
   <div class="student-details">
-    <h3>View Submitted Clearance</h3>
-    <p>Student name: {{ student?.account?.first_name + " " + student?.account?.last_name }}</p>
+    <h1>{{ student?.account?.first_name + " " + student?.account?.last_name }}</h1>
     <p>Student Number: {{ student?.student_number }}</p>
+    <p>Requirement Status:</p>
+    <p>Check Status:</p>
     <br />
   </div>
 
-  <div *ngIf="!requirements?.length">NO DATA, MAKE REQUIREMENTS FIRST</div>
+  <div class="empty-state-container" *ngIf="requirements && requirements.length <= 0">
+    <img
+      class="nothing-to-display-here-placeholder"
+      src="assets/img/nothing-to-display-here-placeholder-admin-requirement-list.png"
+      alt="Nothing to display here image" />
+    <button mat-raised-button color="primary" (click)="goToClearanceList()">Create Requirements</button>
+  </div>
 
-  <div *ngIf="requirements?.length" class="requirements">
+  <div *ngIf="requirements && requirements.length > 0" class="requirements">
     <div class="requirement" *ngFor="let requirementPair of studentRequirementPairs" class="requirement">
       <ng-container *ngIf="requirementPair.requirement.id">
         <p>
@@ -91,7 +98,11 @@
         </ng-container>
       </ng-container>
     </div>
-    <button [disabled]="submissionData?.is_active" (click)="saveChanges()" mat-raised-button>Save Changes</button>
+    <div class="save-button-container">
+      <button class="bottom-center" [disabled]="submissionData?.is_active" (click)="saveChanges()" mat-raised-button color="primary">
+        Save Changes
+      </button>
+    </div>
   </div>
 </div>
 
