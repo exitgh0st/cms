@@ -16,7 +16,7 @@
     <button mat-raised-button color="primary" (click)="goToClearanceList()">Create Requirements</button>
   </div>
 
-  <div *ngIf="requirements?.length" class="requirements">
+  <div *ngIf="requirements && requirements.length > 0" class="requirements">
     <div class="requirement" *ngFor="let requirementPair of studentRequirementPairs" class="requirement">
       <ng-container *ngIf="requirementPair.requirement.id">
         <p>
@@ -98,11 +98,11 @@
         </ng-container>
       </ng-container>
     </div>
-  </div>
-  <div class="save-button-container">
-    <button class="bottom-center" [disabled]="submissionData?.is_active" (click)="saveChanges()" mat-raised-button color="primary">
-      Save Changes
-    </button>
+    <div class="save-button-container">
+      <button class="bottom-center" [disabled]="submissionData?.is_active" (click)="saveChanges()" mat-raised-button color="primary">
+        Save Changes
+      </button>
+    </div>
   </div>
 </div>
 
