@@ -2,3 +2,43 @@
   display: flex;
   height: 100vh;
 }
+.student-manual-contents {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+h1 {
+  margin: 30px 30px 30px 0;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.body-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-manual-banner {
+  width: 650px;
+  height: 350px;
+  border-radius: 20px;
+}
+
+.instruction-container {
+  width: 100%;
+  margin-top: 30px;
+  background-color: aqua;
+}
+
+.instruction-banner {
+  width: 650px;
+  border-radius: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
