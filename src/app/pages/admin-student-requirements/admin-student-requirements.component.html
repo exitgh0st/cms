@@ -6,7 +6,10 @@
     <p>Student Number: {{ student?.student_number }}</p>
     <br />
   </div>
-  <div class="requirements">
+
+  <div *ngIf="!requirements?.length">NO DATA, MAKE REQUIREMENTS FIRST</div>
+
+  <div *ngIf="requirements?.length" class="requirements">
     <div class="requirement" *ngFor="let requirementPair of studentRequirementPairs" class="requirement">
       <ng-container *ngIf="requirementPair.requirement.id">
         <p>

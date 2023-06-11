@@ -84,6 +84,11 @@ export class AdminStudentRequirementsComponent {
             next: (requirements) => {
               this.requirements = requirements;
               const requirementIds: string[] = [];
+
+              if (this.requirements.length <= 0) {
+                return;
+              }
+
               for (let requirement of requirements) {
                 if (requirement.id) {
                   requirementIds.push(requirement.id.toString());
