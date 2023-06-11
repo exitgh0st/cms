@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./super-admin-side-menu.component.scss']
 })
 export class SuperAdminSideMenuComponent {
-  @Input() pageSelected?: 'home' | 'clearance' | 'admins' | 'students';
+  @Input() pageSelected?: 'home' | 'clearance' | 'admins' | 'students' | 'manual' | 'faq';
   constructor(private router: Router, private authService: AuthService) {}
 
   goToHome() {
@@ -38,6 +38,20 @@ export class SuperAdminSideMenuComponent {
       return;
     }
     this.router.navigate(['super-admin', 'students']);
+  }
+
+  goToManual() {
+    if (this.pageSelected == 'manual') {
+      return;
+    }
+    this.router.navigate(['super-admin', 'users-manual']);
+  }
+
+  goToFaq() {
+    if (this.pageSelected == 'faq') {
+      return;
+    }
+    this.router.navigate(['super-admin', 'faqs']);
   }
 
   logout() {

@@ -19,6 +19,12 @@ import { AdminProfileComponent } from './pages/admin-profile/admin-profile.compo
 import { SuperAdminClearanceComponent } from './pages/super-admin-clearance/super-admin-clearance.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { StudentClearanceComponent } from './pages/student-clearance/student-clearance.component';
+import { StudentFaqComponent } from './pages/student-faq/student-faq.component';
+import { StudentUsersManualComponent } from './pages/student-users-manual/student-users-manual.component';
+import { SuperAdminFaqComponent } from './pages/super-admin-faq/super-admin-faq.component';
+import { SuperAdminUsersManualComponent } from './pages/super-admin-users-manual/super-admin-users-manual.component';
+import { AdminFaqComponent } from './pages/admin-faq/admin-faq.component';
+import { AdminUsersManualComponent } from './pages/admin-users-manual/admin-users-manual.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -34,12 +40,32 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'admin/student-list', component: StudentListComponent },
+  {
+    path: 'admin/faqs',
+    component: AdminFaqComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'admin/users-manual',
+    component: AdminUsersManualComponent,
+    canActivate: [AuthGuard]
+  },
 
   { path: 'super-admin/dashboard', component: SuperAdminDashboardComponent, canActivate: [AuthGuard] },
   { path: 'super-admin/clearance', component: SuperAdminClearanceComponent, canActivate: [AuthGuard] },
 
   { path: 'super-admin/students', component: SuperAdminStudentsComponent, canActivate: [AuthGuard] },
   { path: 'super-admin/admins', component: SuperAdminAdminsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'super-admin/faqs',
+    component: SuperAdminFaqComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'super-admin/users-manual',
+    component: SuperAdminUsersManualComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: 'student/requirements/:departmentId',
     component: StudentDepartmentRequirementComponent,
@@ -60,7 +86,16 @@ const routes: Routes = [
     component: ContactPageComponent,
     canActivate: [AuthGuard]
   },
-
+  {
+    path: 'student/faqs',
+    component: StudentFaqComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'student/users-manual',
+    component: StudentUsersManualComponent,
+    canActivate: [AuthGuard]
+  },
   {
     path: 'erika',
     component: ErikaComponent

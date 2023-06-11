@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./student-side-menu.component.scss']
 })
 export class StudentSideMenuComponent {
-  @Input() pageSelected?: 'home' | 'profile' | 'clearance' | 'contact';
+  @Input() pageSelected?: 'home' | 'profile' | 'clearance' | 'contact' | 'manual' | 'faq';
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -39,6 +39,20 @@ export class StudentSideMenuComponent {
       return;
     }
     this.router.navigate(['student', 'contact']);
+  }
+
+  goToManual() {
+    if (this.pageSelected == 'manual') {
+      return;
+    }
+    this.router.navigate(['student', 'users-manual']);
+  }
+
+  goToFaq() {
+    if (this.pageSelected == 'faq') {
+      return;
+    }
+    this.router.navigate(['student', 'faqs']);
   }
 
   logout() {

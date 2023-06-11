@@ -41,6 +41,12 @@ import { SmallModalComponent } from './modals/small-modal/small-modal.component'
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { StudentSideMenuComponent } from './menu/student-side-menu/student-side-menu.component';
 import { StudentClearanceComponent } from './pages/student-clearance/student-clearance.component';
+import { SuperAdminFaqComponent } from './pages/super-admin-faq/super-admin-faq.component';
+import { AdminFaqComponent } from './pages/admin-faq/admin-faq.component';
+import { StudentFaqComponent } from './pages/student-faq/student-faq.component';
+import { SuperAdminUsersManualComponent } from './pages/super-admin-users-manual/super-admin-users-manual.component';
+import { AdminUsersManualComponent } from './pages/admin-users-manual/admin-users-manual.component';
+import { StudentUsersManualComponent } from './pages/student-users-manual/student-users-manual.component';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -70,7 +76,13 @@ export function initApp(authService: AuthService) {
     SmallModalComponent,
     ContactPageComponent,
     StudentSideMenuComponent,
-    StudentClearanceComponent
+    StudentClearanceComponent,
+    SuperAdminFaqComponent,
+    AdminFaqComponent,
+    StudentFaqComponent,
+    SuperAdminUsersManualComponent,
+    AdminUsersManualComponent,
+    StudentUsersManualComponent
   ],
   imports: [
     BrowserModule,

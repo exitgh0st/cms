@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
   }
 })
 export class AdminSideMenuComponent {
-  @Input() pageSelected?: 'home' | 'profile' | 'requirements' | 'students';
+  @Input() pageSelected?: 'home' | 'profile' | 'requirements' | 'students' | 'manual' | 'faq';
   @Input() departmentId?: number;
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -42,6 +42,20 @@ export class AdminSideMenuComponent {
       return;
     }
     this.router.navigate(['admin', 'students']);
+  }
+
+  goToManual() {
+    if (this.pageSelected == 'manual') {
+      return;
+    }
+    this.router.navigate(['admin', 'users-manual']);
+  }
+
+  goToFaq() {
+    if (this.pageSelected == 'faq') {
+      return;
+    }
+    this.router.navigate(['admin', 'faqs']);
   }
 
   logout() {
