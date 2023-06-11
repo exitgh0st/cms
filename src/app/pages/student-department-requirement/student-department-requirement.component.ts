@@ -258,4 +258,8 @@ export class StudentDepartmentRequirementComponent {
   clickGrayOverlay() {
     this.previewFileURL = undefined;
   }
+
+  goToStudentManualPage() {
+    this.router.navigate(['student', 'users-manual']);
+  }
 }
