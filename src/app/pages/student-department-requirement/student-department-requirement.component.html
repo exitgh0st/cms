@@ -22,14 +22,22 @@
             <mat-spinner></mat-spinner>
           </div>
 
-          <div class="upload-div" *ngIf="requirementPair.isDoneLoading && !requirementPair.fileUrl" (click)="fileInput2.click()">
-            <input class="hide-button" #fileInput2 type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
+          <ng-container *ngIf="submissionData?.is_active">
+            <div class="upload-div" *ngIf="requirementPair.isDoneLoading && !requirementPair.fileUrl" (click)="fileInput2.click()">
+              <input class="hide-button" #fileInput2 type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
+              <div>Upload File</div>
+              <div class="plus">+</div>
+            </div>
+          </ng-container>
 
-            <div>Upload File</div>
-            <div class="plus">+</div>
-          </div>
+          <ng-container *ngIf="!submissionData?.is_active">
+            <div *ngIf="!requirementPair.fileUrl">No File Uploaded!</div>
+          </ng-container>
 
-          <ng-container *ngIf="(requirementPair.studentRequirement && requirementPair.fileUrl) || (this.file && requirementPair.fileUrl)">
+          <ng-container
+            *ngIf="
+              (requirementPair.studentRequirement && requirementPair.fileUrl) || (requirementPair.uploadedFile && requirementPair.fileUrl)
+            ">
             <div
               *ngIf="
                 requirementPair.fileType !== 'image/bmp' &&
@@ -37,8 +45,10 @@
                 requirementPair.fileType !== 'image/png'
               "
               class="upload-div"
-              (click)="openFileInAnotherWindow(requirementPair.fileUrl)">
-              {{ file ? file.name : requirementPair?.studentRequirement?.original_file_name }}
+              (click)="openFileInAnotherWindow(requirementPair)">
+              {{
+                requirementPair.uploadedFile ? requirementPair.uploadedFile.name : requirementPair?.studentRequirement?.original_file_name
+              }}
             </div>
 
             <img
@@ -52,23 +62,18 @@
               [src]="requirementPair.fileUrl ? requirementPair.fileUrl : 'assets/img/img-preview-default.png'"
               alt="Selected Image" />
 
-            <div (click)="requirementPair.fileUrl = undefined; file = undefined" class="close">X</div>
+            <div (click)="requirementPair.fileUrl = undefined; requirementPair.uploadedFile = undefined" class="close">X</div>
           </ng-container>
         </div>
 
         <div class="submit-buttons">
-          <ng-container *ngIf="submissionData?.is_active">
-            <button mat-raised-button color="primary" (click)="uploadFile(requirementPair)">
-              {{ !requirementPair.studentRequirement ? "SUBMIT" : "SUBMIT AGAIN" }}
-            </button>
-          </ng-container>
           <ng-container *ngIf="!submissionData?.is_active">
             <p>
               <span class="text-bold">Status:</span>
               <span
                 [class.pending]="requirementPair.studentRequirement?.status?.name === 'PENDING'"
                 [class.cleared]="requirementPair.studentRequirement?.status?.name === 'CLEARED'">
-                {{ requirementPair.studentRequirement?.status?.name }}
+                {{ requirementPair.studentRequirement?.status?.name ? requirementPair.studentRequirement?.status?.name : "N/A" }}
               </span>
             </p>
 
@@ -84,6 +89,10 @@
           </ng-container>
         </div>
       </div>
+
+      <ng-container *ngIf="submissionData?.is_active">
+        <button mat-raised-button color="primary" (click)="saveChanges()">Save Changes</button>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RequirementService } from 'src/app/services/requirements.service';
 import { StudentService } from 'src/app/services/student.service';
-import { first } from 'rxjs';
+import { first, firstValueFrom, pipe } from 'rxjs';
 import { Student } from 'src/app/models/student';
 import { Department } from 'src/app/models/department';
 import { DepartmentService } from 'src/app/services/department.service';
@@ -21,6 +21,7 @@ export type RequirementPair = {
   fileType?: string;
   adminComments?: string | null;
   isDoneLoading?: boolean;
+  uploadedFile?: File;
 };
 
 @Component({
@@ -33,7 +34,6 @@ export class StudentDepartmentRequirementComponent {
   department?: Department;
   requirements?: Requirement[];
   requirementPairs: RequirementPair[] = [];
-  file?: File;
   submissionData?: SubmissionData;
 
   doneLoading = false;
@@ -114,16 +114,7 @@ export class StudentDepartmentRequirementComponent {
       })
       .pipe(first())
       .subscribe((newStudentRequirement) => {
-        this.fetchStudentRequirementsOfRequirements();
-      });
-  }
-
-  updateStudentRequirement(studentRequirementId: number, studentRequirement: StudentRequirement) {
-    this.studentRequirementService
-      .updateStudentRequirement(studentRequirementId, studentRequirement)
-      .pipe(first())
-      .subscribe(() => {
-        this.fetchStudentRequirementsOfRequirements();
+        alert('Done uploading!');
       });
   }
 
@@ -157,25 +148,26 @@ export class StudentDepartmentRequirementComponent {
               } else {
                 requirementPair.isDoneLoading = true;
               }
+            } else {
+              requirementPair.isDoneLoading = true;
             }
           });
       }
     }
   }
 
-  openFileInAnotherWindow(fileUrl: string | ArrayBuffer) {
-    if (this.file) {
-      const url = URL.createObjectURL(this.file);
+  openFileInAnotherWindow(requirementPair: RequirementPair) {
+    if (requirementPair.uploadedFile) {
+      const url = URL.createObjectURL(requirementPair.uploadedFile);
       window.open(url, 'Preview');
     } else {
-      window.open(fileUrl as string, 'Preview');
+      window.open(requirementPair.fileUrl as string, 'Preview');
     }
   }
 
   onFileSelected(event: any, requirementPair: RequirementPair) {
-    console.log('AAA');
-    this.file = event.target.files[0];
-    requirementPair.fileType = this.file?.type;
+    requirementPair.uploadedFile = event.target.files[0];
+    requirementPair.fileType = requirementPair.uploadedFile?.type;
 
     const fr = new FileReader();
     fr.onload = function () {
@@ -193,35 +185,34 @@ export class StudentDepartmentRequirementComponent {
 
     const requirement = requirementPair.requirement;
 
-    if (!this.file) {
-      alert('No file selected');
+    if (!requirementPair.uploadedFile) {
       return;
     }
 
-    const fileType = this.file.type;
-    const originalFileName = this.file.name;
+    const fileType = requirementPair.uploadedFile.type;
+    const originalFileName = requirementPair.uploadedFile.name;
 
-    this.googleDriveService.uploadFile(this.file).subscribe({
-      next: (response) => {
-        alert('Done uploading!');
-
-        this.createStudentRequirement(requirement, response.fileName, fileType, originalFileName);
-      },
-
-      error: (error) => {
-        console.log(error);
-      }
+    return firstValueFrom(this.googleDriveService.uploadFile(requirementPair.uploadedFile)).then((response) => {
+      return firstValueFrom(
+        this.studentRequirementService.createStudentRequirement({
+          student_id: this.student?.student_number,
+          requirement_id: requirement?.id,
+          status_id: 1,
+          file_name: response.fileName,
+          file_type: fileType,
+          original_file_name: originalFileName
+        })
+      );
     });
   }
 
   updateFile(requirementPair: RequirementPair) {
-    if (!this.file) {
-      alert('No file selected');
+    if (!requirementPair.uploadedFile) {
       return;
     }
 
-    const fileType = this.file.type;
-    const originalFileName = this.file.name;
+    const fileType = requirementPair.uploadedFile.type;
+    const originalFileName = requirementPair.uploadedFile.name;
 
     const studentRequirementId = requirementPair.studentRequirement?.id;
 
@@ -229,25 +220,19 @@ export class StudentDepartmentRequirementComponent {
       return;
     }
 
-    this.googleDriveService.uploadFile(this.file).subscribe({
-      next: (response) => {
-        alert('Done updating uploaded picture!');
+    let studentRequirement: StudentRequirement;
 
-        const studentRequirement: StudentRequirement = {
-          student_id: this.student?.student_number,
-          requirement_id: requirementPair.requirement.id,
-          status_id: 1,
-          file_name: response.fileName,
-          file_type: fileType,
-          original_file_name: originalFileName
-        };
+    return firstValueFrom(this.googleDriveService.uploadFile(requirementPair.uploadedFile)).then((response) => {
+      studentRequirement = {
+        student_id: this.student?.student_number,
+        requirement_id: requirementPair.requirement.id,
+        status_id: 1,
+        file_name: response.fileName,
+        file_type: fileType,
+        original_file_name: originalFileName
+      };
 
-        this.updateStudentRequirement(studentRequirementId, studentRequirement);
-      },
-
-      error: (error) => {
-        console.log(error);
-      }
+      return firstValueFrom(this.studentRequirementService.updateStudentRequirement(studentRequirementId, studentRequirement));
     });
   }
 
@@ -257,5 +242,21 @@ export class StudentDepartmentRequirementComponent {
 
   clickGrayOverlay() {
     this.previewFileURL = undefined;
+  }
+
+  saveChanges() {
+    const promises = [];
+
+    for (let requirementPair of this.requirementPairs) {
+      if (requirementPair.studentRequirement) {
+        promises.push(this.updateFile(requirementPair));
+      } else {
+        promises.push(this.uploadFile(requirementPair));
+      }
+    }
+
+    Promise.all(promises).then((response) => {
+      alert('Done saving changes!');
+    });
   }
 }
