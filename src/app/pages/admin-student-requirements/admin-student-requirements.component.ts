@@ -12,6 +12,8 @@ import { Student } from 'src/app/models/student';
 import { RequirementPair } from '../student-department-requirement/student-department-requirement.component';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { StudentRequirement } from 'src/app/models/student-requirement';
+import { SubmissionData } from 'src/app/models/submission_data';
+import { SubmissionDataService } from 'src/app/services/submission-data.service';
 
 @Component({
   selector: 'app-admin-student-requirements',
@@ -24,6 +26,7 @@ export class AdminStudentRequirementsComponent {
   requirements?: Requirement[];
   previewFileURL?: string | ArrayBuffer;
   studentRequirementPairs?: RequirementPair[];
+  submissionData?: SubmissionData;
 
   constructor(
     private router: Router,
@@ -33,7 +36,8 @@ export class AdminStudentRequirementsComponent {
     private studentRequirementService: StudentRequirementService,
     private authService: AuthService,
     private adminService: AdminService,
-    private googleDriveService: GoogleDriveService
+    private googleDriveService: GoogleDriveService,
+    private submissionDataServive: SubmissionDataService
   ) {
     const studentNumber = this.route.snapshot.paramMap.get('studentNumber');
     const adminId = this.authService.getAccountId();
@@ -53,6 +57,13 @@ export class AdminStudentRequirementsComponent {
       .pipe(first())
       .subscribe((student) => {
         this.student = student;
+      });
+
+    this.submissionDataServive
+      .getSubmissionData()
+      .pipe(first())
+      .subscribe((submissionData) => {
+        this.submissionData = submissionData;
       });
 
     this.adminService

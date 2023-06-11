@@ -1,4 +1,5 @@
 <div class="panel">
+  <div *ngIf="submissionData?.is_active" class="submission-text">Cannot update status at the moment, student submission is in progress</div>
   <div class="student-details">
     <h3>View Submitted Clearance</h3>
     <p>Student name: {{ student?.account?.first_name + " " + student?.account?.last_name }}</p>
@@ -57,30 +58,37 @@
               [src]="requirementPair.fileUrl"
               alt="Selected Image" />
           </div>
+
+          <p><span class="text-bold">Comments:</span></p>
+
+          <ng-container *ngIf="submissionData?.is_active">
+            <p>{{ requirementPair.adminComments }}</p>
+          </ng-container>
+
+          <ng-container *ngIf="!submissionData?.is_active">
+            <textarea [(ngModel)]="requirementPair.adminComments"></textarea>
+
+            <div *ngIf="requirementPair.studentRequirement">
+              <button
+                (click)="setToPending(requirementPair.studentRequirement)"
+                [disabled]="requirementPair.studentRequirement.status?.id === 2"
+                mat-raised-button
+                color="accent">
+                Set as Pending
+              </button>
+              <button
+                (click)="setToCleared(requirementPair.studentRequirement)"
+                [disabled]="requirementPair.studentRequirement.status?.id === 3"
+                mat-raised-button
+                color="primary">
+                Set as Cleared
+              </button>
+            </div>
+          </ng-container>
         </ng-container>
       </ng-container>
-
-      <p><span class="text-bold">Comments:</span></p>
-      <textarea [(ngModel)]="requirementPair.adminComments"></textarea>
-
-      <div *ngIf="requirementPair.studentRequirement">
-        <button
-          (click)="setToPending(requirementPair.studentRequirement)"
-          [disabled]="requirementPair.studentRequirement.status?.id === 2"
-          mat-raised-button
-          color="accent">
-          Set as Pending
-        </button>
-        <button
-          (click)="setToCleared(requirementPair.studentRequirement)"
-          [disabled]="requirementPair.studentRequirement.status?.id === 3"
-          mat-raised-button
-          color="primary">
-          Set as Cleared
-        </button>
-      </div>
     </div>
-    <button (click)="saveChanges()" mat-raised-button>Save Changes</button>
+    <button [disabled]="submissionData?.is_active" (click)="saveChanges()" mat-raised-button>Save Changes</button>
   </div>
 </div>
 
