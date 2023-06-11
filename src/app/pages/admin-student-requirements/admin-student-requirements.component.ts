@@ -195,4 +195,8 @@ export class AdminStudentRequirementsComponent {
         alert('Done saving changes!');
       });
   }
+
+  goToClearanceList() {
+    this.router.navigate(['admin', 'requirements', this.admin?.department?.id]);
+  }
 }

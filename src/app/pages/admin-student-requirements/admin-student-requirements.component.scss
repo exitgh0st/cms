@@ -14,7 +14,7 @@
 
 .panel {
   height: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -81,13 +81,13 @@ button {
   color: red;
   font-weight: 900;
   font-style: italic;
+  margin-top: 20px;
 }
 
 .student-details {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-left: 50px;
 }
 
 .preview-file-div {
@@ -113,4 +113,54 @@ button {
 .submission-text {
   color: red;
   font-size: 20px;
+}
+
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.nothing-to-display-here-placeholder {
+  width: 800px;
+  height: 400px;
+}
+
+p {
+  margin: 0 0 0 30px;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 30px 0 30px 30px;
+  color: #607d8b;
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+button {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.save-button-container {
+  position: relative;
+  height: 100vh; /* Set the height of the container */
+  display: flex;
+  align-items: flex-end; /* Align items to the bottom of the container */
+}
+
+.bottom-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* Center the button horizontally */
+  margin-bottom: 30px; /* Optional: Add some spacing from the bottom */
+  width: 160px;
 }
