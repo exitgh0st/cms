@@ -244,6 +244,10 @@ export class StudentDepartmentRequirementComponent {
     this.previewFileURL = undefined;
   }
 
+  goToStudentManualPage() {
+    this.router.navigate(['student', 'users-manual']);
+  }
+
   saveChanges() {
     const promises = [];
 

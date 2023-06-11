@@ -124,13 +124,25 @@ button {
   border-radius: 20px;
 }
 
+.locked-page-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #ff3131;
+}
+
 .nothing-to-display-here-placeholder {
   width: 800px;
   height: 400px;
 }
 
+.locked-page-banner {
+  width: 500px;
+  height: 100px;
+}
+
 p {
-  margin: 0 0 0 30px;
+  margin: 0 30px 0 30px;
   font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
   font-size: 15px;
   font-weight: 700;
