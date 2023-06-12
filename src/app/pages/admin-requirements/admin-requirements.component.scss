@@ -328,8 +328,15 @@ button {
   font-weight: 700;
 }
 
-.warning {
+.locked-page-container {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 30px;
-  background-color: red;
+  height: 100px;
+  background-color: #ff3131;
+}
+
+.locked-page-banner {
+  width: 500px;
+  height: 100px;
 }

@@ -2,10 +2,13 @@
   <admin-side-menu [departmentId]="admin?.department?.id" [pageSelected]="'requirements'"></admin-side-menu>
 
   <div class="admin-home-page-container">
-    <div *ngIf="submissionData?.is_active" class="warning">Can't edit due to submission in progress.</div>
+    <div *ngIf="submissionData?.is_active" class="locked-page-container">
+      <img class="locked-page-banner" src="assets/img/locked-page-banner-crud-req.png" alt="Clearance Requirements Page Locked Banner" />
+    </div>
     <div class="department-name">
       <h1>{{ admin?.department?.name }}</h1>
     </div>
+
     <div class="admin-home-page">
       <div class="table-tile">
         <div class="">
