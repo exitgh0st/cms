@@ -31,44 +31,50 @@
           <ng-container *ngIf="submissionData?.is_active">
             <div class="upload-div" *ngIf="requirementPair.isDoneLoading && !requirementPair.fileUrl" (click)="fileInput2.click()">
               <input class="hide-button" #fileInput2 type="file" name="file" (change)="onFileSelected($event, requirementPair)" />
-              <div>Upload File</div>
-              <div class="plus">+</div>
+              <div class="upload-file-container">
+                <img class="upload-icon" src="assets/img/upload-placeholder.png" alt="upload icon" />
+              </div>
             </div>
           </ng-container>
 
           <ng-container *ngIf="!submissionData?.is_active">
-            <div *ngIf="!requirementPair.fileUrl">No File Uploaded!</div>
+            <div class="text-italicized text-bold" *ngIf="!requirementPair.fileUrl">No File Uploaded!</div>
           </ng-container>
 
           <ng-container
             *ngIf="
               (requirementPair.studentRequirement && requirementPair.fileUrl) || (requirementPair.uploadedFile && requirementPair.fileUrl)
             ">
-            <div
-              *ngIf="
-                requirementPair.fileType !== 'image/bmp' &&
-                requirementPair.fileType !== 'image/jpeg' &&
-                requirementPair.fileType !== 'image/png'
-              "
-              class="upload-div"
-              (click)="openFileInAnotherWindow(requirementPair)">
-              {{
-                requirementPair.uploadedFile ? requirementPair.uploadedFile.name : requirementPair?.studentRequirement?.original_file_name
-              }}
+            <div class="upload-div">
+              <div
+                *ngIf="
+                  requirementPair.fileType !== 'image/bmp' &&
+                  requirementPair.fileType !== 'image/jpeg' &&
+                  requirementPair.fileType !== 'image/png'
+                "
+                (click)="openFileInAnotherWindow(requirementPair)">
+                {{
+                  requirementPair.uploadedFile ? requirementPair.uploadedFile.name : requirementPair?.studentRequirement?.original_file_name
+                }}
+              </div>
+
+              <img
+                *ngIf="
+                  requirementPair.fileType === 'image/bmp' ||
+                  requirementPair.fileType === 'image/jpeg' ||
+                  requirementPair.fileType === 'image/png'
+                "
+                (click)="previewFile(requirementPair.fileUrl)"
+                class="requirement-pic"
+                [src]="requirementPair.fileUrl ? requirementPair.fileUrl : 'assets/img/img-preview-default.png'"
+                alt="Selected Image" />
+
+              <img
+                (click)="requirementPair.fileUrl = undefined; requirementPair.uploadedFile = undefined"
+                class="close"
+                src="assets/img/close-button.png"
+                alt="close button" />
             </div>
-
-            <img
-              *ngIf="
-                requirementPair.fileType === 'image/bmp' ||
-                requirementPair.fileType === 'image/jpeg' ||
-                requirementPair.fileType === 'image/png'
-              "
-              (click)="previewFile(requirementPair.fileUrl)"
-              class="requirement-pic"
-              [src]="requirementPair.fileUrl ? requirementPair.fileUrl : 'assets/img/img-preview-default.png'"
-              alt="Selected Image" />
-
-            <div (click)="requirementPair.fileUrl = undefined; requirementPair.uploadedFile = undefined" class="close">X</div>
           </ng-container>
         </div>
 

@@ -4,7 +4,7 @@
 }
 
 .requirement {
-  height: 320px;
+  height: 220px;
   width: 600px;
   border-radius: 15px;
   margin: 10px;
@@ -13,8 +13,9 @@
 }
 
 .requirement-pic {
-  width: 200px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
 }
 
 .pic {
@@ -97,7 +98,7 @@ h2 {
 }
 
 .text-italicized {
-  margin-top: 20px;
+  margin: 20px 0 0 30px;
   font-style: italic;
   color: red;
 }
@@ -146,12 +147,22 @@ button {
 .upload-div {
   height: 100%;
   width: 100%;
-  background-color: wheat;
+  background-color: #cfd8dc;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
+  margin: 30px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+}
+
+.upload-div:hover {
+  text-decoration: underline;
+  color: #607d8b;
+  font-weight: 900;
 }
 
 .plus {
@@ -161,17 +172,18 @@ button {
 .div-div {
   width: 200px;
   height: 150px;
-  position: relative;
 }
 
 .close {
-  font-size: 30px;
-  color: black;
-  background-color: white;
+  width: 15px;
+  height: 15px;
   position: absolute;
-  top: 0;
-  left: 90%;
+  top: 10%;
+  left: 80%;
   cursor: pointer;
+  background-color: #fff;
+  border-radius: 100%;
+  padding: 8px;
 }
 
 .spinner-div {
@@ -222,4 +234,9 @@ button {
   transform: translateX(-50%); /* Center the button horizontally */
   margin-bottom: 30px; /* Optional: Add some spacing from the bottom */
   width: 160px;
+}
+
+.upload-icon {
+  width: 100px;
+  height: 80px;
 }
