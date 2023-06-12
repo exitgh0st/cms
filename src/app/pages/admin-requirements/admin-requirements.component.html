@@ -2,6 +2,7 @@
   <admin-side-menu [departmentId]="admin?.department?.id" [pageSelected]="'requirements'"></admin-side-menu>
 
   <div class="admin-home-page-container">
+    <div *ngIf="submissionData?.is_active" class="warning">Can't edit due to submission in progress.</div>
     <div class="department-name">
       <h1>{{ admin?.department?.name }}</h1>
     </div>
@@ -9,23 +10,45 @@
       <div class="table-tile">
         <div class="">
           <div>
-            <button (click)="clickCreateRequirementButton()" class="create-button">Create Requirements</button>
+            <button
+              mat-raised-button
+              [disabled]="submissionData?.is_active"
+              color="primary"
+              class="create-button"
+              (click)="clickCreateRequirementButton()">
+              Create Requirements
+            </button>
             <table>
               <tr>
                 <th>No.</th>
                 <th>Requirement</th>
                 <th>Description</th>
                 <th>Created By</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Actions</th>
               </tr>
               <tr *ngFor="let requirement of requirements">
                 <td>{{ requirement.id }}</td>
                 <td>{{ requirement.name }}</td>
                 <td>{{ requirement.description }}</td>
                 <td>{{ requirement?.created_by?.account?.first_name }}</td>
-                <td (click)="editRequirement(requirement)"><mat-icon>edit</mat-icon></td>
-                <td (click)="deleteRequirement(requirement)"><mat-icon>delete</mat-icon></td>
+                <td>
+                  <button
+                    [disabled]="submissionData?.is_active"
+                    (click)="editRequirement(requirement)"
+                    mat-icon-button
+                    matTooltip="Click to Edit"
+                    color="primary">
+                    <mat-icon aria-label="Edit">edit</mat-icon>
+                  </button>
+                  <button
+                    [disabled]="submissionData?.is_active"
+                    (click)="deleteRequirement(requirement)"
+                    mat-icon-button
+                    matTooltip="Click to Delete"
+                    color="warn">
+                    <mat-icon aria-label="Delete">delete</mat-icon>
+                  </button>
+                </td>
               </tr>
             </table>
           </div>

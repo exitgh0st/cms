@@ -9,6 +9,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Admin } from 'src/app/models/admin';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { SubmissionDataService } from 'src/app/services/submission-data.service';
+import { SubmissionData } from 'src/app/models/submission_data';
 
 @Component({
   selector: 'app-admin-requirements',
@@ -19,6 +21,7 @@ export class AdminRequirementsComponent {
   department?: Department;
   requirements?: Requirement[];
   departmentId?: string;
+  submissionData?: SubmissionData;
 
   displayedTableColumns = ['id', 'created_by', 'name', 'description'];
   selectedRequirement?: Requirement;
@@ -37,7 +40,8 @@ export class AdminRequirementsComponent {
     private authService: AuthService,
     private departmentService: DepartmentService,
     private requirementService: RequirementService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private submissionDataService: SubmissionDataService
   ) {
     const departmentId = this.route.snapshot.paramMap.get('departmentId');
     const authId = this.authService.getAccountId();
@@ -52,6 +56,13 @@ export class AdminRequirementsComponent {
       .pipe(first())
       .subscribe((admin) => {
         this.admin = admin;
+      });
+
+    this.submissionDataService
+      .getSubmissionData()
+      .pipe(first())
+      .subscribe((submissionData) => {
+        this.submissionData = submissionData;
       });
 
     this.departmentId = departmentId;
