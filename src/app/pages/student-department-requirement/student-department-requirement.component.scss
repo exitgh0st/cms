@@ -1,15 +1,22 @@
 .container {
   display: flex;
-  height: 100vh;
+}
+
+.requirements {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .requirement {
-  height: 220px;
+  border-radius: 10px;
+  background-color: #eceff1;
+  height: auto;
   width: 600px;
   border-radius: 15px;
   margin: 10px;
   padding: 30px;
-  background-color: #eceff1;
 }
 
 .requirement-pic {
@@ -27,6 +34,7 @@
   left: 0;
   bottom: 0;
   margin: auto;
+  z-index: 11;
 }
 
 .panel-background {
@@ -37,6 +45,7 @@
   height: 100%;
   background-color: rgba(128, 128, 128, 0.75);
   overflow-y: hidden;
+  z-index: 10;
 }
 
 button {
@@ -95,12 +104,14 @@ h2 {
 
 .text-bold {
   font-weight: 900;
+  text-align: center;
 }
 
 .text-italicized {
-  margin: 20px 0 0 30px;
+  width: 100%;
   font-style: italic;
   color: red;
+  text-align: center;
 }
 
 .submit-buttons {
@@ -108,6 +119,11 @@ h2 {
   width: 100%;
   justify-content: space-around;
   align-items: center;
+  flex-direction: column;
+}
+
+.text-wrap {
+  word-wrap: normal;
 }
 
 .button-choose-file {
@@ -153,7 +169,6 @@ button {
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
-  margin: 30px;
   border-radius: 15px;
   text-align: center;
   position: relative;
@@ -170,8 +185,20 @@ button {
 }
 
 .div-div {
-  width: 200px;
   height: 150px;
+  width: 200px;
+  background-color: #eaf1f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 15px;
+  margin: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  position: relative;
 }
 
 .close {
@@ -239,4 +266,36 @@ button {
 .upload-icon {
   width: 100px;
   height: 80px;
+}
+
+.size {
+  font-size: 10px;
+}
+
+.modal-button {
+  margin-left: 8px;
+  margin-right: 8px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.subtext {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+}
+
+.warn {
+  color: red;
+}
+
+.button-section {
+  margin-top: 16px;
+}
+
+.save-button {
+  width: 30%;
+  margin: 32px;
+  margin-left: auto;
+  margin-right: auto;
 }

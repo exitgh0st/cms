@@ -34,7 +34,9 @@
         <div (click)="goToDepartmentRequirementPage(department.id)" class="department-tile zoom-container">
           <img class="icon-department zoom-image" [src]="getLogoURL(department)" alt="Security Department" />
           <p class="department-text zoom-text">{{ department.name }}</p>
-          <p class="department-subtext zoom-text">Submitted Requirements: 1/3</p>
+          <p class="department-subtext zoom-text">
+            Submitted Requirements: {{ getSubmittedRequirementStringForDepartment(department.id) }}
+          </p>
         </div>
       </div>
     </div>

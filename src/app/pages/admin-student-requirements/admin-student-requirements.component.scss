@@ -1,6 +1,8 @@
 .container {
   display: flex;
-  height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .panel-background {
@@ -12,17 +14,6 @@
   background-color: rgba(128, 128, 128, 0.75);
 }
 
-.panel {
-  height: 100%;
-  justify-content: flex-start;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-}
-
 .requirements {
   display: flex;
   flex-direction: row;
@@ -32,14 +23,18 @@
 
 .requirement {
   border-radius: 10px;
-  margin: 8px;
-  padding: 8px;
   background-color: #cfd8dc;
+  height: auto;
+  width: 600px;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 30px;
 }
 
 .requirement-pic {
   width: 100%;
   height: 100%;
+  border-radius: 15px;
 }
 
 .done {
@@ -91,23 +86,34 @@ button {
 }
 
 .preview-file-div {
-  width: 150px;
   height: 150px;
-  background-color: wheat;
-  border-radius: 8px;
-  cursor: pointer;
+  width: 200px;
+  background-color: #eaf1f4;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 15px;
+  margin: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  position: relative;
 }
 
 .file-preview {
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
+}
+
+.size {
+  font-size: 10px;
 }
 
 .submission-text {
@@ -148,6 +154,20 @@ p {
   font-weight: 700;
 }
 
+.comment-title {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  width: 85%;
+  margin: auto;
+  margin-bottom: 8px;
+}
+textarea {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
 h1 {
   margin: 30px 0 30px 30px;
   color: #607d8b;
@@ -163,10 +183,8 @@ button {
 }
 
 .save-button-container {
-  position: relative;
   height: 100vh; /* Set the height of the container */
   display: flex;
-  align-items: flex-end; /* Align items to the bottom of the container */
 }
 
 .bottom-center {
@@ -175,4 +193,71 @@ button {
   transform: translateX(-50%); /* Center the button horizontally */
   margin-bottom: 30px; /* Optional: Add some spacing from the bottom */
   width: 160px;
+}
+
+.notyet {
+  background-color: #343637;
+  color: white;
+}
+
+.pending {
+  background-color: red;
+  color: white;
+}
+
+.check {
+  background-color: green;
+  color: white;
+}
+
+.ongoing {
+  background-color: yellow;
+  color: black;
+}
+
+.button-section {
+  margin-top: 16px;
+}
+
+.modal-button {
+  margin-left: 8px;
+  margin-right: 8px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.subtext {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+}
+
+.warn {
+  color: red;
+}
+
+.status-buttons {
+  width: 90%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+}
+
+.status-button {
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.text-area {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.comment-title {
+  margin-top: 8px;
 }

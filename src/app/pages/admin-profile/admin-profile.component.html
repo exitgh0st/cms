@@ -25,7 +25,9 @@
         <div class="picture-tile">
           <h2>Profile Picture</h2>
           <p class="text-italicized" *ngIf="!admin?.account?.profile_picture_name">No profile picture uploaded yet</p>
-          <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
+
+          <mat-spinner class="spinner-div" *ngIf="admin?.account?.profile_picture_name && !profilePic.picURL"></mat-spinner>
+          <img *ngIf="profilePic.picURL" (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
           <br />
           <div class="buttons-container">
             <button (click)="fileInput1.click()" mat-raised-button color="primary" class="white-button">
@@ -40,6 +42,8 @@
         <div class="signature-tile">
           <h2>E-signature</h2>
           <p class="text-italicized" *ngIf="!admin?.e_signature_name">No e-signature uploaded yet</p>
+          <mat-spinner class="spinner-div" *ngIf="admin?.e_signature_name && !eSignaturePic.picURL"></mat-spinner>
+
           <img (click)="clickESignaturePic()" class="e-signature" [src]="eSignaturePic.picURL" />
           <br />
           <div class="buttons-container">
@@ -55,3 +59,17 @@
     </div>
   </div>
 </div>
+
+<ngx-spinner *ngIf="currentlySaving" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
+  <p style="color: white">Saving Changes...</p>
+</ngx-spinner>
+
+<preview-pic-modal
+  (clickGrayOverlay)="profilePic.previewPicURL = undefined"
+  [picURL]="profilePic.previewPicURL"
+  *ngIf="profilePic.previewPicURL"></preview-pic-modal>
+
+<preview-pic-modal
+  (clickGrayOverlay)="eSignaturePic.previewPicURL = undefined"
+  [picURL]="eSignaturePic.previewPicURL"
+  *ngIf="eSignaturePic.previewPicURL"></preview-pic-modal>

@@ -13,6 +13,9 @@ import { StudentRequirement } from 'src/app/models/student-requirement';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { SubmissionDataService } from 'src/app/services/submission-data.service';
 import { SubmissionData } from 'src/app/models/submission_data';
+import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
+import { swalCustomClass } from 'src/app/config/swal-options';
 
 export type RequirementPair = {
   requirement: Requirement;
@@ -22,6 +25,7 @@ export type RequirementPair = {
   adminComments?: string | null;
   isDoneLoading?: boolean;
   uploadedFile?: File;
+  fileSize?: number;
 };
 
 @Component({
@@ -39,10 +43,13 @@ export class StudentDepartmentRequirementComponent {
   doneLoading = false;
 
   previewFileURL?: string | ArrayBuffer;
+  // isSavingChanges = false;
+  currentlySaving = false;
 
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
 
   constructor(
+    private ngxSpinner: NgxSpinnerService,
     private route: ActivatedRoute,
     private router: Router,
     private requirementsService: RequirementService,
@@ -53,6 +60,7 @@ export class StudentDepartmentRequirementComponent {
     private googleDriveService: GoogleDriveService,
     private submissionDataService: SubmissionDataService
   ) {
+    this.ngxSpinner.show();
     const accountId = this.authService.getAccountId();
     const departmentId = this.route.snapshot.paramMap.get('departmentId');
 
@@ -143,6 +151,7 @@ export class StudentDepartmentRequirementComponent {
 
                   requirementPair.fileUrl = url;
                   requirementPair.fileType = studentRequirement.file_type;
+                  requirementPair.fileSize = blob.size;
                   requirementPair.isDoneLoading = true;
                 });
               } else {
@@ -168,7 +177,6 @@ export class StudentDepartmentRequirementComponent {
   onFileSelected(event: any, requirementPair: RequirementPair) {
     requirementPair.uploadedFile = event.target.files[0];
     requirementPair.fileType = requirementPair.uploadedFile?.type;
-
     const fr = new FileReader();
     fr.onload = function () {
       if (fr.result) requirementPair.fileUrl = fr.result;
@@ -249,18 +257,53 @@ export class StudentDepartmentRequirementComponent {
   }
 
   saveChanges() {
-    const promises = [];
+    Swal.fire({
+      title: 'Are you sure you want to save your changes?',
+      icon: 'question',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      customClass: swalCustomClass
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.currentlySaving = true;
+        const promises = [];
 
-    for (let requirementPair of this.requirementPairs) {
-      if (requirementPair.studentRequirement) {
-        promises.push(this.updateFile(requirementPair));
-      } else {
-        promises.push(this.uploadFile(requirementPair));
+        for (let requirementPair of this.requirementPairs) {
+          if (requirementPair.studentRequirement) {
+            promises.push(this.updateFile(requirementPair));
+          } else {
+            promises.push(this.uploadFile(requirementPair));
+          }
+        }
+
+        Promise.all(promises).then((response) => {
+          this.currentlySaving = false;
+
+          Swal.fire({
+            title: 'Saved!',
+            icon: 'success',
+            confirmButtonText: 'Continue',
+            customClass: swalCustomClass
+          });
+        });
       }
+    });
+  }
+
+  niceBytes(n: number | undefined) {
+    if (!n) {
+      return;
     }
 
-    Promise.all(promises).then((response) => {
-      alert('Done saving changes!');
-    });
+    const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    let l = 0;
+
+    while (n >= 1024 && ++l) {
+      n = n / 1024;
+    }
+
+    return n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l];
   }
 }

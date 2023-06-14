@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
+import { swalCustomClass } from 'src/app/config/swal-options';
 import { Account } from 'src/app/models/account';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -44,8 +46,15 @@ export class LoginComponent {
 
     this.loading = true;
 
+    let role_id;
+    if (this.loginType === 'student') {
+      role_id = '3';
+    } else {
+      role_id = '2';
+    }
+
     this.authService
-      .login(account.email, account.password)
+      .login(account.email, account.password, role_id)
       .pipe(first())
       .subscribe({
         next: () => {
@@ -61,7 +70,6 @@ export class LoginComponent {
           if (error.status == 401) {
             this.unauthorized = true;
           }
-
           this.loading = false;
         }
       });

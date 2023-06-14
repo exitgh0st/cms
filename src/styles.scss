@@ -29,3 +29,19 @@ body {
   height: 70px; /* Adjust the height of the logo image as needed */
   width: auto; /* Allow the width to adjust proportionally */
 }
+
+.swal-confirm-button {
+  background-color: #607d8b !important;
+  color: #fff !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+}
+
+.swal-confirm-button:focus {
+  box-shadow: none !important;
+}
+
+.swal-cancel-button {
+  background-color: #fff !important;
+  color: black !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+}

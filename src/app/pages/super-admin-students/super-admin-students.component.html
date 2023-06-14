@@ -25,7 +25,7 @@
             <button (click)="clickUpdateStudentButton(student)" mat-icon-button matTooltip="Click to Edit" color="primary">
               <mat-icon aria-label="Edit">edit</mat-icon>
             </button>
-            <button (click)="studentNumberForDeletion = student.student_number" mat-icon-button matTooltip="Click to Delete" color="warn">
+            <button (click)="deleteStudent(student.student_number)" mat-icon-button matTooltip="Click to Delete" color="warn">
               <mat-icon aria-label="Delete">delete</mat-icon>
             </button>
           </td>
@@ -98,19 +98,9 @@
         </form>
       </div>
     </ng-container>
-
-    <small-modal (clickGrayOverlay)="studentNumberForDeletion = undefined" *ngIf="studentNumberForDeletion">
-      <p class="subtext">Are you sure you want to delete this student?</p>
-      <p class="warn subtext">This will also delete all requirements passed by the said student!</p>
-
-      <div>
-        <button class="subtext" (click)="deleteStudent(studentNumberForDeletion)" type="submit" mat-raised-button color="warn">
-          Delete
-        </button>
-        <button class="subtext" (click)="studentNumberForDeletion = undefined" type="button" mat-raised-button color="primary">
-          Cancel
-        </button>
-      </div>
-    </small-modal>
   </div>
 </div>
+
+<ngx-spinner *ngIf="isLoading" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
+  <p style="color: white">Saving Changes...</p>
+</ngx-spinner>

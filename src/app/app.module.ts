@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -48,6 +48,10 @@ import { SuperAdminUsersManualComponent } from './pages/super-admin-users-manual
 import { AdminUsersManualComponent } from './pages/admin-users-manual/admin-users-manual.component';
 import { StudentUsersManualComponent } from './pages/student-users-manual/student-users-manual.component';
 import { AdminStudentRequirementsComponent } from './pages/admin-student-requirements/admin-student-requirements.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { PreviewPicModalComponent } from './components/preview-pic-modal/preview-pic-modal.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { provideSwal } from './config/swal-options';
 
 export function initApp(authService: AuthService) {
   return () => authService.autoLogin();
@@ -84,7 +88,8 @@ export function initApp(authService: AuthService) {
     SuperAdminUsersManualComponent,
     AdminUsersManualComponent,
     StudentUsersManualComponent,
-    AdminStudentRequirementsComponent
+    AdminStudentRequirementsComponent,
+    PreviewPicModalComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +107,8 @@ export function initApp(authService: AuthService) {
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxSpinnerModule
   ],
   providers: [
     {
@@ -118,6 +124,7 @@ export function initApp(authService: AuthService) {
     },
     DatePipe
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}

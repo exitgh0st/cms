@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { first } from 'rxjs';
+import { swalCustomClass } from 'src/app/config/swal-options';
 import { Student } from 'src/app/models/student';
 import { StudentService } from 'src/app/services/student.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-super-admin-students',
@@ -21,8 +24,10 @@ export class SuperAdminStudentsComponent {
   });
   selectedStudent?: Student;
   studentNumberForDeletion?: string;
+  isLoading = false;
 
-  constructor(private studentService: StudentService) {
+  constructor(private ngxSpinnerService: NgxSpinnerService, private studentService: StudentService) {
+    this.ngxSpinnerService.show();
     this.fetchStudents();
   }
 
@@ -47,13 +52,21 @@ export class SuperAdminStudentsComponent {
       }
     };
 
+    this.isLoading = true;
     this.studentService
       .createStudentWithAccount(student)
       .pipe(first())
       .subscribe((student) => {
-        alert('Successfully created student!');
         this.showCreateStudentPanel = false;
         this.fetchStudents();
+        this.isLoading = false;
+
+        Swal.fire({
+          title: 'Successfully created student!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          customClass: swalCustomClass
+        });
       });
   }
 
@@ -85,13 +98,21 @@ export class SuperAdminStudentsComponent {
       }
     };
 
+    this.isLoading = true;
     this.studentService
       .updateStudentWithAccount(this.selectedStudent.student_number, studentData)
       .pipe(first())
       .subscribe(() => {
-        alert('Successfully updated student!');
         this.fetchStudents();
         this.selectedStudent = undefined;
+        this.isLoading = false;
+
+        Swal.fire({
+          title: 'Successfully updated student!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          customClass: swalCustomClass
+        });
       });
   }
 
@@ -100,14 +121,33 @@ export class SuperAdminStudentsComponent {
       return;
     }
 
-    this.studentService
-      .deleteStudent(studentNumber)
-      .pipe(first())
-      .subscribe(() => {
-        this.fetchStudents();
-        alert('Succesfully deleted student!');
-        this.studentNumberForDeletion = undefined;
-      });
+    Swal.fire({
+      title: 'Are you sure you want to delete this student?',
+      icon: 'question',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      customClass: swalCustomClass
+    }).then((response) => {
+      if (response.isConfirmed) {
+        this.isLoading = true;
+
+        this.studentService
+          .deleteStudent(studentNumber)
+          .pipe(first())
+          .subscribe(() => {
+            this.fetchStudents();
+            this.isLoading = false;
+
+            Swal.fire({
+              title: 'Successfully deleted student!',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+              customClass: swalCustomClass
+            });
+          });
+      }
+    });
   }
 
   clickCreateStudentButton() {

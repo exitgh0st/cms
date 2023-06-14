@@ -15,6 +15,9 @@ import jsPDF, { HTMLOptions } from 'jspdf';
 import { Pic } from '../admin-profile/admin-profile.component';
 import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { DatePipe } from '@angular/common';
+import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
+import { swalCustomClass } from 'src/app/config/swal-options';
 
 type DepartmentRequirements = {
   department: Department;
@@ -34,6 +37,7 @@ export class StudentProfileComponent {
   profilePic: Pic = {};
   profilePicFile?: File;
   accountId!: number;
+  currentlySaving = false;
 
   @ViewChild('profileTable') profileTable?: ElementRef;
 
@@ -46,8 +50,10 @@ export class StudentProfileComponent {
     private studentService: StudentService,
     private googleDriveService: GoogleDriveService,
     private accountService: AccountService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private ngxSpinnerService: NgxSpinnerService
   ) {
+    this.ngxSpinnerService.show();
     const accountId = this.authService.getAccountId();
 
     if (!accountId) {
@@ -101,11 +107,17 @@ export class StudentProfileComponent {
                     .getStudentRequirementOfRequirement(requirement.id)
                     .pipe(first())
                     .subscribe((studentRequirement) => {
+                      let studentReq = undefined;
+
+                      if (Object.keys(studentRequirement).length > 0) {
+                        studentReq = studentRequirement;
+                      }
+
                       for (let departmentRequirements of this.departmentRequirementsList) {
                         if (requirement.created_by?.department?.id === departmentRequirements.department.id) {
                           departmentRequirements.requirementPairs.push({
                             requirement: requirement,
-                            studentRequirement: studentRequirement
+                            studentRequirement: studentReq
                           });
                           break;
                         }
@@ -139,41 +151,68 @@ export class StudentProfileComponent {
 
   updateProfilePic() {
     if (!this.profilePicFile) {
-      alert('No file selected!');
+      Swal.fire({
+        title: 'No file selected!',
+        icon: 'error',
+        confirmButtonText: 'Continue',
+        customClass: swalCustomClass
+      });
       return;
     }
 
-    this.googleDriveService
-      .uploadFile(this.profilePicFile)
-      .pipe(first())
-      .subscribe((response) => {
-        if (response.fileName && this.accountId) {
-          console.log(this.accountId);
-          this.accountService
-            .updateAccount(this.accountId, { profile_picture_name: response.fileName })
-            .pipe(first())
-            .subscribe((response) => {
-              alert('Successfully updated profile pic!');
-            });
-        }
-      });
+    const profilePicFile = this.profilePicFile;
+
+    Swal.fire({
+      title: 'Are you sure you want to update your profile picture?',
+      icon: 'question',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      customClass: swalCustomClass
+    }).then((response) => {
+      if (response.isConfirmed) {
+        this.currentlySaving = true;
+
+        this.googleDriveService
+          .uploadFile(profilePicFile)
+          .pipe(first())
+          .subscribe((response) => {
+            if (response.fileName && this.accountId) {
+              console.log(this.accountId);
+              this.accountService
+                .updateAccount(this.accountId, { profile_picture_name: response.fileName })
+                .pipe(first())
+                .subscribe((response) => {
+                  this.currentlySaving = false;
+                  Swal.fire({
+                    title: 'Successfully updated profile picture!',
+                    icon: 'success',
+                    confirmButtonText: 'Salamat Tiger',
+                    customClass: swalCustomClass
+                  });
+                });
+            }
+          });
+      }
+    });
   }
 
   getDepartmentRequirementsStatusString(departmentRequirements: DepartmentRequirements) {
     let requirementCount = 0;
-    let studentRequirementClearedCount = 0;
+    let studentRequirementPassedCount = 0;
 
     for (let requirementPair of departmentRequirements.requirementPairs) {
       if (requirementPair.requirement) {
         requirementCount++;
       }
 
-      if (requirementPair.studentRequirement?.status?.name === 'CLEARED') {
-        studentRequirementClearedCount++;
+      if (requirementPair.studentRequirement) {
+        console.log(requirementPair.studentRequirement);
+        studentRequirementPassedCount++;
       }
     }
 
-    return `${studentRequirementClearedCount}/${requirementCount}`;
+    return `${studentRequirementPassedCount}/${requirementCount}`;
   }
 
   getDepartmentCheckStatus(departmentRequirements: DepartmentRequirements) {

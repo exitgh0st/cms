@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, first } from 'rxjs';
 import { environment } from 'src/environment/environment';
@@ -31,15 +31,20 @@ export class AuthService {
     return this.accountId;
   }
 
-  login(email: string, password: string | null) {
+  login(email: string, password: string | null, role_id?: string) {
     const authenticationData = { email: email, password: password };
+
+    let params = new HttpParams();
+    if (role_id) {
+      params = params.set('role_id', role_id);
+    }
 
     return this.http
       .post<{
         token: string;
         expires_in: number;
         account_id: number;
-      }>(`${environment.apiUrl}/login`, authenticationData)
+      }>(`${environment.apiUrl}/login`, authenticationData, { params: params })
       .pipe(
         map((response) => {
           this.token = response.token;

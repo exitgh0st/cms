@@ -8,7 +8,14 @@
         <div class="picture-container">
           <h2>Profile Details</h2>
           <p *ngIf="!student?.account?.profile_picture_name">No profile picture uploaded yet</p>
-          <img (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
+
+          <div class="profile-pic-div">
+            <div *ngIf="student?.account?.profile_picture_name && !profilePic.picURL" class="spinner-div">
+              <mat-spinner></mat-spinner>
+            </div>
+            <img *ngIf="profilePic.picURL" (click)="clickProfilePic()" class="profile-pic" [src]="profilePic.picURL" />
+          </div>
+
           <div class="buttons-container">
             <button (click)="fileInput.click()" mat-raised-button color="primary" class="white-button">
               Choose Picture
@@ -51,3 +58,12 @@
     </div>
   </div>
 </div>
+
+<ngx-spinner *ngIf="currentlySaving" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-atom" [fullScreen]="true">
+  <p style="color: white">Saving Changes...</p>
+</ngx-spinner>
+
+<preview-pic-modal
+  (clickGrayOverlay)="profilePic.previewPicURL = undefined"
+  [picURL]="profilePic.previewPicURL"
+  *ngIf="profilePic.previewPicURL"></preview-pic-modal>

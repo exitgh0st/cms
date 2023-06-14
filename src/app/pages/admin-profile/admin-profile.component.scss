@@ -6,16 +6,37 @@
 .profile-pic {
   border-radius: 15px;
   margin-top: 10px;
-  margin-bottom: 20px;
-  max-width: 200px;
+  margin-bottom: 10px;
+  width: auto;
   max-height: 200px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+.spinner-div {
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.e-signature-div {
 }
 
 .e-signature {
+  border-radius: 15px;
   margin-top: 10px;
-  margin-bottom: 20px;
-  max-width: 500px;
-  max-height: 500px;
+  margin-bottom: 10px;
+  width: auto;
+  max-height: 200px;
+  max-width: 100%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 .profile-page {
   display: flex;
@@ -118,4 +139,10 @@ button {
 .white-button {
   background-color: #fff !important;
   color: #607d8b !important;
+}
+
+.swal-confirm-button {
+  background-color: #607d8b !important;
+  color: #FFF !important;
+  box-shadow: 4px rgba(0, 0, 0, 0.2) !important;
 }

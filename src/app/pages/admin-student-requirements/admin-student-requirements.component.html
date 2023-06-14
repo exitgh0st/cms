@@ -1,12 +1,21 @@
-<div class="panel">
+<div class="container">
   <div *ngIf="submissionData?.is_active" class="locked-page-container">
     <img class="locked-page-banner" src="assets/img/locked-page-banner.png" alt="Locked Page Banner" />
   </div>
   <div class="student-details">
     <h1>{{ student?.account?.first_name + " " + student?.account?.last_name }}</h1>
     <p>Student Number: {{ student?.student_number }}</p>
-    <p>Requirement Status:</p>
-    <p>Check Status:</p>
+    <p>Requirement Status: {{ getRequirementStatus() }}</p>
+    <p>
+      Check Status:
+      <span
+        [class.notyet]="getCheckStatus() === 'NOT YET CHECKED'"
+        [class.pending]="getCheckStatus() === 'WITH PENDING'"
+        [class.check]="getCheckStatus() === 'DONE'"
+        [class.check]="getCheckStatus() === 'IN PROGRESS'">
+        {{ getCheckStatus() }}
+      </span>
+    </p>
     <br />
   </div>
 
@@ -19,7 +28,7 @@
   </div>
   <ng-container *ngIf="requirements && requirements.length > 0">
     <div class="requirements">
-      <div class="requirement" *ngFor="let requirementPair of studentRequirementPairs" class="requirement">
+      <div class="requirement" *ngFor="let requirementPair of studentRequirementPairs">
         <ng-container *ngIf="requirementPair.requirement.id">
           <p>
             <span class="text-bold">Name:</span>
@@ -56,6 +65,9 @@
                   requirementPair.fileType !== 'image/png'
                 ">
                 {{ requirementPair.studentRequirement.original_file_name }}
+
+                <br />
+                <span class="size">Filesize: ({{ niceBytes(requirementPair.fileSize) }})</span>
               </div>
 
               <img
@@ -71,17 +83,17 @@
                 alt="Selected Image" />
             </div>
 
-            <p><span class="text-bold">Comments:</span></p>
-
+            <div class="comment-title"><span class="text-bold">Comments:</span></div>
             <ng-container *ngIf="submissionData?.is_active">
-              <p>{{ requirementPair.adminComments }}</p>
+              <p>{{ requirementPair.adminComments ? requirementPair.adminComments : "N/A" }}</p>
             </ng-container>
 
             <ng-container *ngIf="!submissionData?.is_active">
-              <textarea [(ngModel)]="requirementPair.adminComments"></textarea>
+              <textarea class="text-area" [(ngModel)]="requirementPair.adminComments"></textarea>
 
-              <div *ngIf="requirementPair.studentRequirement">
+              <div class="status-buttons" *ngIf="requirementPair.studentRequirement">
                 <button
+                  class="status-button"
                   (click)="setToPending(requirementPair.studentRequirement)"
                   [disabled]="requirementPair.studentRequirement.status?.id === 2"
                   mat-raised-button
@@ -89,6 +101,7 @@
                   Set as Pending
                 </button>
                 <button
+                  class="status-button"
                   (click)="setToCleared(requirementPair.studentRequirement)"
                   [disabled]="requirementPair.studentRequirement.status?.id === 3"
                   mat-raised-button
@@ -109,7 +122,4 @@
   </ng-container>
 </div>
 
-<ng-container *ngIf="previewFileURL">
-  <div (click)="previewFileURL = undefined" class="panel-background"></div>
-  <img class="pic" [src]="previewFileURL" />
-</ng-container>
+<preview-pic-modal *ngIf="previewFileURL" [picURL]="previewFileURL" (clickGrayOverlay)="previewFileURL = undefined"></preview-pic-modal>

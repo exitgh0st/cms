@@ -5,6 +5,9 @@ import { Admin } from 'src/app/models/admin';
 import { Department } from 'src/app/models/department';
 import { AdminService } from 'src/app/services/admin.service';
 import { DepartmentService } from 'src/app/services/department.service';
+import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { swalCustomClass } from 'src/app/config/swal-options';
 
 @Component({
   selector: 'app-super-admin-admins',
@@ -26,8 +29,10 @@ export class SuperAdminAdminsComponent {
 
   selectedAdmin?: Admin;
   adminIdForDeletion?: number;
+  isLoading = false;
 
-  constructor(private adminService: AdminService, private departmentService: DepartmentService) {
+  constructor(private ngxSpinner: NgxSpinnerService, private adminService: AdminService, private departmentService: DepartmentService) {
+    this.ngxSpinner.show();
     this.fetchAdmins();
 
     this.departmentService
@@ -69,13 +74,21 @@ export class SuperAdminAdminsComponent {
       }
     };
 
+    this.isLoading = true;
+
     this.adminService
       .createAdminWithAccount(admin)
       .pipe(first())
       .subscribe((admin) => {
         this.fetchAdmins();
-        alert('Successfully created admin!');
         this.showCreateAdminPanel = false;
+        Swal.fire({
+          title: 'Successfully created admin!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          customClass: swalCustomClass
+        });
+        this.isLoading = false;
       });
   }
 
@@ -110,13 +123,22 @@ export class SuperAdminAdminsComponent {
       }
     };
 
+    this.isLoading = true;
+
     this.adminService
       .updateAdminWithAccount(this.selectedAdmin.id, admin)
       .pipe(first())
       .subscribe((response) => {
         this.fetchAdmins();
-        alert('Successfully updated admin!');
         this.selectedAdmin = undefined;
+        this.isLoading = false;
+
+        Swal.fire({
+          title: 'Successfully updated admin!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          customClass: swalCustomClass
+        });
       });
   }
 
@@ -125,13 +147,31 @@ export class SuperAdminAdminsComponent {
       return;
     }
 
-    this.adminService
-      .deleteAdmin(accountId)
-      .pipe(first())
-      .subscribe(() => {
-        this.fetchAdmins();
-        alert('Successfully deleted admin!');
-        this.adminIdForDeletion = undefined;
-      });
+    Swal.fire({
+      title: 'Are you sure you want to delete this admin?',
+      icon: 'question',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      customClass: swalCustomClass
+    }).then((response) => {
+      if (response.isConfirmed) {
+        this.isLoading = true;
+        this.adminService
+          .deleteAdmin(accountId)
+          .pipe(first())
+          .subscribe(() => {
+            this.isLoading = false;
+
+            this.fetchAdmins();
+            Swal.fire({
+              title: 'Successfully deleted admin!',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+              customClass: swalCustomClass
+            });
+          });
+      }
+    });
   }
 }

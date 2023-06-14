@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  height: 100vh;
 }
 
 .sidebar {
@@ -283,6 +282,7 @@ th {
   height: 100%;
   background-color: rgba(128, 128, 128, 0.75);
   pointer-events: none;
+  z-index: 2;
 }
 
 .panel {
@@ -300,6 +300,7 @@ th {
   justify-content: center;
   align-items: center;
   display: flex;
+  z-index: 3;
 }
 
 .input-fields {
@@ -310,7 +311,6 @@ th {
 }
 
 button {
-  margin: 8px 0;
   padding: 4px;
 }
 
@@ -339,4 +339,29 @@ button {
 .locked-page-banner {
   width: 500px;
   height: 100px;
+}
+
+.create-modal-button {
+  margin: 8px 0;
+}
+
+.button-section {
+  margin-top: 16px;
+}
+
+.modal-button {
+  margin-left: 8px;
+  margin-right: 8px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.subtext {
+  font-family: "Quicksand", Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 500;
+}
+
+.warn {
+  color: red;
 }

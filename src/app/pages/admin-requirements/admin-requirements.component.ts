@@ -11,6 +11,9 @@ import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SubmissionDataService } from 'src/app/services/submission-data.service';
 import { SubmissionData } from 'src/app/models/submission_data';
+import Swal from 'sweetalert2';
+import { swalCustomClass } from 'src/app/config/swal-options';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-admin-requirements',
@@ -26,13 +29,15 @@ export class AdminRequirementsComponent {
   displayedTableColumns = ['id', 'created_by', 'name', 'description'];
   selectedRequirement?: Requirement;
   admin?: Admin;
-
   showCreatePanel = false;
+  requirementIdForDeletion?: number;
 
   requirementForm = new FormGroup({
     name: new FormControl(''),
     description: new FormControl('')
   });
+
+  isLoading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,8 +46,10 @@ export class AdminRequirementsComponent {
     private departmentService: DepartmentService,
     private requirementService: RequirementService,
     private adminService: AdminService,
-    private submissionDataService: SubmissionDataService
+    private submissionDataService: SubmissionDataService,
+    private ngxSpinnerService: NgxSpinnerService
   ) {
+    this.ngxSpinnerService.show();
     const departmentId = this.route.snapshot.paramMap.get('departmentId');
     const authId = this.authService.getAccountId();
 
@@ -112,13 +119,21 @@ export class AdminRequirementsComponent {
       created_by_id: this.admin?.id
     };
 
+    this.isLoading = true;
     this.requirementService
       .createRequirement(requirementData)
       .pipe(first())
       .subscribe((requirement) => {
-        alert('Successfully created requirement!');
         this.showCreatePanel = false;
         this.fetchRequirements();
+        this.isLoading = false;
+
+        Swal.fire({
+          title: 'Successfully created requirement!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          customClass: swalCustomClass
+        });
       });
   }
 
@@ -139,28 +154,54 @@ export class AdminRequirementsComponent {
       description: this.requirementForm.value.description ? this.requirementForm.value.description : undefined
     };
 
+    this.isLoading = true;
     this.requirementService
       .updateRequirement(this.selectedRequirement.id, requirementData)
       .pipe(first())
       .subscribe(() => {
-        alert('Successfully updated!');
-
         this.selectedRequirement = undefined;
         this.fetchRequirements();
+        this.isLoading = false;
+
+        Swal.fire({
+          title: 'Successfully updated requirement!',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          customClass: swalCustomClass
+        });
       });
   }
 
-  deleteRequirement(requirement: Requirement) {
-    if (!requirement.id) {
+  deleteRequirement(requirementId: number | undefined) {
+    if (!requirementId) {
       return;
     }
 
-    this.requirementService
-      .deleteRequirement(requirement.id)
-      .pipe(first())
-      .subscribe(() => {
-        alert('Successfully deleted!');
-        this.fetchRequirements();
-      });
+    Swal.fire({
+      title: 'Are you sure you want to delete this requirement?',
+      icon: 'question',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      customClass: swalCustomClass
+    }).then((response) => {
+      if (response.isConfirmed) {
+        this.isLoading = true;
+
+        this.requirementService
+          .deleteRequirement(requirementId)
+          .pipe(first())
+          .subscribe(() => {
+            this.fetchRequirements();
+            this.isLoading = false;
+            Swal.fire({
+              title: 'Successfully deleted requirement!',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+              customClass: swalCustomClass
+            });
+          });
+      }
+    });
   }
 }

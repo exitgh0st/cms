@@ -164,7 +164,7 @@ export class AdminStudentsComponent {
     }
 
     if (clearCount > 0) {
-      return 'ONGOING';
+      return 'IN PROGRESS';
     }
 
     return 'DONE';

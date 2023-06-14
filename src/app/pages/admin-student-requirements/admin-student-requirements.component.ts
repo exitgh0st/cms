@@ -14,6 +14,8 @@ import { GoogleDriveService } from 'src/app/services/google-drive.service';
 import { StudentRequirement } from 'src/app/models/student-requirement';
 import { SubmissionData } from 'src/app/models/submission_data';
 import { SubmissionDataService } from 'src/app/services/submission-data.service';
+import Swal from 'sweetalert2';
+import { swalCustomClass } from 'src/app/config/swal-options';
 
 @Component({
   selector: 'app-admin-student-requirements',
@@ -27,6 +29,7 @@ export class AdminStudentRequirementsComponent {
   previewFileURL?: string | ArrayBuffer;
   studentRequirementPairs?: RequirementPair[];
   submissionData?: SubmissionData;
+  isSavingChanges = false;
 
   constructor(
     private router: Router,
@@ -132,6 +135,7 @@ export class AdminStudentRequirementsComponent {
                           const imageURL = URL.createObjectURL(blob);
 
                           selectedStudentRequirementPair.fileUrl = imageURL;
+                          selectedStudentRequirementPair.fileSize = blob.size;
                           selectedStudentRequirementPair.isDoneLoading = true;
                         });
                     }
@@ -142,13 +146,63 @@ export class AdminStudentRequirementsComponent {
       });
   }
 
+  getRequirementStatus() {
+    if (!this.studentRequirementPairs || !this.requirements) {
+      return;
+    }
+
+    let studentRequirementsPassed = 0;
+
+    const requirementsCount = this.requirements.length;
+
+    for (let studentRequirementPair of this.studentRequirementPairs) {
+      if (studentRequirementPair.studentRequirement) {
+        studentRequirementsPassed++;
+      }
+    }
+
+    return `${studentRequirementsPassed}/${requirementsCount}`;
+  }
+
+  getCheckStatus() {
+    if (!this.studentRequirementPairs || !this.requirements) {
+      return;
+    }
+
+    let clearCount = 0;
+
+    for (let studentRequirement of this.studentRequirementPairs) {
+      if (!studentRequirement.studentRequirement) {
+        continue;
+      }
+
+      if (studentRequirement.studentRequirement.status?.id == 2) {
+        return 'WITH PENDING';
+      }
+
+      if (studentRequirement.studentRequirement.status?.id == 3) {
+        clearCount++;
+      }
+    }
+
+    if (clearCount == this.requirements.length) {
+      return 'DONE';
+    }
+
+    if (clearCount == 0) {
+      return 'NOT YET CHECKED';
+    }
+
+    if (clearCount > 0) {
+      return 'IN PROGRESS';
+    }
+
+    return 'DONE';
+  }
+
   previewFile(url: string | ArrayBuffer) {
     window.open(url as string, 'Preview');
   }
-
-  clickGrayOverlay() {}
-
-  clickPreviewOverlay() {}
 
   setToPending(studentRequirement: StudentRequirement) {
     if (studentRequirement.status) {
@@ -186,17 +240,49 @@ export class AdminStudentRequirementsComponent {
       }
     }
 
-    console.log(studentRequirements);
+    Swal.fire({
+      title: 'Are you sure you want to save your changes?',
+      icon: 'question',
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      showCancelButton: true,
+      customClass: swalCustomClass
+    }).then((response) => {
+      if (response.isConfirmed) {
+        this.studentRequirementService
+          .updateStudentRequirements(studentRequirements)
+          .pipe(first())
+          .subscribe(() => {
+            this.isSavingChanges = false;
 
-    this.studentRequirementService
-      .updateStudentRequirements(studentRequirements)
-      .pipe(first())
-      .subscribe(() => {
-        alert('Done saving changes!');
-      });
+            Swal.fire({
+              title: 'Successfully saved changes!',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+              customClass: swalCustomClass
+            });
+          });
+      }
+    });
   }
 
   goToClearanceList() {
     this.router.navigate(['admin', 'requirements', this.admin?.department?.id]);
+  }
+
+  niceBytes(n: number | undefined) {
+    if (!n) {
+      return;
+    }
+
+    const units = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    let l = 0;
+
+    while (n >= 1024 && ++l) {
+      n = n / 1024;
+    }
+
+    return n.toFixed(n < 10 && l > 0 ? 1 : 0) + ' ' + units[l];
   }
 }

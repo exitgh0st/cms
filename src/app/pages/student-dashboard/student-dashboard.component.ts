@@ -2,12 +2,23 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { first, pipe } from 'rxjs';
 import { Department } from 'src/app/models/department';
+import { Requirement } from 'src/app/models/requirement';
 import { Student } from 'src/app/models/student';
+import { StudentRequirement } from 'src/app/models/student-requirement';
 import { SubmissionData } from 'src/app/models/submission_data';
 import { AuthService } from 'src/app/services/auth.service';
 import { DepartmentService } from 'src/app/services/department.service';
+import { RequirementService } from 'src/app/services/requirements.service';
+import { StudentRequirementService } from 'src/app/services/student-requirement.service';
 import { StudentService } from 'src/app/services/student.service';
 import { SubmissionDataService } from 'src/app/services/submission-data.service';
+import { RequirementPair } from '../student-department-requirement/student-department-requirement.component';
+
+type DepartmentRequirementsData = {
+  departmentId: number;
+  requirementCount: number;
+  studentRequirementPassedCount: number;
+};
 
 @Component({
   selector: 'app-student-dashboard',
@@ -18,13 +29,16 @@ export class StudentDashboardComponent {
   student?: Student;
   departments?: Department[];
   submissionData?: SubmissionData;
+  departmentRequirementsDataList: DepartmentRequirementsData[] = [];
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private studentService: StudentService,
     private departmentService: DepartmentService,
-    private submissionDataService: SubmissionDataService
+    private submissionDataService: SubmissionDataService,
+    private requirementService: RequirementService,
+    private studentRequirementService: StudentRequirementService
   ) {
     const accountId = this.authService.getAccountId();
     if (!accountId) {
@@ -36,13 +50,79 @@ export class StudentDashboardComponent {
       .pipe(first())
       .subscribe((student) => {
         this.student = student;
-      });
 
-    this.departmentService
-      .getDepartments()
-      .pipe(first())
-      .subscribe((departments) => {
-        this.departments = departments;
+        this.departmentService
+          .getDepartments()
+          .pipe(first())
+          .subscribe((departments) => {
+            this.departments = departments;
+            this.requirementService
+              .getRequirements()
+              .pipe(first())
+              .subscribe((requirements) => {
+                if (!this.student?.student_number) {
+                  return;
+                }
+
+                const requirementIds = [];
+
+                for (let requirement of requirements) {
+                  if (!requirement.id) {
+                    continue;
+                  }
+
+                  requirementIds.push(requirement.id.toString());
+                }
+
+                if (requirementIds.length <= 0) {
+                  for (let department of departments) {
+                    if (!department.id) {
+                      continue;
+                    }
+
+                    this.departmentRequirementsDataList.push({
+                      departmentId: department.id,
+                      requirementCount: 0,
+                      studentRequirementPassedCount: 0
+                    });
+                  }
+                  return;
+                }
+
+                this.studentRequirementService
+                  .getStudentRequirementByStudentIdsAndRequirementIds([this.student.student_number], requirementIds)
+                  .pipe(first())
+                  .subscribe((studentRequirements) => {
+                    for (let department of departments) {
+                      const departmentId = department.id;
+
+                      if (!departmentId) {
+                        continue;
+                      }
+
+                      let requirementCount = 0;
+                      let studentRequirementCount = 0;
+                      for (let requirement of requirements) {
+                        if (requirement.created_by?.department?.id === departmentId) {
+                          const requirementId = requirement.id;
+                          requirementCount++;
+                          for (let studentRequirement of studentRequirements) {
+                            if (studentRequirement.requirement?.id === requirementId) {
+                              studentRequirementCount++;
+                            }
+                          }
+                        }
+                      }
+
+                      this.departmentRequirementsDataList.push({
+                        departmentId: departmentId,
+                        requirementCount: requirementCount,
+                        studentRequirementPassedCount: studentRequirementCount
+                      });
+                    }
+                  });
+              });
+          });
       });
 
     this.submissionDataService
@@ -51,6 +131,29 @@ export class StudentDashboardComponent {
       .subscribe((submissionData) => {
         this.submissionData = submissionData;
       });
+  }
+
+  getDepartmentRequirementData(departmentId: number) {
+    return this.departmentRequirementsDataList.find((value) => {
+      if (value.departmentId === departmentId) {
+        return true;
+      }
+      return false;
+    });
+  }
+
+  getSubmittedRequirementStringForDepartment(departmentId: number | undefined) {
+    if (!departmentId) {
+      return;
+    }
+
+    const data = this.getDepartmentRequirementData(departmentId);
+
+    if (!data) {
+      return;
+    }
+
+    return `${data.studentRequirementPassedCount}/${data.requirementCount}`;
   }
 
   goToDepartmentRequirementPage(departmentId: number | undefined) {
