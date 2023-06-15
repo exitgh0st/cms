@@ -286,6 +286,7 @@ export class StudentDepartmentRequirementComponent {
             confirmButtonText: 'Continue',
             customClass: swalCustomClass
           });
+          this.fetchStudentRequirementsOfRequirements();
         });
       }
     });
