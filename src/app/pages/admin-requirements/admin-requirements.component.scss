@@ -275,7 +275,7 @@ th {
 }
 
 .panel-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -286,8 +286,7 @@ th {
 }
 
 .panel {
-  position: absolute;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
